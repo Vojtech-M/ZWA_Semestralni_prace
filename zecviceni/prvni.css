@@ -1,0 +1,51 @@
+body {
+    background-color: whitesmoke;
+
+
+
+}
+
+
+h1 {
+color: red;
+text-align: center;
+}
+footer a{ 
+    font-family: 'Courier New', Courier, monospace;
+}
+
+p::first-letter {
+    color: aquamarine;
+    font-size: 50;
+}
+
+li {
+list-style-type: lower-latin;
+}
+
+a:active{
+   color: red;
+}
+
+article {
+    margin-top: 5%;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    padding: 120px;
+}
+img:hover {
+    height: 200px;
+    width: 200px;
+}
+.autor{
+    background-color: aquamarine;
+}
+
+.copyright  { 
+    color: blueviolet;  
+
+
+
+}
