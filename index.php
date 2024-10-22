@@ -14,7 +14,7 @@
     <!--<script src="./scripts/hello.js" type=module></script> -->
 </head>
 <body>
-<noscript><p>No JS.</p></noscript>
+<noscript><p>No JS. there</p></noscript>
     <?php include './php/structure/header.php'; ?> 
     <div class="hero-image">
         <div class="hero-heading ">
