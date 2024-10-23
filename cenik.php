@@ -12,20 +12,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="./img/helma.png"> 
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="left-links">
-                <a href="index.php"><img src="./img/logo1.png" height="130" width="240" alt="logo"/></a>
-                </a>
-            </div>
-            <div class="right-links">
-                <a class="links" href="cenik.php">Ceník</a>
-                <a class="links" href="restaurace.php">Restaurace</a>
-                <a class="links" href="prihlaseni.php">Přihlášení</a>
-                <a class="links" href="registrace.php">registrace</a>
-            </div>
-        </nav>
-    </header>
+<?php include './php/structure/header.php'; ?> 
     <section>
     <h3 class="draha_heading">Pronájmy motokár / cena za 10 min jízdy</h3>
         <div class="draha">
@@ -56,11 +43,6 @@
         </div>
     </section>
 
-
-<footer class="footer">
-    <div class="footer-text">
-        <p>Motokárové centrum Benešov</p>
-    </div>
-</footer>
+    <?php include './php/structure/footer.php'; ?>
 </body>
 </html>

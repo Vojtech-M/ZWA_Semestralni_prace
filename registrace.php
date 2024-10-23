@@ -13,19 +13,7 @@
     <script defer src="./scripts/validation.js"></script>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="left-links">
-                <a href="index.php"><img src="./img/logo1.png" height="130" width="240" alt="logo"/></a>
-            </div>
-            <div class="right-links">
-                <a class="links" href="cenik.php">Ceník</a>
-                <a class="links" href="restaurace.php">Restaurace</a>
-                <a class="links" href="prihlaseni.php">Přihlášení</a>
-                <a class="links" href="registrace.php">registrace</a>
-            </div>
-        </nav>
-    </header>
+<?php include './php/structure/header.php'; ?> 
 
 <!--<span id="firstnameError" class="error-message"></span>  Error message placeholder for firstname --> 
 
@@ -43,13 +31,13 @@
                     <label for="address_field" class="required_label">Adresa</label>
                     <input type="text" id="address_field" name="address" pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z0-9 ]*" value="" required placeholder="Zahradní 80" tabindex="3">
                     <label for="postal" class="required_label">PSČ</label>
-                    <input id="postal" type="text" name="postal" value=""pattern="([0-9]{5})?" required placeholder="251 66" tabindex="4">
+                    <input id="postal" type="text" name="postal" pattern="[0-9]{3} ?[0-9]{2}" required placeholder="251 66" tabindex="4">
                 </div>
                 <div class="form_field">
                     <label for="email_field"class="required_label">Email</label>
                     <input id="email_field" type="email" name="email" value="@" required tabindex="5" >
                     <label for="phone_field"class="phone_label">Telefonní číslo</label>
-                    <input id="phone_field" type="text" name="phone" pattern="([0-9]{9})?" placeholder="606136603" tabindex="6" >
+                    <input id="phone_field" type="text" name="phone" pattern="[0-9]{9}" placeholder="606136603" tabindex="6">
                 </div>
                 <div class="form_field">
                     <label for="pass1_field"class="required_label">Heslo</label>
@@ -59,7 +47,7 @@
                 </div>
                 <div class="form_field">
                     <label for="agreement_field"class="required_label">Souhlasím s <a href="conditions.html" target="blank">podmínkami</a></label>
-                    <input id="agreement_field" type="checkbox" name="agreement" required tabindex="+">
+                    <input id="agreement_field" type="checkbox" name="agreement" required tabindex="9">
                 </div>
 
 
@@ -83,6 +71,7 @@
 <div class="echo_user_input">    
     <?php
 
+
 include "validation.php";
 
 
@@ -102,6 +91,11 @@ include "validation.php";
         $usernameValid = validateUsername($_POST["firstname"],3); // nastavit delku
         $formValid = $usernameValid;
 
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "Invalid email format.";
+            $formValid = false;
+        }
         // Pokud je formulář validní, uloý data do JSON souboru
         if ($formValid) {
 
@@ -116,7 +110,7 @@ include "validation.php";
                 'password' => $hash
             ];
             // Get existing data from the JSON file (if it exists)
-            $file = 'users.json';
+            $file = './user_data/users.json';
             if (file_exists($file)) {
                 $jsonData = file_get_contents($file);
                 $jsonArray = json_decode($jsonData, true);

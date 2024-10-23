@@ -1,0 +1,29 @@
+[
+    {
+        "firstname": "Vojtěch",
+        "lastname": "Michal",
+        "address": "Hlavní 83",
+        "postal": "25166",
+        "email": "a@a",
+        "phone": "606136602",
+        "password": "$2y$10$n.\/KaLVIrbxPHk0WM042xe3wvallnfqZkX9O1P4\/Sfdzq2pAqNWCC"
+    },
+    {
+        "firstname": "asdf",
+        "lastname": "asdf",
+        "address": "asdf",
+        "postal": "123 12",
+        "email": "asdf@asdf.cz",
+        "phone": "122312312",
+        "password": "$2y$10$oFpKHKkRjuPNKm4BZbT1UOyIMPJv\/uodc\/8Hb3fOMjtIc.v9VO77C"
+    },
+    {
+        "firstname": "asdf",
+        "lastname": "asdf",
+        "address": "asdf",
+        "postal": "123 12",
+        "email": "asdf@asdf.cz",
+        "phone": "122312312",
+        "password": "$2y$10$mnUJCt2Q73OnZ.FFjeQ2Oeitwdg4Ydsh2lR0z8f8kSbHMpzFHOY0a"
+    }
+]

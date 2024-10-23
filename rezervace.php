@@ -13,38 +13,7 @@
     <script defer src="./scripts/validation.js"></script>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="left-links">
-                <a href="index.php"><img src="./img/logo1.png" height="130" width="240" alt="logo"/></a>
-                </a>
-            </div>
-            <div class="right-links">
-                <a class="links" href="cenik.php">Ceník</a>
-                <a class="links" href="restaurace.php">Restaurace</a>
-                <a class="links" href="prihlaseni.php">Přihlášení</a>
-                <a class="links" href="registrace.php">registrace</a>
-            </div>
-        </nav>
-    </header>
-<!--
-    Kontrola závislotí pomocí JS
-     field set
-     pseudotřídy
-     link:visited
-
-     -->
-
-    <div id="error">
-
-<!-- PŘIDAT ZPÁTKY REQUIERED-->
-
-            
-            
-
-
-
-
+<?php include './php/structure/header.php'; ?> 
     <section class="registrace">
         <div class ="formular">
             <form action="rezervace.php" method="post"> <!--posílat pomocí POST bezpečnější-->
@@ -82,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'lastname' => $lastname
     ];
 
-    $file = 'reservations.json'; 
+    $file = './user_data/reservations.json'; 
     if (file_exists($file)) {
         $jsonData = file_get_contents($file);
         $jsonArray = json_decode($jsonData, true);
@@ -97,11 +66,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     file_put_contents($file, json_encode($jsonArray, JSON_PRETTY_PRINT));
 
     // Confirm registration
-    echo "Registrace proběhla úspěšně, vítej, $firstname.";
+    echo "Rezervace proběhla úspěšně, vítej, $firstname.";
 }
 
     // File containing the reservation data
-    $file = 'reservations.json';
+    $file = './user_data/reservations.json';
 
     // Check if the file exists
     if (file_exists($file)) {
@@ -135,9 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Rezervační soubor neexistuje.";
     }
     ?>
-
-
-
 
 </div>
 <footer class="footer">

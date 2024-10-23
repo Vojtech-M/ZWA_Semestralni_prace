@@ -14,8 +14,9 @@
     <!--<script src="./scripts/hello.js" type=module></script> -->
 </head>
 <body>
-<noscript><p>No JS. there</p></noscript>
-    <?php include './php/structure/header.php'; ?> 
+<noscript><p>No JS. there to see </p></noscript>
+    <?php include './php/structure/header.php'; ?>
+    
     <div class="hero-image">
         <div class="hero-heading ">
             <h2 class>Rychlost</h2>
@@ -24,7 +25,7 @@
             </div>
         </div>
     </div>
-
+   
     <div class="tri_texty">
         <div class="small_text">
                 <img src="./img/trat_ikona.svg" height="128" width="128" alt="ikona trati">
@@ -36,14 +37,12 @@
         <img src="./img/restaurace2_ikona.svg" height="128" width="128" alt="ikona trati">
             <h3> Restaurace</h3>
             <p>až pro 80 lidí </p>
-
         </div>
         <div class="small_text">
         <img src="./img/konfety_ikona.svg" height="128" width="128" alt="ikona trati">
             <h3>Firemní akce</h3>
             <p>Chcete se pobavit a přitom si odpočinout?</p>
             <p>Máme pro Vás řešení!</p>
-
         </div>
     </div>
 
@@ -78,10 +77,7 @@
         <div class="small_text">
             <h3> Restaurace</h3>
             <p>až pro 80 lidí </p>
-
         </div>
-
-
     </div>
 
 
@@ -93,15 +89,11 @@
             <a  href="rezervace.php">REZERVACE</a>
         </div>
         </div>
-    </div >
-    
+    </div>
 
     <?php include './php/structure/footer.php'; ?>
 </body>
 </html>
-
-
-
         <!-- 
     ?php 
    
