@@ -25,7 +25,6 @@ session_start();
             <div class="description_text">
                 <h2>Závodiště jako žádné jiné</h2>
                 <p>Motokárové centrum nabízí závodnický zážitek na jedné z nejzajímavějších tratí v regionu. Na ploše 8.000 m² vás čeká více než 40 zatáček s průměrnou rychlostí kolem 40 km/h.
-
                     Celková délka dráhy je 1.000 m, krátká varianta měří 800 m a samostatný dětský okruh má 200 m.</p>
             </div>
             <div class="stand_image">
@@ -35,24 +34,13 @@ session_start();
 
     </section>
 
-<!--
-        <div class="menu_nahled">
-    <div class="menu_nahled">
-    <img src="./img/menu_nahled.png" alt="menu náhled" >
-</div>-->
-
-
-
 <div class="nabidka_restaurace">
+    <div class="jidelni_listek">
+    <a href="./pdf/randomPDF2.pdf" target="_blank"> <img src="./img/menu_nahled.png" alt="menu náhled" title="Prohlédnout"></a>
 
-<div class="jidelni_listek">
-<a href="./pdf/randomPDF2.pdf" target="_blank"> <img src="./img/menu_nahled.png" alt="menu náhled" title="Prohlédnout"></a>
-
-<div class="jidelni_listek_button">
-   <a href="./pdf/randomPDF2.pdf" target="_blank">Prohlédnout</a>
-</div>
-
-
+    <div class="jidelni_listek_button">
+    <a href="./pdf/randomPDF2.pdf" target="_blank">Prohlédnout</a>
+    </div>
 </div>
 
 <div class="Denni_menu">
