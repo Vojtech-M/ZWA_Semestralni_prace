@@ -52,5 +52,32 @@
         "email": "rychlejvlak@seznam.cz",
         "phone": "606136602",
         "password": "$2y$10$ucuuxLk59DrINSHwmXbFkOFgkefQUkD11MKKaWe4.cL\/IfsHGp1ca"
+    },
+    {
+        "firstname": "Vojtěch",
+        "lastname": "Michal",
+        "address": "Hlavní 83",
+        "postal": "25166",
+        "email": "michavo5@fit.cvut.cz",
+        "phone": "606136602",
+        "password": "$2y$10$Vh8u5u28viCngdoRm9xbPuNcHkWwujQ9lzRpovrTxLYMt.iiQzBE2"
+    },
+    {
+        "firstname": "Vojtěch",
+        "lastname": "Michal",
+        "address": "Hlavní 83",
+        "postal": "25166",
+        "email": "michavo5@fit.cvut.cz",
+        "phone": "606136602",
+        "password": "$2y$10$8nq3IPrfY6YLEVuMS6z0Eum2P6x1suEULFuU6vnPGtLcdRej2FM8O"
+    },
+    {
+        "firstname": "Vojtěch",
+        "lastname": "Michal",
+        "address": "Hlavní 83",
+        "postal": "25166",
+        "email": "michavo5@fit.cvut.cz",
+        "phone": "606136602",
+        "password": "$2y$10$d4sjmzJmEZNOaT2qmD\/cxuaYs5BZbaDaJdqQXla5um6T.fT9ZigG2"
     }
 ]

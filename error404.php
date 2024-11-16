@@ -18,8 +18,11 @@ session_start();
     include './php/structure/header.php'; 
     ?>
     
-    <h2> něco se nepovadlo </h2>
+    <div class="error_site">
+    <h2> něco se nepovedlo </h2>
+    <img src="./img/404_cat.jpg" alt="ikona trati">
     <a class="links" href="index.php">Zpět na úvodní stránku</a>
+    </div>
     <?php include './php/structure/footer.php'; ?>
 </body>
 </html>

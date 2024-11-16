@@ -6,8 +6,6 @@ if (isset($_SESSION['loggedin'])) {
 }
 ?>
 
- 
-
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -19,8 +17,7 @@ if (isset($_SESSION['loggedin'])) {
     <title>Motokárové centrum Benešov</title>
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
-    <link rel="icon" type="image/png" sizes="32x32" href="./img/helma.png"> 
-    <link rel=stylesheet href='./css/print.css' media="print">     <!-- Při použítí @media nebo media ='print'-->
+    <link rel="icon" id="favicon" type="image/png" href="./img/helma.png"> 
 </head>
 <body>
 
@@ -99,110 +96,6 @@ if (isset($_SESSION['loggedin'])) {
 </body>
 </html>
 
-
-<!-- 
-
-prototyp si pamatuje z ceho vznikl
-
-
-udelat si objekt
-
-XMLHttpRequest
-
-nepouuivat DOM content loaded
-
-prvek muze mit vice class oddelenych mezerou 
-
-pozor na innerHTML
-
-
-
-<div class="tri_texty">
-    <div class="small_text">
-        <h3>AJAX</h3>
-        <p>800 m</p>
-
-    </div>
-    <div class="small_text">
-        <h3> Restaurace</h3>
-        <p>až pro 80 lidí </p>
-    </div>
-</div>
-
-
-
-
-
-
-    ?php   
-   if ((5+2==4) == true): ?>
-   This will show if the expression is true.
-   php else: 
-   Otherwise this will show.
-   php endif; 
- <SMAZAT DO ODEVZDÁNÍ  (naját důvod to tady nechat :D) ################################################################
- <div class="black_betty">
-        <h3> Stránka vznikla za poslechu🤘: (PS: SMAZAT)  </h3>   -SMAZAT DO ODEVZDÁNÍ 
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7uSsHbBFFAnkRQR1rDwP3L?utm_source=generator" 
-            width="1000" height="352" allowfullscreen="" 
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-            loading="lazy"></iframe>        
-    </div>       
-SMAZAT DO ODEVZDÁNÍ  ################################################################
-    <div class="druhy_motokar">
-        <h2> druhy motokar </h2>
-            <div class="pagination">
-                <a href="#">&laquo;</a>
-                <a href="tech.html">1</a>
-                <a class="active" href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">6</a>
-                <a href="#">&raquo;</a>
-        </div>
-    </div>
-
-    
-    <section class="info_banner">
-        <div class="banner-content">
-            <h2> Každý čtvrtek sleva na jízdy !</h2>
-        </div>
-    </section>
-
-
-
-
-     <section class="description">
-        <div class="description">
-            <div class="description_text">
-                <h2>Tohle je další článek</h2>
-                <p>Motokárové centrum nabízí závodnický zážitek na jedné z nejzajímavějších tratí v regionu. 
-                    Na ploše 8.000 m² vás čeká více než 40 zatáček s průměrnou rychlostí kolem 40 km/h. 
-                    Celková délka dráhy je 1.000 m, krátká varianta měří 800 m a samostatný dětský okruh má 200 m.</p>
-            </div>
-        </div>
-        <div class="stand_image">
-            <img src="./img/bitmapa.png" alt="okruh" >
-        </div>
-    </section>
-
-
-
-     <footer class="footer">
-        <div class="copyright">
-            <p>Copyright © 2024 Vojtěch Michal</p>
-        </div>
-        
-        <div class="documentation_page">
-            <a class="links" href="dokumentace.html">Dokumentace</a>
-        </div>
-
-        <div class="footer-text">
-            <p>Motokárové centrum Benešov</p>
-        </div>
-    </footer>
-        -->
 
 
 

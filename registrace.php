@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = htmlspecialchars(trim($_POST['phone']));
     $passwd = htmlspecialchars(trim($_POST['passwd']));
 
-
+/*
     $file = $_FILES['file']; // nahrání file na server
     $fileName = $_FILES['file']['name'];
     $fileTmpName = $_FILES['file']['tmp_name'];
@@ -27,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $fileExt = explode('.', $fileName);
     $fileActualExt = strtolower(end($fileExt));
+
 
     $allowed = array('jpg', 'jpeg', 'png');
 
@@ -47,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "You cannot upload files of this type !";
     }
-
+*/
     if ($passwd !== $_POST['passwd2']) {
         echo "Passwords do not match.";
         $formValid = false;
@@ -126,15 +127,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="lastname"  class="required_label">Příjmení</label>
                     <input type="text" id="lastname" name="lastname" pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]*" value="<?php echo htmlspecialchars($lastname); ?>" placeholder="Novák"  tabindex="2">
                 </div>
+                <!--<script>
+                let nameInput = document.querySelector("input#firstname");
+                document.querySelector("form").addEventListener("submit", function (event) {
+                    event.preventDefault();  // zamezíme odeslání formuláře
+
+                    if (nameInput.value.trim() == "") {
+                        alert("Vyplňte jméno.");
+                        return;
+                    }
+
+                    let xhr = new XMLHttpRequest();     // 1. vytvoříme instanci XMLHttpRequest
+                    xhr.open("GET", "http://zwa.toad.cz/passwords.txt"); // 2. otevřeme spojení
+                    xhr.addEventListener("load", function (e) {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            let text = xhr.responseText;
+                            let names = text.split("\n");
+
+                            if (names.includes(nameInput.value)) {
+                                alert("Jméno už existuje");
+                                return;
+                            }
+                            alert("Jméno je v pořádku");
+                            nameInput.value = "";
+                        } else {
+                            console.log("Error: ", xhr.statusText);
+                        }
+                    });
+
+                    xhr.addEventListener("error", function () {
+                        console.log("Error: ", xhr.statusText);
+                    });
+
+                    xhr.send(); // 3. odešleme požadavek
+                });
+            
+                </script>
+-->
                 <div class="form_field">
                     <label for="address_field" class="required_label">Adresa</label>
                     <input type="text" id="address_field" name="address" pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z0-9 ]*" value="<?php echo htmlspecialchars($address); ?>" required placeholder="Zahradní 80" tabindex="3">
-                    <label for="postal" class="rbPSČ</label>
+                    <label for="postal" class="PSČ"> PSČ</label>
                     <input id="postal" type="text" name="postal" pattern="[0-9]{3} ?[0-9]{2}" value="<?php echo htmlspecialchars($postal); ?>" required placeholder="251 47" tabindex="4">
                 </div>
                 <div class="form_field">
                     <label for="email_field" class="required_label">Email</label>
-                    <input id="email_field" type="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required tabindex="5">
+                    <input id="email_field" type="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required placeholder="example@mail.com" tabindex="5">
                     <label for="phone_field" class="phone_label">Telefonní číslo</label>
                     <input id="phone_field" type="text" name="phone" pattern="[0-9]{9}" value="<?php echo htmlspecialchars($phone); ?>" placeholder="606136603" tabindex="6">
                 </div>
@@ -174,7 +212,7 @@ const mismatchMessage = document.getElementById("passwordMismatchMessage");
     
 function checkUsername() {
     const username = firstnameInput.value;
-    const validUsernamePattern = /^[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{4,}$/; // At least 4 characters
+    const validUsernamePattern = /^[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,}$/; // alespoň 3 znaky
 
     if (!validUsernamePattern.test(firstnameInput.value)) {
         document.getElementById("firstNameError").innerText = "Jméno musí být delší než 3 znaky a může obsahovat pouze písmena.";
