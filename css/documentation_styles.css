@@ -4,6 +4,7 @@ body {
     margin-top:20px;
     background-color: rgb(241, 241, 241);
 }
+
 nav {
     display: flex;
     position: fixed;
