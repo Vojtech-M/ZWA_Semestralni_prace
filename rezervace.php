@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -18,17 +22,20 @@
         <div class ="formular">
             <form action="rezervace.php" method="post">
                 <div id="name">
-                    <label for="firstname" class="custom_text"> </span>*Jméno</label>
+                    <!-- <label for="firstname" class="custom_text"> </span>*Jméno</label>
                     <input type="text" id="firstname" name="firstname" value=""  placeholder="Tomáš"  tabindex="1">
 
                     <label for="lastname">Příjmení</label>
-                    <input type="text" id="lastname" name="lastname" value="" required placeholder="Novák"  tabindex="2">
+                    <input type="text" id="lastname" name="lastname" value="" required placeholder="Novák"  tabindex="2"> -->
 
                     <label for="reservation_date">Datum rezervace</label>
-                    <input type="date" id="reservation_date" name="reservation_date" tabindex="3" required>
+                    <input type="date" id="reservation_date" name="reservation_date" min='2024-04-04' max='2030-01-01' tabindex="1" required>
                     
                     <label for="reservation_time">Čas rezervace</label>
-                    <input type="time" id="reservation_time" name="reservation_time" min="12:00" max="23:00"tabindex="4" required>
+                    <input type="time" id="reservation_time" name="reservation_time" min="12:00" max="23:00"tabindex="2" required>
+
+                    <label for="quantity">Počet lidí:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" max="5" tabindex="3">
                 </div>
                 <br>
                 <input id="reg_submit" type="submit" value="Zarezervovat" tabindex="">
@@ -39,16 +46,30 @@
     </section>
 
  <div class="echo_user_input">
+
+<!-- 
+pridat do formulare
+
+document query selector form
+form event listenr
+e. preent default 
+
+
+
+-->
+
+
+
 <?php
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $firstname = htmlspecialchars(trim($_POST['firstname']));
-    $lastname = htmlspecialchars(trim($_POST['lastname']));
-
+    $firstname = isset($_SESSION['firstname']);
+    $lastname =isset($_SESSION['firstname']);
+  
     // Prepare data to be saved into JSON
     $data = [
-        'firstname' => $firstname,
-        'lastname' => $lastname
+        'firstname' =>  $firstname,
+        'lastname' =>  $lastname
     ];
 
     $file = './user_data/reservations.json'; 
@@ -106,10 +127,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ?>
 
 </div>
-<footer class="footer">
-    <div class="footer-text">
-        <p>Motokárové centrum Benešov</p>
-    </div>
-</footer>
+<?php include './php/structure/footer.php'; ?>
 </body>
 </html>

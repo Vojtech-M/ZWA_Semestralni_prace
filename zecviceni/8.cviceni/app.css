@@ -1,0 +1,20 @@
+* { box-sizing: border-box }
+
+.names {
+    display: flex;
+    flex-wrap: wrap;
+
+    list-style: none;
+
+    padding: 0;
+    max-height: 25vh;
+    overflow-y: auto;
+
+    border: 1px solid #000;
+}
+
+.names li {
+    width: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

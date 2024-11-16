@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax</title>
+</head>
+
+
+<style>
+
+    * {box-sizing: border-box;}
+    body {
+        background-color: azure;
+    }
+
+    form{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin: 20px;
+        border: 2px solid blue;
+        width: 300px;
+        margin: 0 auto;
+        padding: 16px;
+
+    }
+    form label {
+        display: flex;
+        margin: 20px;
+
+
+    }
+
+
+
+
+    form textarea, input {
+        border: 1px solid red;
+        border-radius: 10px;
+        padding: 12px;
+        margin-top: 4px;
+
+
+    }
+
+
+    button{
+
+    cursor: pointer;
+    padding: 8px;
+    border: none;
+    border-radius: 3px;
+    background-color: rgba(41, 34, 245, 0.616);
+    font-size: 16px auto;
+    font-weight: bold;
+
+
+    }
+</style>
+
+<body>
+    <h1 class="title">Nadpis</h1>
+    <p class="title-nexty">nějaký text</p>
+
+    <button class="hide-articles">skrýt všechny text</button>
+
+
+
+    <form>
+        <label>
+            Nadips: 
+            <input type="text">
+        </label>
+        <label>
+            text:
+            <textarea rows="5"></textarea>
+        </label>
+
+        <button type="submit">potvrdit</button>
+
+        <section id="articles">
+            <article>
+                <h1>
+                </h1>
+                <p>sdfsdf</p>
+
+            </article>
+        </section>
+
+
+
+    </form>
+    <script>
+        //let input = document.querySelector("[type=text]");
+        //let result = document.querySelector("p");
+        
+        //input.value = "";
+        //input.focus();
+        //odkayz na ty hesla 
+        //https://zwa.toad.cz/passwords.txt
+
+
+
+        let articleSection =docuemnt.querySelector("#articles")
+
+        let form = querySelector(".new-article")
+        form.addEvenetListener("submit",function(event) {
+            event.preventDefault();
+
+        let article = document.createElement("article")
+        let h2 = document.createElement("h2");
+        let p = document.createElement("p");
+
+
+        let articleTitle = form.querySelector("[name=title]")
+        let articleText = form.querySelector("[name=text]")
+
+        if (articleTitle.value.trim() == "") {
+            alert("Pole na náze nesmí být prázdné.")
+
+            return
+
+        }
+                })
+
+        h2.textContent = articleTitle.value
+        p.textContent = articleText.value
+
+        article.append(h2,p)
+        articleSection.append(article)
+
+        //form.reset() //smazou se ty hodnoty
+        
+
+
+        let hideButton = document.querySelector(".hide-articles")
+            hideButton.addEvenetListener("click",function(event))
+            {
+                let articles = document.querySelector("article p")
+                articles.forEach(function(pElement){
+                    pElement.hidden = !pElement.hidden
+                }
+
+
+
+            
+
+                )}
+
+    
+    </script>
+</body>
+</html>

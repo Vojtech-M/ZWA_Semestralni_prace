@@ -3,18 +3,9 @@ session_start(); // Start session
 
 include "./php/validation.php";
 
-
-
-
-
-
-
-
-
-// Initialize variables
 $firstname = $lastname = $address = $postal = $email = $phone = '';
 
-$formValid = true; // Start with form valid as true
+$formValid = true; // formulář je na začátku valid
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstname = htmlspecialchars(trim($_POST['firstname']));
@@ -26,8 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $passwd = htmlspecialchars(trim($_POST['passwd']));
 
 
-    $file = $_FILES['file'];
-    //print_r($file);
+    $file = $_FILES['file']; // nahrání file na server
     $fileName = $_FILES['file']['name'];
     $fileTmpName = $_FILES['file']['tmp_name'];
     $fileSize = $_FILES['file']['size'];
@@ -63,7 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $formValid = false;
     }
 
-    $hash = password_hash($passwd, PASSWORD_DEFAULT); 
+
+    $hash = password_hash($passwd, PASSWORD_DEFAULT);  // zaheshování hesla
 
     $usernameValid = validateUsername($firstname, 3); 
     if (!$usernameValid) {
@@ -96,8 +87,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $jsonArray = [];
         }
-
-        // Add new data to the existing array
         $jsonArray[] = $data;
 
         // Convert array back to JSON and save to file
@@ -140,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="form_field">
                     <label for="address_field" class="required_label">Adresa</label>
                     <input type="text" id="address_field" name="address" pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z0-9 ]*" value="<?php echo htmlspecialchars($address); ?>" required placeholder="Zahradní 80" tabindex="3">
-                    <label for="postal" class="required_label">PSČ</label>
+                    <label for="postal" class="rbPSČ</label>
                     <input id="postal" type="text" name="postal" pattern="[0-9]{3} ?[0-9]{2}" value="<?php echo htmlspecialchars($postal); ?>" required placeholder="251 47" tabindex="4">
                 </div>
                 <div class="form_field">
@@ -217,12 +206,6 @@ function checkPasswordMatch() {
     }
     });
 </script>
-
-
-
-
-
-
 
         <div class="registration_banner">
             <h2>Přidej se k nám a získej výhody!</h2>

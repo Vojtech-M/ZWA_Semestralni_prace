@@ -1,16 +1,9 @@
-/* Active text color */
-body {
-    margin: 0;
-    background-color: rgb(241, 241, 241);
-    font-family: Verdana, sans-serif;
-}
-
 /*
 Style Guide:
 Základní modrá paleta
 #1B262C - tmavá
 #0F4C75 - tmavší
-#3282B8 - světlejší
+#0F4C75 - světlejší
 #BBE1FA - light modrá
 
 https://colorhunt.co/
@@ -25,33 +18,41 @@ velikosti fontu:
 26
 42
 */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: rgb(241, 241, 241);
+    font-family: Verdana, sans-serif;
+}
+
+/* ############################################################### NAVBAR #################################################################*/
 nav {
     display: flex;
-    position: sticky; top:0;
-    width: 100%;
-    top:0;
     background-color: #0F4C75;
-    color: white;
-    height: auto;
     justify-content: space-between;
-    font-family: Verdana, sans-serif;
+}
 
+.logo_corner img {
+    width: 220px;
+    height: 111px;
+    padding: 20px;
 }
-.logo_corner{
-    padding: 10px 40px;
-    flex-wrap: wrap;
-}
+
 .right-links {
     display: flex;    /*velikost navbaru*/
     align-items: center;
     margin-right: 5px;
-    padding: 20px 20px;
+    padding: 20px 15px;
 }
 
 .links, .links_active {     /*velikost tlačítek*/
     text-align: center;
     margin-right: 10px;
-    padding: 25px 40px;
+    padding: 20px 30px;
     color: white;
     text-decoration: none;
     font-size: 26px;
@@ -63,14 +64,13 @@ nav {
     background-color: #d39717;
 }
 
-
 /* ############################################################### MAIN of page  #################################################################*/
 .hero-image {
     display: flex;
     flex-direction: column;
     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)), url("https://zwa.toad.cz/~michavo5/img/heropage.jpg");
+    height: 40%; 
     min-height: 20%;
-    height: 60%;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -80,7 +80,7 @@ nav {
 }
 
 .hero-heading {
-    font-size: 90px;
+    font-size: 6vw;
     color: white;
     text-align: center; 
     padding: 8%;
@@ -90,7 +90,7 @@ nav {
 }
 
 .hero-text {
-    font-size: 42px;
+    font-size: 3vw;
     color: #BBE1FA;
     padding: 0px 20px;
     margin: 0%;
@@ -98,91 +98,27 @@ nav {
 }
 
 
-
-/* ##################################################### Temeplate na royložení  #################################################################*/
-.tri_texty{
+.features{
     margin-top: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
     display:flex;
     justify-content: space-around;
-    align-items: center;
-}
-
-article{
-    font-size: 26px;
-    margin-top: 15%;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    gap: 5%;
-}
-.article_text{
-    justify-content: center;
-    flex-basis: 50%;
-}
-
-
-
-
-.reservations{
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    width: 70%;
-    height: 30%;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-    background-color: #0F4C75;
-    line-height: 0.2 ;
-
-}
-
-
-
-
-.book h2{
-    padding-top: 80px;
-    font-size: 150px;
-    margin-top: 0;
-}
-.book h3{
-    font-size: 42px;
-}
-.reservation_link a{
-    font-size: 42px;
-    margin-top: 50px;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    line-height: normal;
-    color:#ffffff;
-    text-decoration: none;
-    background-color: #3282B8;
-    border: 2px solid black
-}
-
-
-
-
-
-section{
-    margin-top: 10%;
-    display:flex;
-    justify-content: space-around;
-    padding-left: 50px;
+    padding-left: 0px;
     flex-wrap: wrap;
     text-align: center;
 }
 
-
 .small_text{
     justify-content: center;
-    text-align: left;
-    width: 300px;
+    text-align: center;
     padding-left: 0;      
     margin-left: 0;  
     margin-top: 1rem;      
+}
+
+.small_text h3 {
+    text-align: center;
 }
 
 
@@ -197,6 +133,78 @@ section{
     padding: 5px;
     border: none;
     background-color: transparent;
+}
+
+article {
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    max-width: 1200px;
+    flex-wrap: wrap; 
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 30px auto; 
+}
+
+.left-text, .right-text {
+    flex: 1;
+    margin: 0 20px; /* Add margin between texts */
+    padding: 20px;
+    text-align: justify;
+}
+
+article img {
+    width: 60%; /* Adjust image width */
+    max-width: 100%;
+    margin: 0 20px; /* Add space between image and text */
+}
+article h3 { 
+    border-bottom: 8px solid #3282B8;
+    width: fit-content;
+}
+
+
+.reservations {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items vertically */
+    justify-content: center;
+    max-width: 100%;
+    width: 70%;
+    height: 30%;
+    margin: 60px auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #0F4C75;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.reservations_text {
+    font-size: 4vw;
+    width: 100%;
+    margin-bottom: 10px; 
+}
+
+.reservation_link {
+    margin: 30px;
+}
+
+.reservation_link a {
+    font-size: 3vw;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #3282B8;
+    border: 2px solid black;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .map_marker{
@@ -218,17 +226,68 @@ section{
     padding-bottom: 20px;     
 }
 
-
-
 .contact {
     margin-top: 10%;
     display:flex;
     justify-content: space-around;
-    background-color: gray;
+    color: white;
+    background-color: #0F4C75;
+
+}
+
+
+.contact_text{
+    justify-content: center;
+    text-align: center;
+    padding-left: 0;      
+    margin-left: 0;  
+    margin-top: 1rem;      
+}
+
+.contact_text h3 {
+    text-align: center;
+}
+
+
+.contact-text-table {
+    width: auto;
+    margin: 20px;
+    border-collapse: collapse;
+}
+
+.contact-text-table td {
+    font-size: 12px;
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+}
+
+.contact_text img {
+    width: 64px;
+    height: 64px;
+    }
+
+.profile_picture{
+    width: 32px;
+    height: 32px;
 
 }
 
 /* ############################################### registerce ############################################### */
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+  }
+  /* Style the submit button */
+  input[type=submit] {
+    background-color: #04AA6D;
+    color: white;
+  }
 
 .formular{
     margin: 50px auto 20px auto;
@@ -278,7 +337,7 @@ input{
     content: "*";
     color: red;
     margin-left: 5px;
-    font-size: 1.2em;
+    font-size: 0.8em;
     vertical-align: middle;
 }
 
@@ -289,27 +348,15 @@ input{
     align-items: center;
     justify-content: center;
     text-align: center;
-
-
 }
-
-
-
-
-
-
 
 .cena_drahy, .cena_jizdy{
     padding: 20px;
     margin: 30px;
-
-
 }
 .cena_drahy{
     padding: 20px;
     margin: 20px;
-
-
 }
 
 
@@ -355,6 +402,20 @@ input{
 }
 
 
+.copyright {
+    flex: 2;
+    text-align: left; /* Aligns the copyright text to the left */
+    color: white;
+    padding: 10px;
+}    
+
+.small_text img {
+    width: 128px;
+    height: 128px;
+    }
+
+
+
 
 
 footer {
@@ -377,19 +438,17 @@ footer {
     padding: 10px;
 }
 
-.copyright {
-    flex: 2;
-    text-align: left; /* Aligns the copyright text to the left */
-    color: white;
-    padding: 10px;
+.hamburger,.closeIcon, .menu, .mobile_screens{
+    display: none
 }
-
+.computer_screen{
+    display: flex; 
+}
+.showMenu {
+    transform: translateY(0);
+}
 /* ############################################### Speciální případy ############################################### */
-    /* Kdzž se dá tisk */
-    @media print {
-
- /* Zkusit to udělat v cm     hsl na papíře*/ 
-        
+    @media print {        
         * {
             font-size: 16px;
         }
@@ -398,67 +457,214 @@ footer {
         }
 
     }
-
-    @media screen and (max-width: 768px) {
-        nav {
-            flex-direction: column;
-            align-items: flex-start;
-            height: auto;
+    @media screen and (max-width: 1100px) {     
+        .computer_screen {
+            display: none;
+        }
+        .mobile_screens {
+            display: flex;
+        }
+        .contact {
+            margin-top: 10%;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .hero-image {
+            height: 70%; /* Change this value to your desired height */
+            min-height: 50%; /* Optional: Set a minimum height */
+            background-attachment: scroll; /* Change to scroll to prevent parallax effect on small screens */
+        }
+    
+        .hero-heading {
+            font-size: 8vw; /* Adjust font size for smaller screens */
+            padding: 5%; /* Adjust padding for smaller screens */
+        }
+    
+        .hero-text {
+            font-size: 4vw; /* Adjust font size for smaller screens */
         }
 
+
+       
         .logo_corner{
-            padding: 20px 120px;
+            padding: 1% 5%;
             flex-wrap: wrap;
+            background-color: #0F4C75;
+        }
+
+        .logo_corner img {
+            padding: 0px;
+        }
+    
+        .small_text{
             justify-content: center;
+            text-align: left;
+            padding-left: 0;      
+            margin-left: 0;  
+            margin-top: 1rem;      
+        }
+        .small_text img {
+            width: 64px;
+            height: 64px;
+            }
+            
+
+
+        .reservations {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center items vertically */
+            justify-content: center;
+            max-width: 100%;
+            width: 70%;
+            height: 30%;
+            margin: 60px auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #0F4C75;
+        }
+        .features{
+            margin-top: 5%;
+            margin-left: 0;
+            margin-right: 0;
+            display:flex;
+            justify-content: space-around;
+            padding-left: 0px;
+            flex-wrap: wrap;
+            text-align: center;
         }
         
 
 
-        .links, .links_active {
-            font-size: 10px;
-            padding: 10px 20px;
-            margin-top: 10px;
+        .right-links {
+            display: flex;    /*velikost navbaru*/
+            align-items: center;
+            margin-right: 5px;
+            padding: 5px 5px;
         }
-        .hero-text {
-            font-size: 16px;
-            color: #BBE1FA;
-            padding: 0px 20px;
-            margin: 0%;
-            text-align: right;
-        }
-        .hero-heading {
-            font-size: 42px;
+        
+        .menuItem {
+            display: block;
+            margin: 2rem 4rem;
+            font-size: 1.8rem;
             color: white;
-            text-align: center; 
-            padding: 8%;
-            line-height: 0.01;
-            padding-bottom:200px;
-            text-shadow: 2px 2px 1px black; 
+            text-decoration: none;
         }
+        
+        .menuItem:hover {
+            text-decoration: underline;
+        }
+        
+        .hamburger {
+            display: block; /* Ensure it's displayed on mobile */
+            position: relative; /* Fix it to the top right corner */
+            width: 50px; /* Set a fixed width */
+            height: 50px; /* Set a fixed height */
+            top: 40%; /* Position from the top */
+            right: 30px; /* Position from the right */
+            border: none; /* Remove any borders */
+            background: none; /* Remove any background */
+            cursor: pointer; /* Change cursor to pointer */
+            z-index: 100; /* Ensure it stays above other content */
+          
+        }
+        
+        .hamburger img {
+            width: 100%; /* Make the image take full width */
+            height: auto; /* Maintain aspect ratio */
+            display: block; /* Ensure it's displayed as a block */
+        }
+        
+
+        .closeIcon {
+            display: none;
+        }
+        
+        .menu {
+            display: block;
+            position: fixed;
+            transform: translateY(-100%);
+            transition: transform 0.2s;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99;
+            color: white;
+            list-style: none;
+            padding-top: 5rem;
+        }
+
+        .menu ul {
+            background: white;
+        }
+        
+        .showMenu {
+            transform: translateY(0);
+            background: #1B262C;
+        }
+       
+        article {
+            flex-direction: column;         /* Stack items in a column on smaller screens */
+            align-items: center; 
+            width: 80%; 
+            padding: 0;  
+            margin: 0;        /* Center items horizontally */
+        }
+        .article_text {
+            flex-basis: 100%;               /* Take full width for text */
+        }
+        article img {
+            width: 80%;                     /* Adjust image width on smaller screens */
+            max-width: 100%;                /* Ensure image doesn’t exceed its container */
+        }
+    
+        footer {
+            flex-direction: column;
+
+        }
+
+                
+        article {
+            display: flex;
+            justify-content: space-between; /* Space between left and right texts */
+            width: 80%; /* Container width */
+            flex-wrap: wrap; /* Allow wrapping */
+            flex-direction: column;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 0;  
+            margin: 30px auto;
+        }
+
+        .left-text, .right-text {
+            flex: 1; /* Allow the texts to grow equally */
+            text-align: center; /* Center text */
+        }
+                
     }
+
+
+
+
+            
 
 /* ############################################### EXPERIMENTAL ZONE ############################################### */
 
-
-
-
-
-
-
 .nabidka_restaurace {
-    display: flex; /* Use flexbox layout */
-    justify-content: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically */
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
 }
-
 .jidelni_listek {
-    flex: 1; /* Takes up 1 part of the available space */
-    text-align: center; /* Center text inside */
+    flex: 1; 
+    text-align: center; 
 }
 
 .Denni_menu {
-    flex: 1; /* Takes up 2 parts of the available space */
-    text-align: center; /* Center text inside */
+    flex: 1; 
+    text-align: center; 
 }
 
 
@@ -467,18 +673,15 @@ footer {
     width: 20%;
     margin: 0 auto;
     padding: 20px;
-    background-color: #0d2d47; /* Yellow background */
+    background-color: #0d2d47; 
     transition-duration: 2s;
     color: #fff;
 }
-/* Style for links inside the button */
+
 .jidelni_listek_button a {
-    color: #fff; /* Change the link color */
-    text-decoration: none; /* Remove underline from the link */
+    color: #fff; 
+    text-decoration: none; 
 }
-
-
-
 
 .druhy_motokar{ 
     display: flex;
@@ -487,119 +690,4 @@ footer {
     margin: 0 auto;
     padding: 20px;
     background-color: #93a5b4;
-
-}
-
-
-
-
-.pagination {
-    display: inline-block;
-  }
-  
-  .pagination a {
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-  }
-  
-  .pagination a.active {
-    background-color: #4CAF50;
-    color: white;
-  }
-
-
-
-
-/* něco něco flexbox
-  .parent {
-    display: flex;
-    height: 300px;  Or whatever 
-  }
-  
-  .child {
-    width: 100px;  /* Or whatever 
-    height: 100px; /* Or whatever 
-    margin: auto;  /* Magic! 
-  }
-  */
-
-
-
-
-.profile_picture {
-    width: 32px;
-    height: 32px;
-
-}
-
-
-
-/* Style all input fields */
-input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 6px;
-    margin-bottom: 16px;
-  }
-  
-  /* Style the submit button */
-  input[type=submit] {
-    background-color: #04AA6D;
-    color: white;
-  }
-  
-  /* Style the container for inputs */
-  .container {
-    background-color: #f1f1f1;
-    padding: 20px;
-  }
-  
-  /* The message box is shown when the user clicks on the password field */
-  #message {
-    display:none;
-    background: #f1f1f1;
-    color: #000;
-    position: relative;
-    padding: 20px;
-    margin-top: 10px;
-  }
-  
-  #message p {
-    padding: 10px 35px;
-    font-size: 18px;
-  }
-  
-  /* Add a green text color and a checkmark when the requirements are right */
-  .valid {
-    color: green;
-  }
-  
-  .valid:before {
-    position: relative;
-    left: -35px;
-    content: "✔";
-  }
-  
-  /* Add a red text color and an "x" when the requirements are wrong */
-  .invalid {
-    color: red;
-  }
-  
-  .invalid:before {
-    position: relative;
-    left: -35px;
-    content: "✖";
-  }
-
-
-  .error-message p {
-    color: red;
-    font-weight: bold;
-    font-size: 14px;
-    margin-top: 5px;
 }

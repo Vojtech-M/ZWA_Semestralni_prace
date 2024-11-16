@@ -42,17 +42,20 @@ if ($userData === null) {
 
 <?php include './php/structure/header.php'; ?>
 
-<section class="profile">
-    <h1>Profil uživatele</h1>
-    <div class="profile-info">
-        <p>Jméno: <?php echo htmlspecialchars($userData['firstname']); ?></p>
-        <p>Příjmení: <?php echo htmlspecialchars($userData['lastname']); ?></p>
-        <p>Adresa: <?php echo htmlspecialchars($userData['address']); ?></p>
-        <p>PSČ: <?php echo htmlspecialchars($userData['postal']); ?></p>
-        <p>Email: <?php echo htmlspecialchars($userData['email']); ?></p>
-        <p>Telefonní číslo: <?php echo htmlspecialchars($userData['phone']); ?></p>
-    </div>
-</section>
+<article>
+        <div class="left-text">
+            <h1>Profil uživatele"</h1>
+            <p>Jméno: <?php echo htmlspecialchars($userData['firstname']); ?></p>
+            <p>Příjmení: <?php echo htmlspecialchars($userData['lastname']); ?></p>
+            <p>Adresa: <?php echo htmlspecialchars($userData['address']); ?></p>
+            <p>PSČ: <?php echo htmlspecialchars($userData['postal']); ?></p>
+            <p>Email: <?php echo htmlspecialchars($userData['email']); ?></p>
+            <p>Telefonní číslo: <?php echo htmlspecialchars($userData['phone']); ?></p>
+        </div>
+        <div class="right-text">
+            <img src="./img/bitmapa.png" width="500" alt="okruh" >
+        </div>
+    </article>
 
 <?php include './php/structure/footer.php'; ?>
 

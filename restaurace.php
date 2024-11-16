@@ -119,32 +119,6 @@ session_start();
 -->
 
 
-
-<h1>Motokárové centrum Benešov</h1>
-
-<ul>
-<li><a href="index.php">Hlavní stránka</a></li>
-<li><a href="registrace.html">Rezervace</a></li>
-</ul>
-
-<div class="pagination">
-    <a href="#">&laquo;</a>
-    <a href="tech.html">1</a>
-    <a class="active" href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <a href="#">5</a>
-    <a href="#">6</a>
-    <a href="#">&raquo;</a>
-  </div>
-
-
-
-
-<footer class="footer">
-    <div class="footer-text">
-        <p>Motokárové centrum Benešov</p>
-    </div>
-</footer>
+<?php include './php/structure/footer.php'; ?>
 </body>
 </html>

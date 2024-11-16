@@ -1,8 +1,7 @@
 <?php
 session_start(); // Start session, no session_unset() here to preserve session data on login
 
-// Check if user data file exists and load user data
-$usersFile = './user_data/users.json';
+$usersFile = './user_data/users.json'; // cesta k uživatelům
 $users = [];
 if (file_exists($usersFile)) {
     $users = json_decode(file_get_contents($usersFile), true);
@@ -39,8 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
 
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="cs">
 <head>
