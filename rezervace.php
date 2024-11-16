@@ -16,7 +16,7 @@
 <?php include './php/structure/header.php'; ?> 
     <section class="registrace">
         <div class ="formular">
-            <form action="rezervace.php" method="post"> <!--posílat pomocí POST bezpečnější-->
+            <form action="rezervace.php" method="post">
                 <div id="name">
                     <label for="firstname" class="custom_text"> </span>*Jméno</label>
                     <input type="text" id="firstname" name="firstname" value=""  placeholder="Tomáš"  tabindex="1">

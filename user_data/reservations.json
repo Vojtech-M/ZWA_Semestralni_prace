@@ -50,5 +50,9 @@
     {
         "firstname": "tom",
         "lastname": "aSD"
+    },
+    {
+        "firstname": "Adam",
+        "lastname": "Mal\u00fd"
     }
 ]

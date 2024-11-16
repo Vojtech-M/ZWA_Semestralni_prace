@@ -1,0 +1,107 @@
+body {
+background-color: aqua;
+
+}
+
+
+header{
+    background-color: #ffff34;
+    border: 1px dashed black;
+
+    /*nahoře, vpravo, dole, vlevo */
+
+    
+    }
+nav{
+position: sticky;
+top: 0%;
+backdrop-filter: blur(5px);
+}
+article{
+background-color: lightblue;
+
+
+}
+
+footer{
+background-color: red;
+
+
+}
+
+
+header ,nav ,article ,footer {
+    padding: 50px;
+    margin: 20px;
+    border: 4px solid green;
+
+
+}
+
+.book_image{
+    display: float;
+
+}
+
+span {
+font-size: 2rem;
+display: block;
+
+
+}
+.bigger.first_item{   /*kdyz ten prvek ma obe dve classy  */
+    font-size: 40px;
+
+
+}
+article img {
+    float: inline-end;
+    padding: 20px;
+}
+
+.first_lenna {
+    float: left;
+    position: sticky;
+}
+
+h1 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-color: white;
+    border: 1px solid black;
+    margin: 0;
+    padding: 0;
+    transform: translate(-50%, -50%)
+
+
+}
+
+
+/*(static, relative, absolute, fixed) 
+
+
+span
+(none, inline, block, inline-block)
+
+
+box model
+paddingy a bordrer se pocitaji
+
+narvat do do * {
+box-sizing: inherit
+}
+
+spis{
+body { border:box
+}
+
+
+
+box-sizing border box - to je kdyz chceme nasetavit
+pouzivat ! nemusi se pocitat vnitřeek a paffing a border atd...
+
+
+
+kdyz me nezajimaji marginy
+*/

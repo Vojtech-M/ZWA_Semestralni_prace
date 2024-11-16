@@ -1,3 +1,46 @@
+<?php
+session_start(); // Start session, no session_unset() here to preserve session data on login
+
+// Check if user data file exists and load user data
+$usersFile = './user_data/users.json';
+$users = [];
+if (file_exists($usersFile)) {
+    $users = json_decode(file_get_contents($usersFile), true);
+    if ($users === null) {
+        echo "<script>alert('Error loading user data');</script>";
+    }
+} else {
+    echo "<script>alert('User data file not found');</script>";
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+    $firstname = htmlspecialchars(trim($_POST['firstname']));
+    $password = $_POST['password'];
+
+    // Verify if $users contains valid data
+    if (is_array($users)) {
+        foreach ($users as $user) {
+            if ($user['firstname'] === $firstname && password_verify($password, $user['password'])) {
+                $_SESSION['firstname'] = $firstname;
+                header("Location: index.php");
+                exit();
+            }
+        }
+        // Invalid credentials message
+        
+        if (isset($_SESSION['login_error'])) {
+            echo "<p class='error'>{$_SESSION['login_error']}</p>";
+            unset($_SESSION['login_error']);
+        }
+    } else {
+        echo "<script>alert('User data not available');</script>";
+    }
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -12,70 +55,24 @@
     <link rel="icon" type="image/png" sizes="32x32" href="./img/helma.png"> 
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="left-links">
-                <a href="index.php"><img src="./img/logo1.png" height="130" width="240" alt="logo"/></a>
-                </a>
-            </div>
-            <div class="right-links">
-                <a class="links" href="cenik.php">Ceník</a>
-                <a class="links" href="restaurace.php">Restaurace</a>
-                <a class="links" href="prihlaseni.php">Přihlášení</a>
-                <a class="links" href="registrace.php">registrace</a>
-            </div>
-        </nav>
-    </header>
-
-    <section class="info_banner">
-        <div class="banner-content">
-            <h2> Každý čtvrtek sleva na jízdy !</h2>
-        </div>
-    </section>
-
-
-
-
-    <h2>tohle je prihlseni</h2>
-
-    <!-- P5idat validaci-->
+    <?php 
+    include './php/structure/header.php'; 
+    ?>
     <section class="registrace">
         <div class ="formular">
-            <!--  poslání pomocí POST  action="prihlaseni.php" method="post" -->
-            <form>
-                <div id="name">
-                    <label for="firstname" class="custom_text"> </span>*Jméno</label>
-                    <input type="text" id="firstname" name="firstname" value="" required placeholder="Tomáš"  tabindex="1">
-                    <label for="lastname">Příjmení</label>
-                    <input type="text" id="lastname" name="lastname" value="" required placeholder="Novák"  tabindex="2">
-                </div>
-                
-                <div id="passwd">
-                    <label for="pass1_field">Heslo</label>
-                    <input id="pass1_field" type="password" name="passwd" required placeholder="Heslo" tabindex="7">
-                </div>
-                <br>
-                <input id="reg_submit" type="submit" value="Přihlásit se" tabindex="10">
-                <h5> Něco je povinný</h5>
+            <form action="" method="post">
+            <div id="name">
+                <label for="firstname" class="custom_text">Firstname:</label>
+                <input type="text" id="firstname" name="firstname" value="<?php if(isset($_GET['firstname'])) echo(htmlspecialchars($_GET['firstname']));?>" required placeholder="Tomáš"  tabindex="1">
+            </div>
+            <div id="passwd">
+                <label for="password">Heslo:</label>
+                <input type="password" name="password" id="password" value="<?php if(isset($_GET['password'])) echo(htmlspecialchars($_GET['password']));?>" required tabindex="2">
+            </div>
+                <input type="submit" name="login" value="Přihlásit se" tabindex="3">
             </form>
         </div>
     </section>
-
-    <section class="reservations">
-        <div class="book">
-            <h2>Neváhejte a udělejte si rezervaci na dráze !</h2>
-        </div>
-
-    </section>
-
-
-
-
-
-<footer class="footer">
-    <div class="footer-text">
-        <p>Motokárové centrum Benešov</p>
-    </div>
-</footer>
+    <?php include './php/structure/footer.php'; ?>
 </body>
 </html>

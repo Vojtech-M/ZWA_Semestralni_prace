@@ -25,5 +25,32 @@
         "email": "asdf@asdf.cz",
         "phone": "122312312",
         "password": "$2y$10$mnUJCt2Q73OnZ.FFjeQ2Oeitwdg4Ydsh2lR0z8f8kSbHMpzFHOY0a"
+    },
+    {
+        "firstname": "test",
+        "lastname": "test",
+        "address": "test",
+        "postal": "12323",
+        "email": "test@test.cz",
+        "phone": "123123123",
+        "password": "$2y$10$C\/rLAVy4ejWxG4FA4xjZXOGjBiNvarYCQviM0z3L3l6Gmuw3KI2uC"
+    },
+    {
+        "firstname": "Adam",
+        "lastname": "Malý",
+        "address": "zkusebni 13",
+        "postal": "123 12",
+        "email": "jentakto@vyzkousim.cz",
+        "phone": "",
+        "password": "$2y$10$v\/EqfRUYj8rb7quzNDwbcuBFvYXLx8SFzRqJ2knra4ViKaGZJca0O"
+    },
+    {
+        "firstname": "Vojtěch",
+        "lastname": "Michal",
+        "address": "Hlavní 83",
+        "postal": "25166",
+        "email": "rychlejvlak@seznam.cz",
+        "phone": "606136602",
+        "password": "$2y$10$ucuuxLk59DrINSHwmXbFkOFgkefQUkD11MKKaWe4.cL\/IfsHGp1ca"
     }
 ]

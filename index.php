@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (isset($_SESSION['loggedin'])) {
+    header("Location: index.php");
+    die();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -10,13 +18,15 @@
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
     <link rel="icon" type="image/png" sizes="32x32" href="./img/helma.png"> 
-    <link rel=stylesheet href='./css/print.css' media=print>     <!-- Při použítí @media nebo media ='print'-->
-    <!--<script src="./scripts/hello.js" type=module></script> -->
+    <link rel=stylesheet href='./css/print.css' media="print">     <!-- Při použítí @media nebo media ='print'-->
 </head>
 <body>
+
 <noscript><p>No JS. there to see </p></noscript>
-    <?php include './php/structure/header.php'; ?>
-    
+
+    <?php 
+    include './php/structure/header.php'; 
+    ?>
     <div class="hero-image">
         <div class="hero-heading ">
             <h2 class>Rychlost</h2>
@@ -25,8 +35,8 @@
             </div>
         </div>
     </div>
-   
-    <div class="tri_texty">
+    <a  href="./zecviceni/test.html">REZERVACE</a>
+    <section>
         <div class="small_text">
                 <img src="./img/trat_ikona.svg" height="128" width="128" alt="ikona trati">
             <h3>Dráha</h3>
@@ -44,9 +54,9 @@
             <p>Chcete se pobavit a přitom si odpočinout?</p>
             <p>Máme pro Vás řešení!</p>
         </div>
-    </div>
+    <section>
 
-    <div class="article_with_image">
+    <article>
         <div class="article_text">
             <h3>Náš okruh</h3>
             <p>tohle je najzy malz text o tom jak mame restaurcai </p>
@@ -54,9 +64,9 @@
         <div class="article_image">
             <img src="./img/bitmapa.png" width="500" alt="okruh" >
         </div>
-    </div>
+    </article>
 
-    <div class="article_with_image">
+    <article>
         <div class="article_image">
             <img src="./img/gokarts.jpg" alt="motokáry start" >
         </div>
@@ -64,9 +74,7 @@
             <h3>Trocha historie. </h3>
             <p>Začátek motokár v Benešově se datuje do roku 1996, kdy Petr Chovančík na místním autodromu zorganizoval první závody pro veřejnost. Postupem času se areál rozrůstal, vybavení zlepšovat a stále více lidí nacházelo vášeň pro tento adrenalinový sport. Dnes je náš kartingový areál oblíbeným místem nejen pro rekreační jezdce, ale i pro závodníky, kteří chtějí zdokonalit své dovednosti.</p>
         </div>
-    </div>
-
-
+    </article>
 
     <div class="tri_texty">
         <div class="small_text">
@@ -80,35 +88,30 @@
         </div>
     </div>
 
-
     <div class="reservations">
-        <div class="book">
-            <h2>Neváhejte</h2>
-            <h3>udělejte si rezervaci na dráze !</h3>
-            <div class="reservation_link"> 
-            <a  href="rezervace.php">REZERVACE</a>
-        </div>
+    <div class="book">
+        <h2>Neváhejte</h2>
+        <h3>udělejte si rezervaci na dráze!</h3>
+        <div class="reservation_link">
+        <?php if ($username): ?>
+                <a href="rezervace.php">REZERVACE</a>       
+            <?php else: ?>
+                <a href="prihlaseni.php">REZERVACE</a>
+            <?php endif; ?>
         </div>
     </div>
+</div>
 
     <?php include './php/structure/footer.php'; ?>
+<!--<script src="./scripts/hello.js" type=module></script> -->
 </body>
-</html>
-        <!-- 
-    ?php 
-   
-    
-    
+</html><!-- 
+    ?php   
    if ((5+2==4) == true): ?>
    This will show if the expression is true.
    php else: 
    Otherwise this will show.
    php endif; 
-
-
-
-
-
  <SMAZAT DO ODEVZDÁNÍ  (naját důvod to tady nechat :D) ################################################################
  <div class="black_betty">
         <h3> Stránka vznikla za poslechu🤘: (PS: SMAZAT)  </h3>   -SMAZAT DO ODEVZDÁNÍ 
@@ -116,14 +119,7 @@
             width="1000" height="352" allowfullscreen="" 
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
             loading="lazy"></iframe>        
-    </div>
-
-
-     
-
-
-
-        
+    </div>       
 SMAZAT DO ODEVZDÁNÍ  ################################################################
     <div class="druhy_motokar">
         <h2> druhy motokar </h2>
