@@ -91,7 +91,7 @@ if (isset($_SESSION['loggedin'])) {
 </div>
 
 <?php include './php/structure/footer.php'; ?>
-<!-- Dám script nakonec-->
+<!-- Dát script nakonec-->
 <!--<script src="./scripts/hello.js" type=module></script> -->
 </body>
 </html>
