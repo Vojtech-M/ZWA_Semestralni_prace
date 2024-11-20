@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
             </div>
             <div id="passwd">
                 <label for="password">Heslo:</label>
-                <input type="password" name="password" id="password" value="<?php if(isset($_GET['password'])) echo(htmlspecialchars($_GET['password']));?>" required tabindex="2">
+                <input type="password" name="password" id="password" value="<?php if(isset($_GET['password'])) echo(htmlspecialchars($_GET['password']));?>" required placeholder="tajneheslo" tabindex="2">
             </div>
                 <input type="submit" name="login" value="Přihlásit se" tabindex="3">
             </form>

@@ -1,5 +1,4 @@
 <?php
-
 function validateUsername($username,$lenght) {
 	return strlen($username) >= $lenght;
 }

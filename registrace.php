@@ -127,7 +127,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="lastname"  class="required_label">Příjmení</label>
                     <input type="text" id="lastname" name="lastname" pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]*" value="<?php echo htmlspecialchars($lastname); ?>" placeholder="Novák"  tabindex="2">
                 </div>
-                <!--<script>
+                <div class="form_field">
+                    <label for="address_field" class="required_label">Adresa</label>
+                    <input type="text" id="address_field" name="address" pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z0-9 ]*" value="<?php echo htmlspecialchars($address); ?>" required placeholder="Zahradní 80" tabindex="3">
+                    <label for="postal" class="PSČ"> PSČ</label>
+                    <input id="postal" type="text" name="postal" pattern="[0-9]{3} ?[0-9]{2}" value="<?php echo htmlspecialchars($postal); ?>" required placeholder="251 47" tabindex="4">
+                </div>
+                <div class="form_field">
+                    <label for="email_field" class="required_label">Email</label>
+                    <input id="email_field" type="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required placeholder="example@mail.com" tabindex="5">
+                    <label for="phone_field" class="phone_label">Telefonní číslo</label>
+                    <input id="phone_field" type="text" name="phone" pattern="[0-9]{9}" value="<?php echo htmlspecialchars($phone); ?>" placeholder="606136603" tabindex="6">
+                </div>
+                <div class="form_field">
+                    <label for="pass1_field" class="required_label">Heslo</label>
+                    <input id="pass1_field" type="password" name="passwd" required placeholder="Heslo" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" tabindex="7">
+                    <label for="pass2_field" class="required_label">Heslo znovu</label>
+                    <input id="pass2_field" type="password" name="passwd2" required placeholder="Heslo znovu" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Hesla se musejí schodovat" tabindex="8" >
+                </div>               
+                <div class="form_field">
+                    <label for="agreement_field" class="required_label">Souhlasím s <a href="conditions.html" target="blank">podmínkami</a></label>
+                    <input id="agreement_field" type="checkbox" name="agreement" required tabindex="9">
+                    <div id="passwordMismatchMessage">Passwords do not match.</div>
+                </div>
+                <div class="form_field">
+                    <input type="file" id="myFile" name="file">
+                </div>
+                <input id="reg_submit" type="submit" value="Registrovat se" tabindex="10">             
+                
+            </form>
+        </div>
+        <div class="registration_banner">
+                <h2>Přidej se k nám a získej výhody!</h2>
+            </div>
+        </div>
+</section>
+<script src="./scripts/register.js" type=module> </script> 
+<?php include './php/structure/footer.php'; ?>
+<script src="./scripts/register.js"></script>
+</body>
+</html>
+
+<!--<script>
                 let nameInput = document.querySelector("input#firstname");
                 document.querySelector("form").addEventListener("submit", function (event) {
                     event.preventDefault();  // zamezíme odeslání formuláře
@@ -164,107 +205,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
                 </script>
 -->
-                <div class="form_field">
-                    <label for="address_field" class="required_label">Adresa</label>
-                    <input type="text" id="address_field" name="address" pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z0-9 ]*" value="<?php echo htmlspecialchars($address); ?>" required placeholder="Zahradní 80" tabindex="3">
-                    <label for="postal" class="PSČ"> PSČ</label>
-                    <input id="postal" type="text" name="postal" pattern="[0-9]{3} ?[0-9]{2}" value="<?php echo htmlspecialchars($postal); ?>" required placeholder="251 47" tabindex="4">
-                </div>
-                <div class="form_field">
-                    <label for="email_field" class="required_label">Email</label>
-                    <input id="email_field" type="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required placeholder="example@mail.com" tabindex="5">
-                    <label for="phone_field" class="phone_label">Telefonní číslo</label>
-                    <input id="phone_field" type="text" name="phone" pattern="[0-9]{9}" value="<?php echo htmlspecialchars($phone); ?>" placeholder="606136603" tabindex="6">
-                </div>
-                <div class="form_field">
-                    <label for="pass1_field" class="required_label">Heslo</label>
-                    <input id="pass1_field" type="password" name="passwd" required placeholder="Heslo" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" tabindex="7">
-                    <label for="pass2_field" class="required_label">Heslo znovu</label>
-                    <input id="pass2_field" type="password" name="passwd2" required placeholder="Heslo znovu" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Hesla se musejí schodovat" tabindex="8" >
-                </div>               
-                <div class="form_field">
-                    <label for="agreement_field" class="required_label">Souhlasím s <a href="conditions.html" target="blank">podmínkami</a></label>
-                    <input id="agreement_field" type="checkbox" name="agreement" required tabindex="9">
-                    <div id="passwordMismatchMessage">Passwords do not match.</div>
-                </div>
-                <div class="form_field">
-                    <input type="file" id="myFile" name="file">
-                </div>
-                <input id="reg_submit" type="submit" value="Registrovat se" tabindex="10">             
-                
-            </form>
-        </div>
-</div>
-
-<script>
-
-const firstnameInput = document.getElementById("firstname");
-const lastnameInput = document.getElementById("lastname");
-const addressInput = document.getElementById("address_field");
-const postalInput = document.getElementById("postal");
-const emailInput = document.getElementById("email_field");
-const phoneInput = document.getElementById("phone_field");
-
-const pass1Input = document.getElementById("pass1_field");
-const pass2Input = document.getElementById("pass2_field");
-const mismatchMessage = document.getElementById("passwordMismatchMessage");
-
-    
-function checkUsername() {
-    const username = firstnameInput.value;
-    const validUsernamePattern = /^[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,}$/; // alespoň 3 znaky
-
-    if (!validUsernamePattern.test(firstnameInput.value)) {
-        document.getElementById("firstNameError").innerText = "Jméno musí být delší než 3 znaky a může obsahovat pouze písmena.";
-        return false;
-    } else {
-        document.getElementById("firstNameError").innerText = ""; // Clear the error message
-        return true;
-    }
-}
-
-function checkPasswordMatch() {
-        if (pass1Input.value !== pass2Input.value) {
-            mismatchMessage.style.display = "block";
-            return false;
-        } else {
-            mismatchMessage.style.display = "none";
-            return true;
-        }
-    }
-    // Event listeners
-    pass2Input.addEventListener("input", checkPasswordMatch);
-    firstnameInput.addEventListener("input", checkUsername); // Validate username on input
-
-    document.getElementById("registrationForm").addEventListener("submit", function(event) {
-        const isUsernameValid = checkUsername();
-        const isPasswordValid = checkPasswordMatch();
-        if (!isUsernameValid || !isPasswordValid) {
-        event.preventDefault(); // Prevent form submission if validation fails
-    }
-    });
-</script>
-
-        <div class="registration_banner">
-            <h2>Přidej se k nám a získej výhody!</h2>
-        </div>
-    </div>
-</section>
-
-<?php include './php/structure/footer.php'; ?>
-
-<script src="./scripts/register.js"></script>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-

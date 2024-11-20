@@ -79,5 +79,23 @@
         "email": "michavo5@fit.cvut.cz",
         "phone": "606136602",
         "password": "$2y$10$d4sjmzJmEZNOaT2qmD\/cxuaYs5BZbaDaJdqQXla5um6T.fT9ZigG2"
+    },
+    {
+        "firstname": "Toma",
+        "lastname": "Toma",
+        "address": "Toma",
+        "postal": "23233",
+        "email": "mail@mailmail.cy",
+        "phone": "333333333",
+        "password": "$2y$10$Hu\/jS9R2O7UJrm3sCIP5Ke0VpZYSLYwceTG31HIKSXxVNnu.nTJZS"
+    },
+    {
+        "firstname": "TTTT",
+        "lastname": "TTTT",
+        "address": "TTTT",
+        "postal": "23232",
+        "email": "rychlejvlak@seznam.cz",
+        "phone": "222222222",
+        "password": "$2y$10$K5pJgCD8j1j.W8nRPFFQIedKCyk0mRxQc\/COcjUh4uwky3D96ewqK"
     }
 ]

@@ -1,8 +1,8 @@
 
-function showAlert() {
-    alert("Test");
-}
-showAlert();
+//function showAlert() {
+ //   alert("Test");
+//}
+//showAlert();
 
 
 a = "Ahoj"; // tohle nedělat
