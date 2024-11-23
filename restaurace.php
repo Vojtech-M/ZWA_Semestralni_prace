@@ -16,7 +16,6 @@ session_start();
     <link rel=stylesheet href='./css/print.css' media=print>   
 </head>
 
-<!-- Při použítí @media nebo media ='print'-->
 <body>
 <?php include './php/structure/header.php'; ?>    
     <section class="description">
@@ -31,7 +30,6 @@ session_start();
                 <img src="./img/mensi_maso.jpg" alt="motokáry start" >
             </div>
         </div>
-
     </section>
 
 <div class="nabidka_restaurace">
@@ -48,10 +46,7 @@ session_start();
 <div class="jidelni_listek_button">
    <a href="./pdf/randomPDF.pdf" target="_blank">Prohlédnout</a>
 </div>
-
-
 </div>
-
 </div>
 
 
@@ -70,43 +65,21 @@ session_start();
         <img src="./img/mensi_maso.jpg" alt="motokáry start" >
     </div>
 </div>
-
 </section>
 
 <section class="description">
+    <div class="description">
+        <div class="description_text">
+            <h2>Závodiště jako žádné jiné</h2>
+            <p>Motokárové centrum nabízí závodnický zážitek na jedné z nejzajímavějších tratí v regionu. Na ploše 8.000 m² vás čeká více než 40 zatáček s průměrnou rychlostí kolem 40 km/h.
 
-<div class="description">
-    <div class="description_text">
-        <h2>Závodiště jako žádné jiné</h2>
-        <p>Motokárové centrum nabízí závodnický zážitek na jedné z nejzajímavějších tratí v regionu. Na ploše 8.000 m² vás čeká více než 40 zatáček s průměrnou rychlostí kolem 40 km/h.
-
-            Celková délka dráhy je 1.000 m, krátká varianta měří 800 m a samostatný dětský okruh má 200 m.</p>
-    </div>
-    <div class="stand_image">
-        <img src="./img/mensi_maso.jpg" alt="motokáry start" >
-    </div>
+                Celková délka dráhy je 1.000 m, krátká varianta měří 800 m a samostatný dětský okruh má 200 m.</p>
+        </div>
+            <div class="stand_image">
+            <img src="./img/mensi_maso.jpg" alt="motokáry start" >
+        </div>
 </div>
-
 </section>
-
-
-<!--
-    <div class="kontakt">
-        <h3> Kontakt </h3>
-        <ul>
-            <li> Restaurace: +420 608 788 240
-            <li>Firemní akce :+420 724 545 250
-            <li>E-mail: restaurace@kart-centrum.cz
-            <li>Adresa: Benešov 1459
-        </ul>
-    </div>
-
-
-
-
--->
-
-
 <?php include './php/structure/footer.php'; ?>
 </body>
 </html>

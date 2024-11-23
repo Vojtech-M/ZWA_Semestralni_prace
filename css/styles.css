@@ -25,9 +25,6 @@ nav {
     padding: 0;
 }
 
-
-
-
 .right-links {
     display: flex;   
     align-items: center;
@@ -49,8 +46,6 @@ nav {
 .links_active {
     background-color: #d39717;
 }
-
-
 .hero-image {
     display: flex;
     flex-direction: column;
@@ -297,7 +292,6 @@ color: white;
     margin-top: 1rem;      
 }
 
-
 .formular input {
     border-radius: 10px;
 }
@@ -440,10 +434,6 @@ footer {
    width: 480px;
 }
 
-/*width: clamp(200px, 50%, 600px);*/
-
-
-
 .nabidka_restaurace {
     display: flex;
     justify-content: center; 
@@ -458,8 +448,6 @@ footer {
     flex: 1; 
     text-align: center; 
 }
-
-
 
 .jidelni_listek_button{
     width: 20%;
@@ -483,11 +471,6 @@ footer {
     padding: 20px;
     background-color: #93a5b4;
 }
-
-
-
-
-/* ############################################### Speciální případy ############################################### */
     @media print {        
         * {
             font-size: 16px;
@@ -495,38 +478,37 @@ footer {
         .hero-image, .hero-image, .hero-text, nav, footer {
             display: none;
         }
-
     }
     @media screen and (max-width: 1100px) {     
         .computer_screen {
             display: none;
         }
+
         .mobile_screens {
             display: flex;
         }
+
         .contact {
             margin-top: 10%;
             flex-direction: row;
             justify-content: center;
         }
+
         .hero-image {
-            height: 70%; /* Change this value to your desired height */
-            min-height: 50%; /* Optional: Set a minimum height */
-            background-attachment: scroll; /* Change to scroll to prevent parallax effect on small screens */
+            height: 70%; 
+            min-height: 50%;
+            background-attachment: scroll;
         }
     
         .hero-heading {
-            font-size: 8vw; /* Adjust font size for smaller screens */
-            padding: 5%; /* Adjust padding for smaller screens */
+            font-size: 8vw; 
+            padding: 5%;
         }
     
         .hero-text {
-            font-size: 4vw; /* Adjust font size for smaller screens */
+            font-size: 4vw; 
         }
 
-
-       
-       
         .small_text{
             justify-content: center;
             text-align: left;
@@ -534,12 +516,11 @@ footer {
             margin-left: 0;  
             margin-top: 1rem;      
         }
+
         .small_text img {
             width: 64px;
             height: 64px;
-            }
-            
-
+        }
 
         .reservations {
             display: flex;
@@ -554,6 +535,7 @@ footer {
             text-align: center;
             background-color: #0F4C75;
         }
+
         .features{
             margin-top: 5%;
             margin-left: 0;
@@ -564,11 +546,9 @@ footer {
             flex-wrap: wrap;
             text-align: center;
         }
-        
-
-
+    
         .right-links {
-            display: flex;    /*velikost navbaru*/
+            display: flex;
             align-items: center;
             margin-right: 5px;
             padding: 5px 5px;
@@ -587,23 +567,23 @@ footer {
         }
         
         .hamburger {
-            display: block; /* Ensure it's displayed on mobile */
-            position: relative; /* Fix it to the top right corner */
-            width: 50px; /* Set a fixed width */
-            height: 50px; /* Set a fixed height */
-            top: 40%; /* Position from the top */
-            right: 30px; /* Position from the right */
-            border: none; /* Remove any borders */
-            background: none; /* Remove any background */
-            cursor: pointer; /* Change cursor to pointer */
-            z-index: 100; /* Ensure it stays above other content */
+            display: block; 
+            position: relative; 
+            width: 50px;
+            height: 50px; 
+            top: 40%;
+            right: 30px; 
+            border: none; 
+            background: none; 
+            cursor: pointer;
+            z-index: 100; 
           
         }
         
         .hamburger img {
-            width: 100%; /* Make the image take full width */
-            height: auto; /* Maintain aspect ratio */
-            display: block; /* Ensure it's displayed as a block */
+            width: 100%; 
+            height: auto; 
+            display: block;
         }
         
 
@@ -640,27 +620,22 @@ footer {
             align-items: center; 
             width: 80%; 
             padding: 0;  
-            margin: 0;        /* Center items horizontally */
+            margin: 0;       
         }
         .article_text {
-            flex-basis: 100%;               /* Take full width for text */
+            flex-basis: 100%;              
         }
         article img {
-            width: 80%;                     /* Adjust image width on smaller screens */
-            max-width: 100%;                /* Ensure image doesn’t exceed its container */
-        }
-    
+            width: 80%;                    
+            max-width: 100%;               
         footer {
             flex-direction: column;
-
-        }
-
-                
+        }     
         article {
             display: flex;
-            justify-content: space-between; /* Space between left and right texts */
-            width: 80%; /* Container width */
-            flex-wrap: wrap; /* Allow wrapping */
+            justify-content: space-between; 
+            width: 80%; 
+            flex-wrap: wrap; 
             flex-direction: column;
             background-color: white;
             border-radius: 8px;
@@ -670,11 +645,12 @@ footer {
         }
 
         .left-text, .right-text {
-            flex: 1; /* Allow the texts to grow equally */
-            text-align: center; /* Center text */
+            flex: 1;
+            text-align: center;
         }
                 
     }
+}
 /*
 Style Guide:
 Základní modrá paleta
@@ -685,13 +661,10 @@ Základní modrá paleta
 
 https://colorhunt.co/
 
-
-#kdyz je jeden malej margin nahore 
-#velkej margin dole 
-#tak je to max z tech dvou
-
 velikosti fontu:
 16
 26
 42
+
+/*width: clamp(200px, 50%, 600px);
 */

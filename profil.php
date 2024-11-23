@@ -44,7 +44,7 @@ if ($userData === null) {
 
 <article>
         <div class="left-text">
-            <h1>Profil uživatele"</h1>
+            <h1>Profil uživatele</h1>
             <p>Jméno: <?php echo htmlspecialchars($userData['firstname']); ?></p>
             <p>Příjmení: <?php echo htmlspecialchars($userData['lastname']); ?></p>
             <p>Adresa: <?php echo htmlspecialchars($userData['address']); ?></p>
@@ -53,7 +53,7 @@ if ($userData === null) {
             <p>Telefonní číslo: <?php echo htmlspecialchars($userData['phone']); ?></p>
         </div>
         <div class="right-text">
-            <img src="./img/bitmapa.png" width="500" alt="okruh" >
+            <img src="./img/profile.png" width="500" alt="okruh" >
         </div>
     </article>
 

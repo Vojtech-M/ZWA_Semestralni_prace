@@ -24,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fileError = $_FILES['file']['error'];
     $fileType = $_FILES['file']['type'];
 
-
     $fileExt = explode('.', $fileName);
     $fileActualExt = strtolower(end($fileExt));
 
@@ -35,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($fileError === 0){
             if ($fileSize < 1000000000000){
                 $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-                $fileDestination = '/home/michavo5/' . $fileNameNew;
+                $fileDestination = '../uploads/' . $fileNameNew;
                 move_uploaded_file($fileTmpName,  $fileDestination);
                 
 
@@ -53,8 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Passwords do not match.";
         $formValid = false;
     }
-
-
     $hash = password_hash($passwd, PASSWORD_DEFAULT);  // zaheshování hesla
 
     $usernameValid = validateUsername($firstname, 3); 

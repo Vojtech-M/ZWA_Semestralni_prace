@@ -1,0 +1,7 @@
+label { margin: 0.5em; display: block; }
+#zakladni input { position: absolute; left: 8em; }
+#zajmy input { position: absolute; left: 12em; }
+#tlacitka { background: silver; padding: 0.5em; }
+.chyba { color: red; }
+thead th { background: silver; padding: 0.3em; }
+tbody td { padding: 0.3em; }

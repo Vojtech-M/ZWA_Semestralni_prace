@@ -32,9 +32,11 @@ if (isset($_SESSION['loggedin'])) {
         </div>
     </div>
 </div>
-    <a  href="./zecviceni/test.html">REZERVACE</a> <!--smazat -->
-    <a  href="./zecviceni/naseptava.html">naseptava</a> <!--smazat -->
-    <a href="./zecviceni/8.cviceni/index.html">tttsfsdtt</a>
+<!--<a  href="./zecviceni/test.html">REZERVACE</a>smazat 
+    <a  href="./zecviceni/naseptava.html">naseptava</a> smazat
+    <a href="./zecviceni/8.cviceni/index.html">tttsfsdtt</a>-->
+    <a href="./zecviceni/9.cviceni/index.php">`php formular</a>
+    <a href="./zecviceni/9.cviceni/index2.php">`php formular</a>
 
 <section class="features">
     <div class="small_text">
@@ -77,8 +79,8 @@ if (isset($_SESSION['loggedin'])) {
 
 <div class="reservations">
     <div class="reservation_text">
-    <h2>Neváhejte</h2>
-    <h3>udělejte si rezervaci na dráze!</h3>
+        <h2>Neváhejte</h2>
+        <h3>udělejte si rezervaci na dráze!</h3>
     </div>
     
     <div class="reservation_link">
@@ -95,12 +97,3 @@ if (isset($_SESSION['loggedin'])) {
 <!--<script src="./scripts/hello.js" type=module></script> -->
 </body>
 </html>
-
-
-
-
-
-
-
-
-
