@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = htmlspecialchars(trim($_POST['phone']));
     $passwd = htmlspecialchars(trim($_POST['passwd']));
 
-/*
+
     $file = $_FILES['file']; // nahrání file na server
     $fileName = $_FILES['file']['name'];
     $fileTmpName = $_FILES['file']['tmp_name'];
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($fileError === 0){
             if ($fileSize < 1000000000000){
                 $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-                $fileDestination = '../uploads/' . $fileNameNew;
+                $fileDestination = './uploads/' . $fileNameNew;
                 move_uploaded_file($fileTmpName,  $fileDestination);
                 
 
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "You cannot upload files of this type !";
     }
-*/
+
     if ($passwd !== $_POST['passwd2']) {
         echo "Passwords do not match.";
         $formValid = false;
@@ -74,7 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'postal' => $postal,
             'email' => $email,
             'phone' => $phone,
-            'password' => $hash
+            'password' => $hash,
+            'profile_picture' => isset($fileNameNew) ? $fileDestination : './img/profile.png' // Save uploaded file or use default
         ];
 
         // Get existing data from the JSON file (if it exists)

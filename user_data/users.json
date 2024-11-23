@@ -97,5 +97,61 @@
         "email": "rychlejvlak@seznam.cz",
         "phone": "222222222",
         "password": "$2y$10$K5pJgCD8j1j.W8nRPFFQIedKCyk0mRxQc\/COcjUh4uwky3D96ewqK"
+    },
+    {
+        "firstname": "Vojtěch",
+        "lastname": "Michal",
+        "address": "Hlavní 83",
+        "postal": "25166",
+        "email": "michavo5@fit.cvut.cz",
+        "phone": "606136602",
+        "password": "$2y$10$lTabvtQPooiKDHEKt.D8uOgg2uFmVpbvkDpupzs0aXaSDGCu8zzRK"
+    },
+    {
+        "firstname": "Vojtěch",
+        "lastname": "Michal",
+        "address": "Hlavní 83",
+        "postal": "25166",
+        "email": "michavo5@fit.cvut.cz",
+        "phone": "606136602",
+        "password": "$2y$10$4ZXUHJX\/Yw5bKS6VTsNeIuUd5RCiAqvmp4f\/eZX0pj5TExhUuaA36"
+    },
+    {
+        "firstname": "Vojtěch",
+        "lastname": "Michal",
+        "address": "Hlavní 83",
+        "postal": "25166",
+        "email": "michavo5@fit.cvut.cz",
+        "phone": "606136602",
+        "password": "$2y$10$4y226s4z\/ZqnksnROI\/XZedOwWseZkcyCgJ4t2do1F5aOUW.QOOuW"
+    },
+    {
+        "firstname": "Vojtěch",
+        "lastname": "Michal",
+        "address": "Hlavní 83",
+        "postal": "25166",
+        "email": "michavo5@fit.cvut.cz",
+        "phone": "606136602",
+        "password": "$2y$10$b5Wk67pFV1eeH.bBsZjtm.xXJB3wSsOUGcJxB74fAlOHDsEMrM7wu"
+    },
+    {
+        "firstname": "Vojtěch",
+        "lastname": "Michal",
+        "address": "Hlavní 83",
+        "postal": "25166",
+        "email": "michavo5@fit.cvut.cz",
+        "phone": "606136602",
+        "password": "$2y$10$2D.Q8lmQxSqlOKh2JtfMruYvsduiNFA0hNlDuG\/zT\/rVgLd5eiN2m",
+        "profile_picture": ".\/uploads\/6741f7c8e01eb9.71917355.png"
+    },
+    {
+        "firstname": "Mega",
+        "lastname": "Drive",
+        "address": "Driveová",
+        "postal": "12315",
+        "email": "mail@email.com",
+        "phone": "123123123",
+        "password": "$2y$10$3vItHgEUb85MZhNjjBhIy.D1msVCvGhiNWEfnstx3uf9dotCDMxO2",
+        "profile_picture": ".\/uploads\/6741f8038e4d07.13505688.png"
     }
 ]

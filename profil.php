@@ -53,7 +53,7 @@ if ($userData === null) {
             <p>Telefonní číslo: <?php echo htmlspecialchars($userData['phone']); ?></p>
         </div>
         <div class="right-text">
-            <img src="./img/profile.png" width="500" alt="okruh" >
+            <img src="<?php echo htmlspecialchars($userData['profile_picture']); ?>" width="500" alt="Profilový obrázek">
         </div>
     </article>
 
