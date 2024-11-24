@@ -33,125 +33,107 @@
         "postal": "12323",
         "email": "test@test.cz",
         "phone": "123123123",
-        "password": "$2y$10$C\/rLAVy4ejWxG4FA4xjZXOGjBiNvarYCQviM0z3L3l6Gmuw3KI2uC"
+        "password": "$2y$10$C\/rLAVy4ejWxG4FA4xjZXOGjBiNvarYCQviM0z3L3l6Gmuw3KI2uC",
+        "profile_picture": ".\/uploads\/674211d0eb2c50.66714500.png"
     },
     {
-        "firstname": "Adam",
-        "lastname": "Malý",
-        "address": "zkusebni 13",
-        "postal": "123 12",
-        "email": "jentakto@vyzkousim.cz",
-        "phone": "",
-        "password": "$2y$10$v\/EqfRUYj8rb7quzNDwbcuBFvYXLx8SFzRqJ2knra4ViKaGZJca0O"
+        "firstname": "admin",
+        "lastname": "admin",
+        "address": "admin",
+        "postal": "00000",
+        "email": "admin@admin.cz",
+        "phone": "000000000",
+        "password": "$2y$10$.SrNoViGNpgCswj827G2zO3hn7L7YHIajh04BC8puYjw7lAPLTFC2",
+        "profile_picture": ".\/uploads\/674311a867af63.44468709.jpg"
     },
     {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní 83",
-        "postal": "25166",
-        "email": "rychlejvlak@seznam.cz",
-        "phone": "606136602",
-        "password": "$2y$10$ucuuxLk59DrINSHwmXbFkOFgkefQUkD11MKKaWe4.cL\/IfsHGp1ca"
-    },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní 83",
-        "postal": "25166",
-        "email": "michavo5@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$Vh8u5u28viCngdoRm9xbPuNcHkWwujQ9lzRpovrTxLYMt.iiQzBE2"
-    },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní 83",
-        "postal": "25166",
-        "email": "michavo5@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$8nq3IPrfY6YLEVuMS6z0Eum2P6x1suEULFuU6vnPGtLcdRej2FM8O"
-    },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní 83",
-        "postal": "25166",
-        "email": "michavo5@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$d4sjmzJmEZNOaT2qmD\/cxuaYs5BZbaDaJdqQXla5um6T.fT9ZigG2"
-    },
-    {
-        "firstname": "Toma",
-        "lastname": "Toma",
-        "address": "Toma",
-        "postal": "23233",
-        "email": "mail@mailmail.cy",
-        "phone": "333333333",
-        "password": "$2y$10$Hu\/jS9R2O7UJrm3sCIP5Ke0VpZYSLYwceTG31HIKSXxVNnu.nTJZS"
-    },
-    {
-        "firstname": "TTTT",
-        "lastname": "TTTT",
-        "address": "TTTT",
-        "postal": "23232",
-        "email": "rychlejvlak@seznam.cz",
-        "phone": "222222222",
-        "password": "$2y$10$K5pJgCD8j1j.W8nRPFFQIedKCyk0mRxQc\/COcjUh4uwky3D96ewqK"
-    },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní 83",
-        "postal": "25166",
-        "email": "michavo5@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$lTabvtQPooiKDHEKt.D8uOgg2uFmVpbvkDpupzs0aXaSDGCu8zzRK"
-    },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní 83",
-        "postal": "25166",
-        "email": "michavo5@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$4ZXUHJX\/Yw5bKS6VTsNeIuUd5RCiAqvmp4f\/eZX0pj5TExhUuaA36"
-    },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní 83",
-        "postal": "25166",
-        "email": "michavo5@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$4y226s4z\/ZqnksnROI\/XZedOwWseZkcyCgJ4t2do1F5aOUW.QOOuW"
-    },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní 83",
-        "postal": "25166",
-        "email": "michavo5@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$b5Wk67pFV1eeH.bBsZjtm.xXJB3wSsOUGcJxB74fAlOHDsEMrM7wu"
-    },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní 83",
-        "postal": "25166",
-        "email": "michavo5@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$2D.Q8lmQxSqlOKh2JtfMruYvsduiNFA0hNlDuG\/zT\/rVgLd5eiN2m",
-        "profile_picture": ".\/uploads\/6741f7c8e01eb9.71917355.png"
-    },
-    {
-        "firstname": "Mega",
-        "lastname": "Drive",
-        "address": "Driveová",
-        "postal": "12315",
-        "email": "mail@email.com",
+        "firstname": "Pet",
+        "lastname": "test",
+        "address": "test",
+        "postal": "12323",
+        "email": "test@test.cz",
         "phone": "123123123",
-        "password": "$2y$10$3vItHgEUb85MZhNjjBhIy.D1msVCvGhiNWEfnstx3uf9dotCDMxO2",
-        "profile_picture": ".\/uploads\/6741f8038e4d07.13505688.png"
+        "password": "$2y$10$C\/rLAVy4ejWxG4FA4xjZXOGjBiNvarYCQviM0z3L3l6Gmuw3KI2uC",
+        "profile_picture": ".\/uploads\/674211d0eb2c50.66714500.png"
+    },
+    {
+        "firstname": "sest",
+        "lastname": "test",
+        "address": "test",
+        "postal": "12323",
+        "email": "test@test.cz",
+        "phone": "123123123",
+        "password": "$2y$10$C\/rLAVy4ejWxG4FA4xjZXOGjBiNvarYCQviM0z3L3l6Gmuw3KI2uC",
+        "profile_picture": ".\/uploads\/674211d0eb2c50.66714500.png"
+    },
+    {
+        "firstname": "sedm",
+        "lastname": "test",
+        "address": "test",
+        "postal": "12323",
+        "email": "test@test.cz",
+        "phone": "123123123",
+        "password": "$2y$10$C\/rLAVy4ejWxG4FA4xjZXOGjBiNvarYCQviM0z3L3l6Gmuw3KI2uC",
+        "profile_picture": ".\/uploads\/674211d0eb2c50.66714500.png"
+    },
+    {
+        "firstname": "osm",
+        "lastname": "test",
+        "address": "test",
+        "postal": "12323",
+        "email": "test@test.cz",
+        "phone": "123123123",
+        "password": "$2y$10$C\/rLAVy4ejWxG4FA4xjZXOGjBiNvarYCQviM0z3L3l6Gmuw3KI2uC",
+        "profile_picture": ".\/uploads\/674211d0eb2c50.66714500.png"
+    },
+    {
+        "firstname": "devet",
+        "lastname": "test",
+        "address": "test",
+        "postal": "12323",
+        "email": "test@test.cz",
+        "phone": "123123123",
+        "password": "$2y$10$C\/rLAVy4ejWxG4FA4xjZXOGjBiNvarYCQviM0z3L3l6Gmuw3KI2uC",
+        "profile_picture": ".\/uploads\/674211d0eb2c50.66714500.png"
+    },
+    {
+        "firstname": "deset",
+        "lastname": "test",
+        "address": "test",
+        "postal": "12323",
+        "email": "test@test.cz",
+        "phone": "123123123",
+        "password": "$2y$10$C\/rLAVy4ejWxG4FA4xjZXOGjBiNvarYCQviM0z3L3l6Gmuw3KI2uC",
+        "profile_picture": ".\/uploads\/674211d0eb2c50.66714500.png"
+    },
+    {
+        "firstname": "jedenact",
+        "lastname": "test",
+        "address": "test",
+        "postal": "12323",
+        "email": "test@test.cz",
+        "phone": "123123123",
+        "password": "$2y$10$C\/rLAVy4ejWxG4FA4xjZXOGjBiNvarYCQviM0z3L3l6Gmuw3KI2uC",
+        "profile_picture": ".\/uploads\/674211d0eb2c50.66714500.png"
+    },
+    {
+        "firstname": "tom2",
+        "lastname": "tom",
+        "address": "tom23",
+        "postal": "11111",
+        "email": "tom@tom.cz",
+        "phone": "111111111",
+        "password": "$2y$10$7jimcwvwbaioC0XC3672fOrftpSa2aCzL1u2a.xvivGsQuBVPPPYK",
+        "profile_picture": ".\/uploads\/674321e0802404.94790730.jpg"
+    },
+    {
+        "firstname": "Petr",
+        "lastname": "Petr",
+        "address": "Petrr",
+        "postal": "12312",
+        "email": "Petr@petr.vz",
+        "phone": "123123123",
+        "password": "$2y$10$kyMuVdw8NIC5fSpu356CLOureUBhMHxNo2rRL4w8bwAUsF6s28h9S",
+        "profile_picture": ".\/uploads\/67432d858621c5.58233177.jpg"
     }
 ]

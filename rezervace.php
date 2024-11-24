@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+// Check if the user is logged in
+if (!isset($_SESSION['firstname'])) {
+    header('Location: prihlaseni.php'); // Redirect to login if not logged in
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="cs">
@@ -18,6 +23,8 @@ session_start();
 </head>
 <body>
 <?php include './php/structure/header.php'; ?> 
+
+<?php if ($_SESSION['firstname'] !== 'admin'): ?>
     <section class="registrace">
         <div class ="formular">
             <form action="rezervace.php" method="post">
@@ -43,33 +50,28 @@ session_start();
                 <h4>Cena rezervace dle: <a href="cenik.php">Ceník</a></h4>
             </form>
         </div>
-    </section>
-
- <div class="echo_user_input">
-
-<!-- 
-pridat do formulare
-
-document query selector form
-form event listenr
-e. preent default 
-
-
-
--->
-
-
-
-<?php
+</section>
+ <?php
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $firstname = isset($_SESSION['firstname']);
-    $lastname =isset($_SESSION['firstname']);
+    $firstname = $_SESSION['firstname'];
+    $lastname =$_SESSION['firstname'];
+    $date = $_POST['reservation_date'] ?? '';
+    if ($date) {
+        $myDateTime = DateTime::createFromFormat('Y-m-d', $date);
+        $date = $myDateTime->format('d.m.Y'); // Convert to DD.MM.YYYY format
+    }
+   
+    $time = $_POST['reservation_time'] ?? '';
+    $quantity = $_POST['quantity'] ?? 1; // Default to 1 if not set
   
     // Prepare data to be saved into JSON
     $data = [
-        'firstname' =>  $firstname,
-        'lastname' =>  $lastname
+        'firstname' => $firstname,
+        'lastname' => $lastname,
+        'date' => $date,
+        'time' => $time,
+        'quantity' => $quantity
     ];
 
     $file = './user_data/reservations.json'; 
@@ -90,6 +92,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Rezervace proběhla úspěšně, vítej, $firstname.";
 }
 
+?>
+
+ <div class="echo_user_input">
+ <?php else: 
     // File containing the reservation data
     $file = './user_data/reservations.json';
 
@@ -100,12 +106,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Decode JSON data into PHP array
         $reservations = json_decode($jsonData, true);
-
+    
         // Check if the data was successfully decoded
-        if ($reservations) {
-            echo "<table>";
+     /*  if ($reservations) {
+            echo "<table class=\"reservation-table\">";
             echo "<thead>";
-            echo "<tr><th>Jméno</th><th>Příjmení</th></tr>"; // Table headers for first name and last name
+            echo "<tr><th>Jméno</th><th>Příjmení</th>
+            <th>Datum</th>
+            <th>Čas</th>
+            <th>Počet lidí</th>
+            
+            </tr>"; // Table headers for first name and last name
             echo "</thead>";
             echo "<tbody>";
 
@@ -113,18 +124,97 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             foreach ($reservations as $reservation) {
                 $firstname = htmlspecialchars($reservation['firstname']);
                 $lastname = htmlspecialchars($reservation['lastname']);
-                echo "<tr><td>$firstname</td><td>$lastname</td></tr>";
+                $date = htmlspecialchars($reservation['date']);
+                $time = htmlspecialchars($reservation['time']);
+                $quantity = htmlspecialchars($reservation['quantity']);
+                echo "<tr><td>$firstname</td><td>$lastname</td>
+                <td>$date</td>
+                <td>$time</td>
+                 <td>$quantity</td>
+                
+                </tr>";
             }
 
             echo "</tbody>";
             echo "</table>";
+            */
+         // Check if the data was successfully decoded
+    if ($reservations) {
+        // Number of records per page
+        $RPP = 10;
+
+        // Determine the current page
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
+
+        // Calculate the total number of pages
+        $totalPages = ceil(count($reservations) / $RPP);
+
+        // Ensure the current page is within bounds
+        $page = max(1, min($page, $totalPages));
+
+        // Calculate the start index for the current page
+        $startIndex = ($page - 1) * $RPP;
+
+        // Extract the reservations for the current page
+        $currentReservations = array_slice($reservations, $startIndex, $RPP);
+
+        // Display reservations in a table
+        echo "<table class=\"reservation-table\">";
+        echo "<thead>";
+        echo "<tr><th>Jméno</th><th>Příjmení</th><th>Datum</th><th>Čas</th><th>Počet lidí</th></tr>";
+        echo "</thead>";
+        echo "<tbody>";
+
+        foreach ($currentReservations as $reservation) {
+            $firstname = htmlspecialchars($reservation['firstname']);
+            $lastname = htmlspecialchars($reservation['lastname']);
+            $date = htmlspecialchars($reservation['date']);
+            $time = htmlspecialchars($reservation['time']);
+            $quantity = htmlspecialchars($reservation['quantity']);
+            echo "<tr><td>$firstname</td><td>$lastname</td><td>$date</td><td>$time</td><td>$quantity</td></tr>";
+        }
+
+        echo "</tbody>";
+        echo "</table>";
+
+        // Display pagination links
+        echo "<div class=\"pagination\">";
+        for ($x = 1; $x <= $totalPages + 1; $x++) {
+            if ($x == $page) {
+                echo "<strong>$x</strong> ";
+            } else {
+                echo "<a href=\"?page=$x\">$x</a> ";
+            }
+        }
+        echo "</div>";
+
+
+
         } else {
             echo "Chyba při čtení dat rezervací.";
         }
     } else {
         echo "Rezervační soubor neexistuje.";
     }
+
+
     ?>
+
+ <?php endif; ?>
+<!-- 
+pridat do formulare
+
+document query selector form
+form event listenr
+e. preent default 
+
+
+
+-->
+
+
+
+
 
 </div>
 <?php include './php/structure/footer.php'; ?>

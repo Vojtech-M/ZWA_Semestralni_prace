@@ -1,8 +1,11 @@
 <?php
 session_start();
 if (isset($_SESSION['loggedin'])) {
+    $_SESSION['loggedin'] = false;
+    $_SESSION['username'] = '';
+    $_SESSION['role'] = '';
+    $_SESSION['data'] = [];
     header("Location: index.php");
-    die();
 }
 ?>
 
@@ -34,9 +37,9 @@ if (isset($_SESSION['loggedin'])) {
 </div>
 <!--<a  href="./zecviceni/test.html">REZERVACE</a>smazat 
     <a  href="./zecviceni/naseptava.html">naseptava</a> smazat
-    <a href="./zecviceni/8.cviceni/index.html">tttsfsdtt</a>-->
+    <a href="./zecviceni/8.cviceni/index.html">tttsfsdtt</a>
     <a href="./zecviceni/9.cviceni/index.php">`php formular</a>
-    <a href="./zecviceni/9.cviceni/index2.php">`php formular</a>
+    <a href="./zecviceni/9.cviceni/index2.php">`php formular</a>-->
 
 <section class="features">
     <div class="small_text">
@@ -69,7 +72,7 @@ if (isset($_SESSION['loggedin'])) {
 
 <article>
     <div class="left-text">
-        <img src="./img/gokarts.jpg" alt="motokáry start" >
+        <img src="./img/gokarts3.jpg" alt="motokáry start" >
     </div>
     <div class="right-text">
         <h3>Trocha historie. </h3>

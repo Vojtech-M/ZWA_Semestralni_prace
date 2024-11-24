@@ -139,7 +139,7 @@ article {
 }
 
 article img {
-    width: 60%; 
+    width: 100%; 
     max-width: 100%;
     margin: 0 20px;
 }
@@ -471,6 +471,34 @@ footer {
     padding: 20px;
     background-color: #93a5b4;
 }
+
+
+/* General table styles */
+.reservation-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+    font-family: Arial, sans-serif;
+    text-align: left;
+    background-color: #04AA6D;
+}
+
+/* Table header styles */
+.reservation-table thead th {
+    background-color: #f4f4f4;
+    color: #333;
+    text-transform: uppercase;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Table body styles */
+.reservation-table tbody td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
     @media print {        
         * {
             font-size: 16px;
@@ -651,6 +679,18 @@ footer {
                 
     }
 }
+
+.password-toggle {
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-left: 8px;
+    color: #333;
+}
+
+.password-toggle:focus {
+    outline: 2px solid #007bff;
+}
+
 /*
 Style Guide:
 Základní modrá paleta
