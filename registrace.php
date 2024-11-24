@@ -91,6 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Convert array back to JSON and save to file
         file_put_contents($file, json_encode($jsonArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         //echo "Registrace proběhla úspěšně, vítej, $firstname.";
+        header("Location: index.php");
+        exit();
     } else {
         //echo "Registrace se nepovedla, zkus to znovu.";
     }

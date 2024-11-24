@@ -1,43 +1,44 @@
 <?php
-session_start(); // Start session, no session_unset() here to preserve session data on login
+session_start();
 
-$usersFile = './user_data/users.json'; // cesta k uživatelům
+$usersFile = './user_data/users.json'; 
 $users = [];
+$error = ""; // Initialize error message
+$email = ""; // Initialize email field value
+$password = ""; // Initialize password field value
+
 if (file_exists($usersFile)) {
     $users = json_decode(file_get_contents($usersFile), true);
     if ($users === null) {
-        echo "<script>alert('Error loading user data');</script>";
+        $error = "Error loading user data.";
     }
 } else {
-    echo "<script>alert('User data file not found');</script>";
+    $error = "User data file not found.";
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
-    $firstname = htmlspecialchars(trim($_POST['firstname']));
+    $email = htmlspecialchars(trim($_POST['email']));
     $password = $_POST['password'];
 
     // Verify if $users contains valid data
     if (is_array($users)) {
+        $foundUser = false;
         foreach ($users as $user) {
-            if ($user['firstname'] === $firstname && password_verify($password, $user['password'])) {
-                $_SESSION['firstname'] = $firstname;
+            if ($user['email'] === $email && password_verify($password, $user['password'])) {
+                $_SESSION['email'] = $email;
                 header("Location: index.php");
                 exit();
             }
         }
-        // Invalid credentials message
-        
-        if (isset($_SESSION['login_error'])) {
-            echo "<p class='error'>{$_SESSION['login_error']}</p>";
-            unset($_SESSION['login_error']);
-        }
+        $error = "Tento uživatel neexistuje";
     } else {
-        echo "<script>alert('User data not available');</script>";
+        $error = "User data not available.";
     }
 }
-
-
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -57,19 +58,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
     ?>
     <section class="registrace">
         <div class ="formular">
-            <form action="" method="post">
+            <form action="" id="loginForm" method="post">
             <div id="name">
-                <label for="firstname" class="custom_text">Firstname:</label>
-                <input type="text" id="firstname" name="firstname" value="<?php if(isset($_GET['firstname'])) echo(htmlspecialchars($_GET['firstname']));?>" required placeholder="Tomáš"  tabindex="1">
+                <label for="email" class="custom_text">Email:</label>
+                <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required placeholder="example@seznam.cz"  tabindex="1">
+                <div class="error" id="emailError"></div>
             </div>
             <div id="passwd">
                 <label for="password">Heslo:</label>
                 <input type="password" name="password" id="password" value="<?php if(isset($_GET['password'])) echo(htmlspecialchars($_GET['password']));?>" required placeholder="tajneheslo" tabindex="2">
+                <div class="error" id="passwordError"></div>
             </div>
                 <input type="submit" name="login" value="Přihlásit se" tabindex="3">
+            <?php if (!empty($error)): ?>
+                <p class="error"><?php echo $error; ?></p>
+            <?php endif; ?>
+            
+            
             </form>
         </div>
     </section>
     <?php include './php/structure/footer.php'; ?>
+    <script src="./scripts/login.js" type=module> </script> 
 </body>
 </html>

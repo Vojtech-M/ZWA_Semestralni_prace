@@ -2,7 +2,7 @@
 session_start();
 
 // Check if the user is logged in
-if (!isset($_SESSION['firstname'])) {
+if (!isset($_SESSION['email'])) {
     header('Location: prihlaseni.php'); // Redirect to login if not logged in
     exit();
 }
@@ -24,7 +24,7 @@ if (!isset($_SESSION['firstname'])) {
 <body>
 <?php include './php/structure/header.php'; ?> 
 
-<?php if ($_SESSION['firstname'] !== 'admin'): ?>
+<?php if ($_SESSION['email'] !== 'admin@admin.cz'): ?>
     <section class="registrace">
         <div class ="formular">
             <form action="rezervace.php" method="post">
@@ -51,6 +51,8 @@ if (!isset($_SESSION['firstname'])) {
             </form>
         </div>
 </section>
+
+
  <?php
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -94,7 +96,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 
- <div class="echo_user_input">
+
+
  <?php else: 
     // File containing the reservation data
     $file = './user_data/reservations.json';
@@ -159,9 +162,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $currentReservations = array_slice($reservations, $startIndex, $RPP);
 
         // Display reservations in a table
+        echo "<div class=\"admin_table\">";
         echo "<table class=\"reservation-table\">";
         echo "<thead>";
-        echo "<tr><th>Jméno</th><th>Příjmení</th><th>Datum</th><th>Čas</th><th>Počet lidí</th></tr>";
+        echo "<tr><th>Jméno</th><th>Příjmení</th><th>Datum</th><th>Čas</th><th>Počet lidí</th>
+        <th>Edit</th>
+        <th>Smazat</th>
+        </tr>";
         echo "</thead>";
         echo "<tbody>";
 
@@ -171,7 +178,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $date = htmlspecialchars($reservation['date']);
             $time = htmlspecialchars($reservation['time']);
             $quantity = htmlspecialchars($reservation['quantity']);
-            echo "<tr><td>$firstname</td><td>$lastname</td><td>$date</td><td>$time</td><td>$quantity</td></tr>";
+            echo "<tr><td>$firstname</td><td>$lastname</td><td>$date</td><td>$time</td><td>$quantity</td>
+            <td><form action=\"editForm.php\" method=\"get\"><input type=\"hidden\" name=\"edit\"\" style=\"text-decoration: none\" /><input type=\"submit\" value=\"Edit\" /></form></td>
+             <td><form action=\"editForm.php\" method=\"get\"><input type=\"hidden\" name=\"remove\"\" style=\"text-decoration: none\" /><input type=\"submit\" value=\"Remove\" /></form></td>
+            
+            
+            </tr>";
         }
 
         echo "</tbody>";
@@ -181,13 +193,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<div class=\"pagination\">";
         for ($x = 1; $x <= $totalPages + 1; $x++) {
             if ($x == $page) {
-                echo "<strong>$x</strong> ";
+                echo "<h3>$x</h3> ";
             } else {
                 echo "<a href=\"?page=$x\">$x</a> ";
             }
         }
         echo "</div>";
 
+        
 
 
         } else {
@@ -199,6 +212,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     ?>
+
 
  <?php endif; ?>
 <!-- 

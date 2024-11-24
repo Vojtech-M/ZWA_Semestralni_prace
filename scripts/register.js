@@ -137,6 +137,10 @@ pass2Input.addEventListener("input", function () {
     checkPasswordMatch(pass1Input, pass2Input, "pass2Error");
 });
 
+
+
+
+
 // Form submission handler
 document.getElementById("registrationForm").addEventListener("submit", function (event) {
     const isFirstnameValid = checkUsername(firstnameInput, "firstNameError");
@@ -146,7 +150,6 @@ document.getElementById("registrationForm").addEventListener("submit", function 
     const isEmailValid = checkEmail(emailInput, "emailError");
     const isPhoneValid = checkPhoneNumber(phoneInput, "phone_fieldError");
     const isPasswordValid = checkPasswordMatch(pass1Input, pass2Input, "pass2Error");
-
     // Check if all validations passed
     if (!isFirstnameValid || !isLastnameValid || !isAddressValid || !isPostalValid || !isEmailValid || !isPhoneValid || !isPasswordValid) {
         console.warn("Form validation failed. Submission prevented.");

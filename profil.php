@@ -2,7 +2,7 @@
 session_start();
 
 // Check if the user is logged in
-if (!isset($_SESSION['firstname'])) {
+if (!isset($_SESSION['email'])) {
     header('Location: prihlaseni.php'); // Redirect to login if not logged in
     exit();
 }
@@ -14,8 +14,8 @@ $users = json_decode(file_get_contents($usersFile), true);
 $userData = null;
 if (is_array($users)) {
     foreach ($users as $key => $user) {
-        if ($user['firstname'] === $_SESSION['firstname']) {
-            $userData = $user; // Get the logged-in user's data
+        if ($user['email'] === $_SESSION['email']) {
+            $userData = $user;
             $userIndex = $key; // Store the index for updating
             break;
         }
@@ -57,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="description" content="Nejzábavnější motokárová dráha ve středních Čechách.">
     <title>Motokárové centrum Benešov - Profil</title>
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="icon" id="favicon" type="image/png" href="./img/helma.png"> 
 </head>
 <body>
 
@@ -76,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <img src="<?php echo htmlspecialchars($userData['profile_picture']); ?>" width="500" alt="Profilový obrázek">
     </div>
 
-    <?php if ($_SESSION['firstname'] !== 'admin'): ?>
+    <?php if ($_SESSION['email'] !== 'admin@admin.cz'): ?>
         <!-- Regular user view -->
         <form method="post">
             <label for="firstname">Jméno:</label>
@@ -106,10 +107,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Admin view -->
           <!-- Admin view -->
 </article>
-
-<h2>Seznam uživatelů</h2>
-<ul id="userList"></ul>
-<button id="loadMore">Načíst více uživatelů</button>
+<article>
+    <div>
+        <h2>Seznam uživatelů</h2>
+        <ul id="userList"></ul>
+        <button id="loadMore">Načíst více uživatelů</button>
+    </div>
+    <div class="reservation_link">
+<a href="rezervace.php">Správa rezervací</a> 
+    </div>
+</article>
     <?php endif; ?>
 
 <?php include './php/structure/footer.php'; ?>

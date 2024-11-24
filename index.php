@@ -2,7 +2,7 @@
 session_start();
 if (isset($_SESSION['loggedin'])) {
     $_SESSION['loggedin'] = false;
-    $_SESSION['username'] = '';
+    $_SESSION['email'] = '';
     $_SESSION['role'] = '';
     $_SESSION['data'] = [];
     header("Location: index.php");
@@ -87,7 +87,7 @@ if (isset($_SESSION['loggedin'])) {
     </div>
     
     <div class="reservation_link">
-    <?php if ($username): ?> <!-- prihlaseny / neprihlaseny-->
+    <?php if ($email): ?> <!-- prihlaseny / neprihlaseny-->
             <a href="rezervace.php">REZERVACE</a>       
         <?php else: ?>
             <a href="prihlaseni.php">REZERVACE</a>

@@ -3,18 +3,24 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$username = isset($_SESSION['firstname']) ? htmlspecialchars($_SESSION['firstname']) : null;
+$email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : null;
+$firstName = isset($_SESSION['firstname']) ? htmlspecialchars($_SESSION['firstname']) : null;
+
 $profilePicture = './img/default-profile.png'; // Default profile picture
 
-// Load user data from JSON
-if ($username) {
+if ($email) {
     $usersFile = './user_data/users.json';
     if (file_exists($usersFile)) {
         $users = json_decode(file_get_contents($usersFile), true);
         if (is_array($users)) {
             foreach ($users as $user) {
-                if ($user['firstname'] === $username && isset($user['profile_picture'])) {
-                    $profilePicture = htmlspecialchars($user['profile_picture']); // Use the user's profile picture
+                if ($user['email'] === $email) {
+                    if (isset($user['profile_picture'])) {
+                        $profilePicture = htmlspecialchars($user['profile_picture']);
+                    }
+                    if (!$firstName && isset($user['firstname'])) {
+                        $firstName = htmlspecialchars($user['firstname']);
+                    }
                     break;
                 }
             }
@@ -32,10 +38,10 @@ if ($username) {
                 <a class="links" href="cenik.php">Ceník</a>
                 <a class="links" href="restaurace.php">Restaurace</a>
 
-                <?php if ($username): ?>
+                <?php if ($email): ?>
                     <a class="links_active" href="profil.php">
                         <img class="profile_picture" src="<?php echo $profilePicture; ?>" alt="Profil">
-                        <?php echo $username; ?>
+                        <?php echo $firstName; ?>
                     </a>
                     <a class="links" href="logout.php">Odhlásit se</a>
                 <?php else: ?>
@@ -49,11 +55,11 @@ if ($username) {
                 <li><a class="menuItem" href="cenik.php">Ceník</a></li>
                 <li><a class="menuItem" href="restaurace.php">Restaurace</a></li>
 
-                <?php if ($username): ?>
+                <?php if ($email): ?>
                     <li>
                         <a class="menuItem" href="profil.php">
                             <img class="profile_picture" src="<?php echo $profilePicture; ?>" alt="Profil">
-                            <?php echo $username; ?>
+                            <?php echo $email; ?>
                         </a>
                     </li>
                     <li><a class="menuItem" href="logout.php">Odhlásit se</a></li>
