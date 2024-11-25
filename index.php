@@ -21,10 +21,11 @@ if (isset($_SESSION['loggedin'])) {
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
     <link rel="icon" id="favicon" type="image/png" href="./img/helma.png"> 
+  
 </head>
 <body>
 
-<noscript><p>No JS. there to see </p></noscript>
+<noscript>You need to enable JavaScript to run this app.</noscript>
 <?php include './php/structure/header.php'; ?>
 
 <div class="hero-image">

@@ -103,6 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <input type="submit" value="Uložit změny">
         </form>
+    </article>
     <?php else: ?>
         <!-- Admin view -->
           <!-- Admin view -->

@@ -82,14 +82,20 @@ function checkPostalCode(inputField, errorElementId) {
     const value = inputField.value.trim();
     const postalCodePattern = /^[0-9]{3} ?[0-9]{2}$/; // Czech postal code format
 
-    if (!postalCodePattern.test(value)) {
-        document.getElementById(errorElementId).innerText =
-            "Neplatné PSČ. Použijte formát 123 45.";
-        return false;
-    } else {
+    if (value == ""){
         document.getElementById(errorElementId).innerText = ""; // Clear error
         return true;
+    } else {
+        if (!postalCodePattern.test(value)) {
+            document.getElementById(errorElementId).innerText =
+                "Neplatné PSČ. Použijte formát 123 45.";
+            return false;
+        } else {
+            document.getElementById(errorElementId).innerText = ""; // Clear error
+            return true;
+        }
     }
+   
 }
 
 // Function to check email validity

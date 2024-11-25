@@ -526,6 +526,15 @@ footer {
 }
 
 
+
+.logo_ img {
+    width: 220px;
+    height: 111px;
+    padding: 0;
+}
+
+
+
     @media print {        
         * {
             font-size: 16px;

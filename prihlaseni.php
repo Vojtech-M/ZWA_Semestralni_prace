@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
     ?>
     <section class="registrace">
         <div class ="formular">
+            <a href="index.php"><img src="./img/logo3.png" alt="logo"></a>
             <form action="" id="loginForm" method="post">
             <div id="name">
                 <label for="email" class="custom_text">Email:</label>
