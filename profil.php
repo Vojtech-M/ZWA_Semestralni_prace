@@ -12,10 +12,9 @@ $users = json_decode(file_get_contents($usersFile), true);
 
 $userData = null;
 if (is_array($users)) {
-    foreach ($users as $key => $user) {
+    foreach ($users as $user) {
         if ($user['email'] === $_SESSION['email']) {
             $userData = $user;
-            $userIndex = $key; // Store the index for updating
             break;
         }
     }
@@ -36,11 +35,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userData['profile_picture'] = $_POST['profile_picture'] ?? $userData['profile_picture'];
 
     // Update the user data in the JSON file
-    $users[$userIndex] = $userData;
+    foreach ($users as &$user) {
+        if ($user['email'] === $_SESSION['email']) {
+            $user = $userData;
+            break;
+        }
+    }
     file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
 
     // Redirect to profile page to show updated data
     header('Location: profile.php');
+    exit();
+}
+
+// Handle AJAX request to delete user
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    $input = json_decode(file_get_contents('php://input'), true);
+    $emailToDelete = $input['email'] ?? null;
+
+    if ($emailToDelete) {
+        $users = array_filter($users, function($user) use ($emailToDelete) {
+            return $user['email'] !== $emailToDelete;
+        });
+        file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Email not provided']);
+    }
     exit();
 }
 ?>
@@ -55,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="description" content="Nejzábavnější motokárová dráha ve středních Čechách.">
     <title>Motokárové centrum Benešov - Profil</title>
     <link rel="stylesheet" href="./css/styles.css">
-    <link rel="icon" id="favicon" type="image/png" href="./img/helma.png"> 
+    <link rel="icon" id="favicon" type="image/png" href="./img/helma.png">
 </head>
 <body>
 
@@ -143,60 +164,114 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function loadUsers() {
-    const nextUsers = users.slice(loadedUsersCount, loadedUsersCount + usersPerPage);
-    nextUsers.forEach(user => {
-        const listItem = document.createElement("li");
-        listItem.textContent = `${user.firstname} ${user.lastname} - ${user.email}`;
+        const fragment = document.createDocumentFragment();
+        const end = Math.min(loadedUsersCount + usersPerPage, users.length);
 
-        // Create delete button
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Smazat";
-        deleteButton.onclick = function() {
-            deleteUser(user.email); // Call deleteUser function with the user's email
-        };
+        for (let i = loadedUsersCount; i < end; i++) {
+            const user = users[i];
+            const li = document.createElement("li");
+            li.textContent = `${user.email} (${user.role})`;
 
-        listItem.appendChild(deleteButton);
-        userList.appendChild(listItem);
-    });
-    loadedUsersCount += nextUsers.length;
+            // Apply red font for admin users
+            if (user.role === 'admin') {
+                li.classList.add('admin-user');
+            }
 
-    // Hide the button if all users are loaded
-    if (loadedUsersCount >= users.length) {
-        loadMoreButton.style.display = "none";
-    }
-}
+            // Add delete button
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.addEventListener("click", () => deleteUser(user.email));
+            li.appendChild(deleteButton);
 
+            // Add admin button
+            const adminButton = document.createElement("button");
+            adminButton.textContent = "Add Admin";
+            adminButton.addEventListener("click", () => {
+                if (confirm("Are you sure to add admin rights to this user?")) {
+                    addAdmin(user.email);
+                }
+            });
+            li.appendChild(adminButton);
 
-// Delete user function via AJAX
-function deleteUser(userId) {
-    const confirmDelete = confirm("Are you sure you want to delete this user?");
-    if (!confirmDelete) {
-        return;
-    }
-
-    // Send AJAX request to delete the user
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", "delete_user.php?id=" + userId, true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            alert(xhr.responseText);  // Display the response from the server
-            location.reload();  // Reload the page to reflect the changes
+            fragment.appendChild(li);
         }
-    };
-    xhr.send();
-}
 
-    // Initialize
-    fetchUsers();
+        userList.appendChild(fragment);
+        loadedUsersCount = end;
 
-    // Load more users on button click
+        if (loadedUsersCount >= users.length) {
+            loadMoreButton.style.display = "none";
+        } else {
+            loadMoreButton.style.display = "block";
+        }
+    }
+
+    function deleteUser(email) {
+        fetch('./delete_user.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to delete user: " + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                users = users.filter(user => user.email !== email);
+                userList.innerHTML = '';
+                loadedUsersCount = 0;
+                loadUsers();
+            } else {
+                console.error("Error deleting user:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error deleting user:", error);
+        });
+    }
+
+    function addAdmin(email) {
+        fetch('./add_admin.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to add admin: " + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                users = users.map(user => {
+                    if (user.email === email) {
+                        return { ...user, role: 'admin' };
+                    }
+                    return user;
+                });
+                userList.innerHTML = '';
+                loadedUsersCount = 0;
+                loadUsers();
+            } else {
+                console.error("Error adding admin:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error adding admin:", error);
+        });
+    }
+
     loadMoreButton.addEventListener("click", loadUsers);
+    fetchUsers();
 });
-
-
-
-
-
 </script>
 
 

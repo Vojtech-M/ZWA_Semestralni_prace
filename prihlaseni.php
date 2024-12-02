@@ -26,7 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         $foundUser = false;
         foreach ($users as $user) {
             if ($user['email'] === $email && password_verify($password, $user['password'])) {
+                $_SESSION['loggedin'] = true;         // Set logged in status
                 $_SESSION['email'] = $email;          // Store email in session
+                $_SESSION['firstname'] = $user['firstname']; // Store first name in session
                 $_SESSION['role'] = $user['role'];    // Store role in session
                 header("Location: index.php");        // Redirect to homepage after successful login
                 exit();
@@ -53,6 +55,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
     <link rel="icon" type="image/png" sizes="32x32" href="./img/helma.png"> 
 </head>
 <body>
+<header>
+    <nav>
+        <div class="logo_corner">
+            <a href="index.php"><img src="./img/logo.png" alt="Logo"></a>
+        </div>
+        <div class="right-links">
+            <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
+                <span>Welcome, <?php echo htmlspecialchars($_SESSION['firstname']); ?>!</span>
+                <a href="logout.php" class="links">Logout</a>
+            <?php else: ?>
+                <a href="prihlaseni.php" class="links">Login</a>
+                <a href="registrace.php" class="links">Register</a>
+            <?php endif; ?>
+        </div>
+    </nav>
+</header>
     <?php 
     include './php/structure/header.php'; 
     ?>
@@ -77,9 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
             
             <p> Ještě nemáte učet ? Zaregistrujte se ! </p>
             <a class="links" href="registrace.php">Registrace</a>
-
-
-            
             </form>
         </div>
     </section>

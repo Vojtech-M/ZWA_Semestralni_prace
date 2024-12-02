@@ -1,0 +1,72 @@
+[
+    {
+        "id": "6745b21e826e3",
+        "role": "admin",
+        "firstname": "admin",
+        "lastname": "admin",
+        "email": "admin@admin.cz",
+        "phone": "123123123",
+        "password": "$2y$10$AYN4TFm\/2F.ujs25mdQgf.vLP1znPxfXwJ9bIoqTRjkhAUk8m6JuO",
+        "profile_picture": ".\/uploads\/6745b21e82a757.06329687.jpg"
+    },
+    {
+        "id": "674e0fd4a2f8b",
+        "role": "admin",
+        "firstname": "Tomáš",
+        "lastname": "Novotný",
+        "email": "tomas@tomas.cz",
+        "phone": "",
+        "password": "$2y$10$D\/qAV8F4RyDiWz2LFAsaLONTc65NwCRrR.jb3QhB93joVELZpWXa.",
+        "profile_picture": ".\/uploads\/674e0fd4a2f9b6.12418189.png"
+    },
+    {
+        "id": "674e136e3f6b3",
+        "role": "admin",
+        "firstname": "Trek",
+        "lastname": "Procaliber",
+        "email": "Trek@trek.trek",
+        "phone": "",
+        "password": "$2y$10$5QBFQIZm6a9sZWLa0l4p6.mOAgf31PvC6s3MljEXMvFCtp.fbPGK2",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "674e17ade18d2",
+        "role": "user",
+        "firstname": "Pepek",
+        "lastname": "Námořník",
+        "email": "pepek@pepek.cz",
+        "phone": "",
+        "password": "$2y$10$JPTcZdHHMhaTJHuIy5eR9eDKzWKDlr\/OU344\/\/CqjhilJ1bCrYFHa",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "674e17c4747c6",
+        "role": "user",
+        "firstname": "Petr",
+        "lastname": "tojejedno",
+        "email": "Petr@petr.cz",
+        "phone": "",
+        "password": "$2y$10$bDgun6b5Al0dCPI4Qx58zO11HLPKY2x4vKUoNx01\/FqKZqk3Bpipe",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "674e17da840e7",
+        "role": "user",
+        "firstname": "user",
+        "lastname": "user",
+        "email": "user@user.cz",
+        "phone": "",
+        "password": "$2y$10$oATOG4QS\/4a5ipF7SpFowO5I6N9DtzZ\/Uzh5gje9G7Tvny.P5tugi",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "674e17db840e7",
+        "role": "userr",
+        "firstname": "userr",
+        "lastname": "userr",
+        "email": "userr@user.cz",
+        "phone": "",
+        "password": "$2y$10$oATOG4QS\/4a5ipF7SpFowO5I6N9DtzZ\/Uzh5gje9G7Tvny.P5tugi",
+        "profile_picture": ".\/img\/profile.png"
+    }
+]

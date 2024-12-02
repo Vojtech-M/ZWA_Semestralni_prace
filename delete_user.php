@@ -1,39 +1,36 @@
 <?php
-ob_start();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $input = json_decode(file_get_contents('php://input'), true);
+    $email = $input['email'] ?? '';
 
-function deleteUser($userId)
-{
-    $filePath = '../json/users.json';  // Adjust path if needed
-
-    $json = file_get_contents($filePath);
-    $users = json_decode($json, true);
-
-    // Loop through users and find the user with the provided ID
-    foreach ($users as $key => $user) {
-        if ($user['id'] == $userId) {
-            unset($users[$key]);  // Remove user from the array
-            break;
-        }
+    if (empty($email)) {
+        echo json_encode(['success' => false, 'message' => 'Email is required']);
+        exit();
     }
 
-    // Re-index the array to ensure no gaps in the array
+    $usersFile = './user_data/users.json';
+    if (!file_exists($usersFile)) {
+        echo json_encode(['success' => false, 'message' => 'User data file not found']);
+        exit();
+    }
+
+    $users = json_decode(file_get_contents($usersFile), true);
+    if ($users === null) {
+        echo json_encode(['success' => false, 'message' => 'Error loading user data']);
+        exit();
+    }
+
+    $users = array_filter($users, function ($user) use ($email) {
+        return $user['email'] !== $email;
+    });
+
+    // Reindex the array to remove gaps in the keys
     $users = array_values($users);
 
-    // Convert the updated user list back to JSON
-    $newJson = json_encode($users, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
-    // Save the updated data back to the JSON file
-    file_put_contents($filePath, $newJson);
-
-    echo "User with ID $userId has been deleted.";
-    header("Location: ../profil.php"); // Redirect to profile page or the user list
+    if (file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT))) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Error saving user data']);
+    }
 }
-
-if (isset($_GET['id'])) {
-    deleteUser($_GET['id']);  // Call function to delete the user
-} else {
-    echo "No user ID provided.";
-}
-
-ob_end_flush();
 ?>
