@@ -5,6 +5,7 @@ $usersFile = './user_data/users.json';
 $users = [];
 $error = ""; // Initialize error message
 $email = ""; // Initialize email field value
+$role = "";
 $password = ""; // Initialize password field value
 
 if (file_exists($usersFile)) {
@@ -25,19 +26,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         $foundUser = false;
         foreach ($users as $user) {
             if ($user['email'] === $email && password_verify($password, $user['password'])) {
-                $_SESSION['email'] = $email;
-                header("Location: index.php");
+                $_SESSION['email'] = $email;          // Store email in session
+                $_SESSION['role'] = $user['role'];    // Store role in session
+                header("Location: index.php");        // Redirect to homepage after successful login
                 exit();
             }
         }
-        $error = "Tento uživatel neexistuje";
+        $error = "Tento uživatel neexistuje"; // Invalid login message
     } else {
-        $error = "User data not available.";
+        $error = "User data not available."; // Error loading users data
     }
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="cs">
@@ -75,6 +75,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
                 <p class="error"><?php echo $error; ?></p>
             <?php endif; ?>
             
+            <p> Ještě nemáte učet ? Zaregistrujte se ! </p>
+            <a class="links" href="registrace.php">Registrace</a>
+
+
             
             </form>
         </div>

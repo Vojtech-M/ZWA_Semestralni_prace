@@ -2,8 +2,9 @@
 session_start();
 
 // Check if the user is logged in
-if (empty($_SESSION['role'])) {
-    header('Location: prihlaseni.php');
+if (!isset($_SESSION['email'])) {
+    header('Location: prihlaseni.php'); // Redirect to login if not logged in
+    exit();
 }
 
 // Load user data from JSON
@@ -23,14 +24,13 @@ if (is_array($users)) {
 
 if ($userData === null) {
     echo "User data not found!";
+    exit();
 }
 
 // Handle form submission to update user data
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userData['firstname'] = $_POST['firstname'] ?? $userData['firstname'];
     $userData['lastname'] = $_POST['lastname'] ?? $userData['lastname'];
-    $userData['address'] = $_POST['address'] ?? $userData['address'];
-    $userData['postal'] = $_POST['postal'] ?? $userData['postal'];
     $userData['email'] = $_POST['email'] ?? $userData['email'];
     $userData['phone'] = $_POST['phone'] ?? $userData['phone'];
     $userData['profile_picture'] = $_POST['profile_picture'] ?? $userData['profile_picture'];
@@ -43,6 +43,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: profile.php');
     exit();
 }
+
+
+function deleteUser($userId)
+{
+
+    $usersFile = './user_data/users.json';
+    $users = json_decode(file_get_contents($usersFile), true);
+
+    foreach ($users as $key => $user) {
+        if ($user['id'] == $userId) {
+            unset($users[$key]);
+            break;
+        }
+    }
+
+    // Re-index the array to ensure there are no gaps
+    $users = array_values($users);
+    $newJson = json_encode($users, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    file_put_contents($filePath, $newJson);
+
+    echo "User with ID $userId has been deleted.";
+    header("Location: profil.php");
+}
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <img src="<?php echo htmlspecialchars($userData['profile_picture']); ?>" width="500" alt="Profilový obrázek">
     </div>
 
-    <?php if ($_SESSION['role'] !== 'admin'): ?>
+    <?php if ($_SESSION['email'] !== 'admin@admin.cz'): ?>
         <!-- Regular user view -->
         <form method="post">
             <label for="firstname">Jméno:</label>
@@ -102,17 +130,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h2>Seznam uživatelů</h2>
         <ul id="userList"></ul>
         <button id="loadMore">Načíst více uživatelů</button>
+        <button id="AddUser">Přidatt uživatele</button>
     </div>
-    <div class="reservation_link">
+   
+</article>
+<article>
+<div class="reservation_link">
 <a href="rezervace.php">Správa rezervací</a> 
     </div>
-</article>
+    </article>
     <?php endif; ?>
 
 <?php include './php/structure/footer.php'; ?>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+   document.addEventListener("DOMContentLoaded", function () {
     const userList = document.getElementById("userList");
     const loadMoreButton = document.getElementById("loadMore");
 
@@ -142,49 +174,46 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
+    // Load the next batch of users
     function loadUsers() {
-    const nextUsers = users.slice(loadedUsersCount, loadedUsersCount + usersPerPage);
-    nextUsers.forEach(user => {
-        const listItem = document.createElement("li");
-        listItem.textContent = `${user.firstname} ${user.lastname} - ${user.email}`;
+        const nextUsers = users.slice(loadedUsersCount, loadedUsersCount + usersPerPage);
+        nextUsers.forEach(user => {
+            const row = document.createElement("tr");
 
-        // Create delete button
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Smazat";
-        deleteButton.onclick = function() {
-            deleteUser(user.email); // Call deleteUser function with the user's email
-        };
+            // Create and append cells for user data
+            row.innerHTML = `
+                <td>${user.firstname}</td>
+                <td>${user.lastname}</td>
+                <td>${user.email}</td>
+                <td>${user.phone}</td>
+                <td><img src="${user.profile_picture}" width="50" height="50" alt="Profile"></td>
+                <td><form action=\"editForm.php\" method=\"get\"><input type=\"hidden\" name=\"edit\"\" style=\"text-decoration: none\" /><input type=\"submit\" value=\"Edit\" /></form></td>
+                <td><form action=\"editForm.php\" method=\"get\"><input type=\"hidden\" name=\"remove\"\" style=\"text-decoration: none\" /><input type=\"submit\" value=\"Remove\" /></form></td>
+                <td><form action=
+                 <td>
+                <form action="change_rights_user.php" method="post">
+                    <select name="subject" onchange="this.form.submit()">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </form>
+                 <td>
+                    <form action="delete_user.php" method="post">
+                        <input type="hidden" name="user_id" value="${user.id}">
+                        <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this user?');">
+                    </form>
+                </td>
+            </td>
+            `;
+            userList.appendChild(row);
+        });
+        loadedUsersCount += nextUsers.length;
 
-        listItem.appendChild(deleteButton);
-        userList.appendChild(listItem);
-    });
-    loadedUsersCount += nextUsers.length;
-
-    // Hide the button if all users are loaded
-    if (loadedUsersCount >= users.length) {
-        loadMoreButton.style.display = "none";
+        // Hide the button if all users are loaded
+       //if (loadedUsersCount >= users.length) {
+        //    loadMoreButton.style.display = "none";
+       // }
     }
-}
-
-
-// Delete user function via AJAX
-function deleteUser(userId) {
-    const confirmDelete = confirm("Are you sure you want to delete this user?");
-    if (!confirmDelete) {
-        return;
-    }
-
-    // Send AJAX request to delete the user
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", "delete_user.php?id=" + userId, true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            alert(xhr.responseText);  // Display the response from the server
-            location.reload();  // Reload the page to reflect the changes
-        }
-    };
-    xhr.send();
-}
 
     // Initialize
     fetchUsers();
@@ -192,10 +221,6 @@ function deleteUser(userId) {
     // Load more users on button click
     loadMoreButton.addEventListener("click", loadUsers);
 });
-
-
-
-
 
 </script>
 

@@ -1,8 +1,6 @@
 // Input fields
 const firstnameInput = document.getElementById("firstname");
 const lastnameInput = document.getElementById("lastname");
-const addressInput = document.getElementById("address_field");
-const postalInput = document.getElementById("postal");
 const emailInput = document.getElementById("email_field");
 const phoneInput = document.getElementById("phone_field");
 const pass1Input = document.getElementById("pass1_field");
@@ -11,8 +9,6 @@ const pass2Input = document.getElementById("pass2_field");
 // Error display fields
 const firstNameError = document.getElementById("firstNameError");
 const lastNameError = document.getElementById("lastNameError");
-const addressError = document.getElementById("address_fieldError");
-const postalError = document.getElementById("postalError");
 const emailError = document.getElementById("emailError");
 const phoneError = document.getElementById("phone_fieldError");
 const pass1Error = document.getElementById("pass1Error");
@@ -67,6 +63,12 @@ function checkPhoneNumber(inputField, errorElementId) {
     const value = inputField.value.trim();
     const phonePattern = /^[0-9]{9}$/; // 9 digits for Czech phone numbers
 
+
+    if (value === "") {
+        // If the field is empty, no error (it is optional)
+        document.getElementById(errorElementId).innerText = "";
+        return true;
+    }
     if (!phonePattern.test(value)) {
         document.getElementById(errorElementId).innerText =
             "Telefonní číslo musí mít 9 čísel.";
@@ -75,27 +77,6 @@ function checkPhoneNumber(inputField, errorElementId) {
         document.getElementById(errorElementId).innerText = ""; // Clear error
         return true;
     }
-}
-
-// Function to check postal code validity
-function checkPostalCode(inputField, errorElementId) {
-    const value = inputField.value.trim();
-    const postalCodePattern = /^[0-9]{3} ?[0-9]{2}$/; // Czech postal code format
-
-    if (value == ""){
-        document.getElementById(errorElementId).innerText = ""; // Clear error
-        return true;
-    } else {
-        if (!postalCodePattern.test(value)) {
-            document.getElementById(errorElementId).innerText =
-                "Neplatné PSČ. Použijte formát 123 45.";
-            return false;
-        } else {
-            document.getElementById(errorElementId).innerText = ""; // Clear error
-            return true;
-        }
-    }
-   
 }
 
 // Function to check email validity
@@ -113,18 +94,22 @@ function checkEmail(inputField, errorElementId) {
     }
 }
 
-// Function to check address (simple validation for now)
-function checkAddress(inputField, errorElementId) {
+function checkPassword(inputField, errorElementId) {
     const value = inputField.value.trim();
-    if (value.length < 5) {
+    const validPasswordPattern = /^(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[A-ZĚŠČŘŽÝÁÍÉ])(?=.*[a-zěščřžýáíé]).{8,50}$/;
+
+    if (!validPasswordPattern.test(value)) {
         document.getElementById(errorElementId).innerText =
-            "Adresa musí být delší než 5 znaků.";
+            "Pole musí být delší než 8 znaků a obsahovat minimálně jedno velké písmeno a speciální znak";
         return false;
     } else {
         document.getElementById(errorElementId).innerText = ""; // Clear error
         return true;
     }
 }
+
+
+
 
 // Function to check if the passwords match
 function checkPasswordMatch(pass1Input, pass2Input, errorElementId) {
@@ -138,11 +123,15 @@ function checkPasswordMatch(pass1Input, pass2Input, errorElementId) {
     }
 }
 
+
 // Add event listener to dynamically check password match
 pass2Input.addEventListener("input", function () {
     checkPasswordMatch(pass1Input, pass2Input, "pass2Error");
 });
 
+pass1Input.addEventListener("input", function () {
+    checkPassword(pass1Input, "pass1Error");
+});
 
 
 
@@ -151,13 +140,13 @@ pass2Input.addEventListener("input", function () {
 document.getElementById("registrationForm").addEventListener("submit", function (event) {
     const isFirstnameValid = checkUsername(firstnameInput, "firstNameError");
     const isLastnameValid = checkUsername(lastnameInput, "lastNameError");
-    const isAddressValid = checkAddress(addressInput, "address_fieldError");
-    const isPostalValid = checkPostalCode(postalInput, "postalError");
     const isEmailValid = checkEmail(emailInput, "emailError");
     const isPhoneValid = checkPhoneNumber(phoneInput, "phone_fieldError");
     const isPasswordValid = checkPasswordMatch(pass1Input, pass2Input, "pass2Error");
+    const ispasswordValid2 = checkPassword(pass1Input, "pass1Error");
+    
     // Check if all validations passed
-    if (!isFirstnameValid || !isLastnameValid || !isAddressValid || !isPostalValid || !isEmailValid || !isPhoneValid || !isPasswordValid) {
+    if (!ispasswordValid2 || !isFirstnameValid || !isLastnameValid  || !isEmailValid || !isPasswordValid || !isPhoneValid) {
         console.warn("Form validation failed. Submission prevented.");
         event.preventDefault(); // Prevent the form from submitting
     } else {

@@ -534,6 +534,22 @@ footer {
 }
 
 
+#password-toggle {
+    width: 24px; 
+    height: 24px;
+    cursor: pointer; 
+}
+.password-toggle:focus {
+    outline: 2px solid #007bff;
+}
+
+#password-toggle img{
+    cursor: pointer;
+    width: 24px; 
+    height: 24px;
+}
+
+
 
     @media print {        
         * {
@@ -716,16 +732,8 @@ footer {
     }
 }
 
-.password-toggle {
-    cursor: pointer;
-    font-size: 1.2em;
-    margin-left: 8px;
-    color: #333;
-}
 
-.password-toggle:focus {
-    outline: 2px solid #007bff;
-}
+
 
 /*
 Style Guide:

@@ -2,7 +2,7 @@
 session_start();
 
 // Check if the user is logged in
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['role'])) {
     header('Location: prihlaseni.php'); // Redirect to login if not logged in
     exit();
 }
@@ -24,17 +24,11 @@ if (!isset($_SESSION['email'])) {
 <body>
 <?php include './php/structure/header.php'; ?> 
 
-<?php if ($_SESSION['email'] !== 'admin@admin.cz'): ?>
+<?php if ($_SESSION['role'] !== 'admin'): ?>
     <section class="registrace">
         <div class ="formular">
             <form action="rezervace.php" method="post">
                 <div id="name">
-                    <!-- <label for="firstname" class="custom_text"> </span>*Jméno</label>
-                    <input type="text" id="firstname" name="firstname" value=""  placeholder="Tomáš"  tabindex="1">
-
-                    <label for="lastname">Příjmení</label>
-                    <input type="text" id="lastname" name="lastname" value="" required placeholder="Novák"  tabindex="2"> -->
-
                     <label for="reservation_date">Datum rezervace</label>
                     <input type="date" id="reservation_date" name="reservation_date" min='2024-04-04' max='2030-01-01' tabindex="1" required>
                     
@@ -56,8 +50,7 @@ if (!isset($_SESSION['email'])) {
  <?php
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $firstname = $_SESSION['firstname'];
-    $lastname =$_SESSION['firstname'];
+    $email = $_SESSION['email'];
     $date = $_POST['reservation_date'] ?? '';
     if ($date) {
         $myDateTime = DateTime::createFromFormat('Y-m-d', $date);
@@ -69,8 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
     // Prepare data to be saved into JSON
     $data = [
-        'firstname' => $firstname,
-        'lastname' => $lastname,
+        'email' => $email,
         'date' => $date,
         'time' => $time,
         'quantity' => $quantity
@@ -91,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     file_put_contents($file, json_encode($jsonArray, JSON_PRETTY_PRINT));
 
     // Confirm registration
-    echo "Rezervace proběhla úspěšně, vítej, $firstname.";
+    echo "Rezervace proběhla úspěšně, vítej, Těšíme se na tebe.";
 }
 
 ?>
@@ -165,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<div class=\"admin_table\">";
         echo "<table class=\"reservation-table\">";
         echo "<thead>";
-        echo "<tr><th>Jméno</th><th>Příjmení</th><th>Datum</th><th>Čas</th><th>Počet lidí</th>
+        echo "<tr><th>Email</th><th>Datum</th><th>Čas</th><th>Počet lidí</th>
         <th>Edit</th>
         <th>Smazat</th>
         </tr>";
@@ -173,16 +165,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<tbody>";
 
         foreach ($currentReservations as $reservation) {
-            $firstname = htmlspecialchars($reservation['firstname']);
-            $lastname = htmlspecialchars($reservation['lastname']);
+            //$firstname = htmlspecialchars($reservation['firstname']);
+            //$lastname = htmlspecialchars($reservation['lastname']);
+            $email = htmlspecialchars($reservation['email']);
             $date = htmlspecialchars($reservation['date']);
             $time = htmlspecialchars($reservation['time']);
             $quantity = htmlspecialchars($reservation['quantity']);
-            echo "<tr><td>$firstname</td><td>$lastname</td><td>$date</td><td>$time</td><td>$quantity</td>
-            <td><form action=\"editForm.php\" method=\"get\"><input type=\"hidden\" name=\"edit\"\" style=\"text-decoration: none\" /><input type=\"submit\" value=\"Edit\" /></form></td>
-             <td><form action=\"editForm.php\" method=\"get\"><input type=\"hidden\" name=\"remove\"\" style=\"text-decoration: none\" /><input type=\"submit\" value=\"Remove\" /></form></td>
-            
-            
+            echo "<tr><td>$$email</td><td>$date</td><td>$time</td><td>$quantity</td>
+            <td> <button class=\"edit_reservations\">smazat</button>
+            <td> <button class=\"remove_reservations\">smazat</button>
             </tr>";
         }
 
@@ -200,9 +191,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         echo "</div>";
 
-        
-
-
         } else {
             echo "Chyba při čtení dat rezervací.";
         }
@@ -215,6 +203,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
  <?php endif; ?>
+
 <!-- 
 pridat do formulare
 

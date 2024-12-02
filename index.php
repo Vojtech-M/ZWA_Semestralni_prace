@@ -21,7 +21,6 @@ if (isset($_SESSION['loggedin'])) {
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
     <link rel="icon" id="favicon" type="image/png" href="./img/helma.png"> 
-  
 </head>
 <body>
 
@@ -41,6 +40,8 @@ if (isset($_SESSION['loggedin'])) {
     <a href="./zecviceni/8.cviceni/index.html">tttsfsdtt</a>
     <a href="./zecviceni/9.cviceni/index.php">`php formular</a>
     <a href="./zecviceni/9.cviceni/index2.php">`php formular</a>-->
+    <a href="./zecviceni/10.cvicenicopy/index.php">`php formular</a>
+    <a href="./zecviceni/10.cvicenicopy/index3.php">`php formular</a>
 
 <section class="features">
     <div class="small_text">

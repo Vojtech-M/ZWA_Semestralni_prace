@@ -1,309 +1,113 @@
-[
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní 83",
-        "postal": "25166",
-        "email": "a@a",
-        "phone": "606136602",
-        "password": "$2y$10$n.\/KaLVIrbxPHk0WM042xe3wvallnfqZkX9O1P4\/Sfdzq2pAqNWCC"
-    },
-    {
-        "firstname": "asdf",
-        "lastname": "asdf",
-        "address": "asdf",
-        "postal": "123 12",
-        "email": "asdf@asdf.cz",
-        "phone": "122312312",
-        "password": "$2y$10$oFpKHKkRjuPNKm4BZbT1UOyIMPJv\/uodc\/8Hb3fOMjtIc.v9VO77C"
-    },
-    {
-        "firstname": "asdf",
-        "lastname": "asdf",
-        "address": "asdf",
-        "postal": "123 12",
-        "email": "asdf@asdf.cz",
-        "phone": "122312312",
-        "password": "$2y$10$mnUJCt2Q73OnZ.FFjeQ2Oeitwdg4Ydsh2lR0z8f8kSbHMpzFHOY0a"
-    },
-    {
-        "firstname": "tom2",
-        "lastname": "tom",
-        "address": "tom23",
-        "postal": "11111",
-        "email": "tom@tom.cz",
-        "phone": "111111111",
-        "password": "$2y$10$7jimcwvwbaioC0XC3672fOrftpSa2aCzL1u2a.xvivGsQuBVPPPYK",
-        "profile_picture": ".\/uploads\/674321e0802404.94790730.jpg"
-    },
-    {
-        "firstname": "Petr",
-        "lastname": "Petr",
-        "address": "Petrr",
-        "postal": "12312",
-        "email": "Petr@petr.vz",
-        "phone": "123123123",
-        "password": "$2y$10$kyMuVdw8NIC5fSpu356CLOureUBhMHxNo2rRL4w8bwAUsF6s28h9S",
-        "profile_picture": ".\/uploads\/67432d858621c5.58233177.jpg"
-    },
-    {
-        "firstname": "asdf",
-        "lastname": "asdf",
-        "address": "asdfhnb",
-        "postal": "12345",
-        "email": "asdf@asdf.cz",
-        "phone": "123123123",
-        "password": "$2y$10$we.CRLdFUM0m0t.M\/qDtoOFJ.IFxg9Yf4Irfd5OU8BqWFU1vKjs1i",
-        "profile_picture": ".\/uploads\/67437f9cae2723.95297077.png"
-    },
-    {
-        "firstname": "Testzzzz",
-        "lastname": "asdf",
-        "address": "asdfhnb",
-        "postal": "12345",
-        "email": "test@test.cz",
-        "phone": "123123123",
-        "password": "$2y$10$0WA8P9xxWJ\/Ktek6BiLYIuADoMdjikpMeOViix.LShXMwG8c1yfDq",
-        "profile_picture": ".\/uploads\/6743802a792154.70883495.jpg"
-    },
-    {
+{
+    "0": {
+        "id": "6745b21e826e3",
+        "role": "admin",
         "firstname": "admin",
         "lastname": "admin",
-        "address": "admin",
-        "postal": "00000",
         "email": "admin@admin.cz",
-        "phone": "111111111",
-        "password": "$2y$10$.0X4Sqc.TzyAdKhsLJ21He1Sy10s9JVw6RzMwQv5rUnSfj8buu16y",
-        "profile_picture": ".\/uploads\/67438148cd51a5.05709780.jpg"
-    },
-    {
-        "firstname": "ggg",
-        "lastname": "ggg",
-        "address": "d4512",
-        "postal": "12345",
-        "email": "dsdf@sdf.cz",
-        "phone": "021521545",
-        "password": "$2y$10$TDZB4qz.vzue1QRFLTiKhu55eJA1m3\/Fb7KZk7hYlZAB\/qXd5ivTm",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "firstname": "asdf",
-        "lastname": "asdf",
-        "address": "asdfd",
-        "postal": "12345",
-        "email": "asdf@ggg.cvz",
         "phone": "123123123",
-        "password": "$2y$10$NO3mytHiskYY205fps44mO7APIsdP1TD01gschEunHKn8vlk40AfO",
-        "profile_picture": ".\/img\/profile.png"
+        "password": "$2y$10$AYN4TFm\/2F.ujs25mdQgf.vLP1znPxfXwJ9bIoqTRjkhAUk8m6JuO",
+        "profile_picture": ".\/uploads\/6745b21e82a757.06329687.jpg"
     },
-    {
-        "firstname": "asdf",
-        "lastname": "asdf",
-        "address": "asdfj",
-        "postal": "12345",
-        "email": "asdf@asdf.v",
-        "phone": "456456456",
-        "password": "$2y$10$dp843CU9N9tibrFsZ46ioezdd3xSxRugspDU2jcMVkgye5Qb1I8V2",
-        "profile_picture": ".\/uploads\/6744bcded2de07.76728660.jpg"
+    "1": {
+        "id": "6716227513f04",
+        "role": "user",
+        "firstname": "user",
+        "lastname": "lastname",
+        "email": "user12@user1.cz",
+        "phone": "",
+        "password": "$2y$10$arIfQVuv.ecrZ9T3D9bWu.3tonbJ1y0sy9ln0E1bKAScFy7vMzI9.",
+        "profile_picture": ".\/uploads\/67462275142179.30651579.jpg"
     },
-    {
-        "firstname": "asdf",
-        "lastname": "asdf",
-        "address": "asdfd",
-        "postal": "21512",
-        "email": "michavo5@fit.cvut.cz",
-        "phone": "123123123",
-        "password": "$2y$10$AJaqKjkJbGcFe9zl4N9gnOIai4aRAGMnlSDjGS7kORuRgbbZzgYOy",
-        "profile_picture": ".\/uploads\/6744ce40159952.55362463.jpg"
+    "2": {
+        "id": "6736227513f04",
+        "role": "user",
+        "firstname": "usersdf",
+        "lastname": "lastname",
+        "email": "user123@user1.cz",
+        "phone": "",
+        "password": "$2y$10$arIfQVuv.ecrZ9T3D9bWu.3tonbJ1y0sy9ln0E1bKAScFy7vMzI9.",
+        "profile_picture": ".\/uploads\/67462275142179.30651579.jpg"
     },
-    {
-        "firstname": "gg",
-        "lastname": "gg",
-        "address": "ggg",
-        "postal": "gg",
-        "email": "gg@gg.v",
-        "phone": "123123123",
-        "password": "$2y$10$wvQAYfE12R4KjPSqdRI9b.AJAAvqd1arF6vEvukrDCa0vjKELtJwe",
-        "profile_picture": ".\/img\/profile.png"
+    "3": {
+        "id": "6046227513f04",
+        "role": "user",
+        "firstname": "userss",
+        "lastname": "lastname",
+        "email": "user1234@user1.cz",
+        "phone": "",
+        "password": "$2y$10$arIfQVuv.ecrZ9T3D9bWu.3tonbJ1y0sy9ln0E1bKAScFy7vMzI9.",
+        "profile_picture": ".\/uploads\/67462275142179.30651579.jpg"
     },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "sdf",
-        "postal": "123",
-        "email": "michavo5@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$t6mLTtv0a3TQz8cpvdZjwuowSb\/XhxHT4b\/dmOI9YTN2j5Elh.Tk2",
-        "profile_picture": ".\/uploads\/6744cfa2416e23.68817937.png"
+    "4": {
+        "id": "673d227513f04",
+        "role": "user",
+        "firstname": "userkk",
+        "lastname": "lastname",
+        "email": "user1234@user1.cz",
+        "phone": "",
+        "password": "$2y$10$arIfQVuv.ecrZ9T3D9bWu.3tonbJ1y0sy9ln0E1bKAScFy7vMzI9.",
+        "profile_picture": ".\/uploads\/67462275142179.30651579.jpg"
     },
-    {
-        "firstname": "tt",
-        "lastname": "tt",
-        "address": "tt",
-        "postal": "tt",
-        "email": "michaasdfvo5@fit.cvut.cz",
-        "phone": "123123123",
-        "password": "$2y$10$OFaOHL.7ZdFtkLy1WJpgpeYUsvDcqw3vjgwkZz1jnB5Ahgn5WkzIu",
-        "profile_picture": ".\/uploads\/6744d0156cc2d2.38213214.png"
+    "5": {
+        "id": "611d227513f04",
+        "role": "user",
+        "firstname": "userkkrr",
+        "lastname": "lastname",
+        "email": "usesdsdr123sdf4@user1.cz",
+        "phone": "",
+        "password": "$2y$10$arIfQVuv.ecrZ9T3D9bWu.3tonbJ1y0sy9ln0E1bKAScFy7vMzI9.",
+        "profile_picture": ".\/uploads\/67462275142179.30651579.jpg"
     },
-    {
-        "firstname": "gug",
-        "lastname": "as",
-        "address": "asdf",
-        "postal": "asdf",
-        "email": "michavo5@fit.cvut.cz",
-        "phone": "123123123",
-        "password": "$2y$10$QVqEHlrRM5xadt.5Qkhi3ucml5JpHm.wyw9VFE\/wpCuBZfC5puBVq",
-        "profile_picture": ".\/uploads\/6744d57a17efa5.38494358.png"
+    "6": {
+        "id": "611r227513f04",
+        "role": "user",
+        "firstname": "ussferkkrr",
+        "lastname": "lassdftname",
+        "email": "usesdssfdsdr123sdf4@user1.cz",
+        "phone": "",
+        "password": "$2y$10$arIfQVuv.ecrZ9T3D9bWu.3tonbJ1y0sy9ln0E1bKAScFy7vMzI9.",
+        "profile_picture": ".\/uploads\/67462275142179.30651579.jpg"
     },
-    {
-        "firstname": "sd",
-        "lastname": "asdf",
-        "address": "asdf",
-        "postal": "asdf",
-        "email": "asdf@asdf.vc",
-        "phone": "123123123",
-        "password": "$2y$10$Aq0AxKiV2B3wgVH86g6ypO4UTECCLcrAM3J47jrUAdmPrIvtKK7nu",
-        "profile_picture": ".\/uploads\/6744d5c1e13171.87119323.png"
-    },
-    {
-        "firstname": "ffff",
-        "lastname": "ffff",
-        "address": "asdfgfd",
-        "postal": "12345",
-        "email": "ffff@ffff.ff",
-        "phone": "123123123",
-        "password": "$2y$10$mzknXEuVyJawx4GF1\/e.Su10gFAh1OyvvZG6q5ku\/7SORa9QMDzHy",
-        "profile_picture": ".\/uploads\/6744d70dc073c8.68169046.png"
-    },
-    {
-        "firstname": "Tomas",
-        "lastname": "wass",
-        "address": "w",
-        "postal": "w",
-        "email": "michavo5@fit.cvut.cz",
-        "phone": "123132123",
-        "password": "$2y$10$RCpNhaYSH7Q2AulsSMH\/penxniA5gb4aaA9aLsmQAtcrQkTSHql.G",
-        "profile_picture": ".\/uploads\/6744e175a2d412.90013165.png"
-    },
-    {
-        "firstname": "Tom",
-        "lastname": "Mit",
-        "address": "Hl123",
-        "postal": "123 45",
-        "email": "michavo5@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$EUMizrPqytMtWgFgQ6PIiOFWVjDGwbkjQjajO50\/au9i5kWB\/oxLi",
-        "profile_picture": ".\/uploads\/6744e716bbca10.01962311.png"
-    },
-    {
-        "firstname": "test",
-        "lastname": "test",
-        "address": "testtest",
-        "postal": "123 45",
-        "email": "test@test.cz",
-        "phone": "123123123",
-        "password": "$2y$10$H1RGjX0iSdZWFRM80qE\/l.Qu\/PpIoXnXi4gYBAR3fYZ4SE99MREIO",
-        "profile_picture": ".\/uploads\/6744e92658dee2.57504879.png"
-    },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní83",
-        "postal": "251 66",
-        "email": "michavo56@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$pfIZnZBgbKBdAloOe9Fk.ey.zc0x9if7EZMsc9CjuGSV3zbbak2KO",
-        "profile_picture": ".\/uploads\/6744fa6510cde8.45669131.png"
-    },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní 83",
-        "postal": "251 66",
-        "email": "michavo566@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$RmoQF86XAk5aem78gb6PC.4py1N.o\/MvJ82Qv.\/EIZsV3kbvvFfRS",
-        "profile_picture": ".\/uploads\/6744fb93004987.62695588.png"
-    },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní 83",
-        "postal": "123 45",
-        "email": "michavo5@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$q74coSWZrA71G5SAJ2wnFO2ZKn2nvYp7oLAdgimAgpOjupVix2R5q",
-        "profile_picture": ".\/uploads\/6744ff65ec8c24.64036906.png"
-    },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlasd",
-        "postal": "251 66",
-        "email": "michsdfavo5@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$W\/wzU3Dp\/s4041T.vfrv0eNFAdcJgm6mFFkhDyhP5ghialY96\/ZqG",
-        "profile_picture": ".\/uploads\/674500667104b9.80936346.png"
-    },
-    {
+    "7": {
+        "id": "674784fbf3dde",
+        "role": "user",
         "firstname": "tester",
         "lastname": "tester",
-        "address": "tester",
-        "postal": "tester",
         "email": "tester@tester.tester",
-        "phone": "123123123",
-        "password": "$2y$10$AJ.R7L2cIPn6zwCD4Ropge5FG8t28M47RFWotiQ0JE8LxFeYfopFW",
-        "profile_picture": ".\/uploads\/674502fa985000.96275439.png"
+        "phone": "",
+        "password": "$2y$10$v2.h1oyjCOKqdj5jj.nuSu2WYTPq.mRFficHeLGsuKGeDv5AdjXGe",
+        "profile_picture": ".\/uploads\/674784fbf40688.92667653.jpg"
     },
-    {
-        "firstname": "Tomáš",
-        "lastname": "Novákk",
-        "address": "Zahradní 45",
+    "8": {
+        "id": "674ade99d5781",
+        "role": "user",
+        "firstname": "sdfsdf",
+        "lastname": "sdfsdf",
+        "email": "p@p.p",
+        "phone": "",
+        "password": "$2y$10$AmXqGx.loA8kmhVnxiz62.10Kl.Fkpy7V5BQO9iUmAOidHkqyh1L6",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    "": {
+        "firstname": "Pepa",
+        "lastname": "sdfsdf",
+        "address": null,
         "postal": null,
-        "email": "michavo5@fitttt.cvut.cz",
-        "phone": null,
-        "password": "$2y$10$uVp0juhKYP5ZLzDDPR6WBu15TN0BJy6KGs2HFCh\/E0rXAbz9fhGJS",
-        "profile_picture": ".\/uploads\/674503a1d25739.30354662.png"
+        "email": "p@p.p",
+        "phone": "",
+        "profile_picture": ".\/img\/profile.png"
     },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní 83",
-        "postal": "214 56",
-        "email": "miadfasfdaschavo5@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$oLXikUOoufDZ6tsYl2pHQOoQKk.Zqn6Zu9Aj5MoJdJg.Hw9EEabw.",
-        "profile_picture": ".\/uploads\/674504d7290f90.84098432.png"
-    },
-    {
-        "firstname": "Vojtěch",
-        "lastname": "Michal",
-        "address": "Hlavní 83",
-        "postal": "123 78",
-        "email": "mhjkhmmmichavo5@fit.cvut.cz",
-        "phone": "606136602",
-        "password": "$2y$10$6kInaDZnLF\/NaK.ib2y3Z.\/rFmC0LvCp9CgXUYCirurmZaBoppzeO",
-        "profile_picture": ".\/uploads\/67450655a9d9d4.20279988.png"
-    },
-    {
-        "firstname": "Vojta",
-        "lastname": "Michal",
-        "address": "Hlavni78",
-        "postal": "",
-        "email": "ahojkz@ahojkz.vd",
-        "phone": "123456789",
-        "password": "$2y$10$74IQPRp96w.UfNcnXKLFDu0ouLv9f4JN3KwD0Scytpp\/7kU\/HSs\/y",
-        "profile_picture": ".\/uploads\/67450777c87aa9.82610619.png"
-    },
-    {
-        "firstname": "tomas",
-        "lastname": "tomas",
-        "address": "thomas",
-        "postal": "458 45",
-        "email": "fuj@fuj.cz",
-        "phone": "456789123",
-        "password": "$2y$10$kgSZlh8j9ZMX\/wbVou6ecO6.TyRg60QHcF8ayhl1BF3K0My3u4nVG",
-        "profile_picture": ".\/uploads\/674507c71a00e7.14094512.png"
+    "9": {
+        "id": "674afab358e0f",
+        "role": "user",
+        "firstname": "Pepa",
+        "lastname": "Nov\u00e1k",
+        "email": "pepa@pepa.cz",
+        "phone": "",
+        "password": "$2y$10$Ijzj7vULVi3EDj16uLNP5uoo7CxSCQbq\/3Qe1Fir0AnofgTiWsG.G",
+        "profile_picture": ".\/img\/profile.png",
+        "address": null,
+        "postal": null
     }
-]
+}
