@@ -98,5 +98,17 @@
         "phone": "606451748",
         "password": "$2y$10$29Ocuiqc9Qbq5z.p2ooGbuAR\/cfZ3s7T8pSAWG15D49\/bPn\/kK2fm",
         "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "674e250585232",
+        "role": "user",
+        "firstname": "tomaaanka",
+        "lastname": "tomka",
+        "email": "tom@tom.cz",
+        "phone": "123123123",
+        "password": "$2y$10$1SbMkTGcjyen2t3ZfiSggumguOirj5nlw82Cmye8BiOCDUY\/U4fQa",
+        "profile_picture": ".\/uploads\/674e2505855961.50233504.png",
+        "address": null,
+        "postal": null
     }
 ]

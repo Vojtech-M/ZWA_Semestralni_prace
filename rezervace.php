@@ -13,8 +13,8 @@ if (!isset($_SESSION['role'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="Author" content="Vojtěch Michal">
-    <meta name="Keywords" content="motokáry"><meta>
-    <meta description="Nejzábavnější motokárová dráha ve středních Čechách.">
+    <meta name="Keywords" content="motokáry">
+    <meta name="description" content="Nejzábavnější motokárová dráha ve středních Čechách.">
     <title>Motokárové centrum Benešov</title>
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
@@ -83,14 +83,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     file_put_contents($file, json_encode($jsonArray, JSON_PRETTY_PRINT));
 
     // Confirm registration
-    echo "Rezervace proběhla úspěšně, vítej, Těšíme se na tebe.";
+    echo "Rezervace proběhla úspěšně, vítej, Těš��me se na tebe.";
 }
 
 ?>
 
-
-
- <?php else: 
+<?php else: 
     // File containing the reservation data
     $file = './user_data/reservations.json';
 
@@ -103,37 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $reservations = json_decode($jsonData, true);
     
         // Check if the data was successfully decoded
-     /*  if ($reservations) {
-            echo "<table class=\"reservation-table\">";
-            echo "<thead>";
-            echo "<tr><th>Jméno</th><th>Příjmení</th>
-            <th>Datum</th>
-            <th>Čas</th>
-            <th>Počet lidí</th>
-            
-            </tr>"; // Table headers for first name and last name
-            echo "</thead>";
-            echo "<tbody>";
-
-            // Loop through the reservations and output each one in a table row
-            foreach ($reservations as $reservation) {
-                $firstname = htmlspecialchars($reservation['firstname']);
-                $lastname = htmlspecialchars($reservation['lastname']);
-                $date = htmlspecialchars($reservation['date']);
-                $time = htmlspecialchars($reservation['time']);
-                $quantity = htmlspecialchars($reservation['quantity']);
-                echo "<tr><td>$firstname</td><td>$lastname</td>
-                <td>$date</td>
-                <td>$time</td>
-                 <td>$quantity</td>
-                
-                </tr>";
-            }
-
-            echo "</tbody>";
-            echo "</table>";
-            */
-         // Check if the data was successfully decoded
     if ($reservations) {
         // Number of records per page
         $RPP = 10;
@@ -157,24 +124,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<div class=\"admin_table\">";
         echo "<table class=\"reservation-table\">";
         echo "<thead>";
-        echo "<tr><th>Email</th><th>Datum</th><th>Čas</th><th>Počet lidí</th>
-        <th>Edit</th>
-        <th>Smazat</th>
-        </tr>";
+        echo "<tr><th>Email</th><th>Datum</th><th>Čas</th><th>Počet lidí</th><th>Edit</th><th>Smazat</th></tr>";
         echo "</thead>";
         echo "<tbody>";
 
         foreach ($currentReservations as $reservation) {
-            //$firstname = htmlspecialchars($reservation['firstname']);
-            //$lastname = htmlspecialchars($reservation['lastname']);
             $email = htmlspecialchars($reservation['email']);
             $date = htmlspecialchars($reservation['date']);
             $time = htmlspecialchars($reservation['time']);
             $quantity = htmlspecialchars($reservation['quantity']);
-            echo "<tr><td>$$email</td><td>$date</td><td>$time</td><td>$quantity</td>
-            <td> <button class=\"edit_reservations\">smazat</button>
-            <td> <button class=\"remove_reservations\">smazat</button>
-            </tr>";
+            echo "<tr>
+                    <td>$email</td>
+                    <td>$date</td>
+                    <td>$time</td>
+                    <td>$quantity</td>
+                    <td><button class=\"edit_reservations\">Edit</button></td>
+                    <td><button class=\"remove_reservations\">Smazat</button></td>
+                  </tr>";
         }
 
         echo "</tbody>";
@@ -182,13 +148,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Display pagination links
         echo "<div class=\"pagination\">";
-        for ($x = 1; $x <= $totalPages + 1; $x++) {
+        if ($page > 1) {
+            $prevPage = $page - 1;
+            echo "<a href=\"?page=$prevPage\">&laquo; Previous</a> ";
+        }
+        for ($x = 1; $x <= $totalPages; $x++) {
             if ($x == $page) {
                 echo "<h3>$x</h3> ";
             } else {
                 echo "<a href=\"?page=$x\">$x</a> ";
             }
         }
+        if ($page < $totalPages) {
+            $nextPage = $page + 1;
+            echo "<a href=\"?page=$nextPage\">Next &raquo;</a>";
+        }
+        echo "</div>";
         echo "</div>";
 
         } else {
@@ -197,29 +172,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Rezervační soubor neexistuje.";
     }
-
-
     ?>
+<?php endif; ?>
 
-
- <?php endif; ?>
-
-<!-- 
-pridat do formulare
-
-document query selector form
-form event listenr
-e. preent default 
-
-
-
--->
-
-
-
-
-
-</div>
 <?php include './php/structure/footer.php'; ?>
+<script>
+function deleteReservation(reservationId) {
+    if (confirm("Are you sure you want to delete this reservation?")) {
+        fetch('delete_reservation.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: reservationId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Reservation deleted successfully.");
+                location.reload(); // Reload the page to see the changes
+            } else {
+                alert("Failed to delete reservation.");
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+}
+</script>
 </body>
 </html>

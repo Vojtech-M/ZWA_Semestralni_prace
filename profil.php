@@ -28,8 +28,6 @@ if ($userData === null) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userData['firstname'] = $_POST['firstname'] ?? $userData['firstname'];
     $userData['lastname'] = $_POST['lastname'] ?? $userData['lastname'];
-    $userData['address'] = $_POST['address'] ?? $userData['address'];
-    $userData['postal'] = $_POST['postal'] ?? $userData['postal'];
     $userData['email'] = $_POST['email'] ?? $userData['email'];
     $userData['phone'] = $_POST['phone'] ?? $userData['phone'];
     $userData['profile_picture'] = $_POST['profile_picture'] ?? $userData['profile_picture'];
@@ -44,8 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
 
     // Redirect to profile page to show updated data
-    header('Location: profile.php');
-    exit();
 }
 
 // Handle AJAX request to delete user
@@ -80,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 </head>
 <body>
 
+
 <?php include './php/structure/header.php'; ?>
 
 <article>
@@ -96,24 +93,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
     <?php if ($_SESSION['role'] !== 'admin'): ?>
         <!-- Regular user view -->
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <label for="firstname">Jméno:</label>
             <input type="text" name="firstname" id="firstname" value="<?php echo htmlspecialchars($userData['firstname']); ?>"><br>
 
             <label for="lastname">Příjmení:</label>
             <input type="text" name="lastname" id="lastname" value="<?php echo htmlspecialchars($userData['lastname']); ?>"><br>
 
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($userData['email']); ?>"><br>
-
             <label for="phone">Telefonní číslo:</label>
             <input type="text" name="phone" id="phone" value="<?php echo htmlspecialchars($userData['phone']); ?>"><br>
 
-            <label for="profile_picture">Profilový obrázek (URL):</label>
-            <input type="text" name="profile_picture" id="profile_picture" value="<?php echo htmlspecialchars($userData['profile_picture']); ?>"><br>
+            <label for="profile_picture">Profilový obrázek:</label>
+            <input type="file" name="profile_picture" id="profile_picture"><br>
 
             <input type="submit" value="Uložit změny">
         </form>
+
+       
     </article>
     <?php else: ?>
         <!-- Admin view -->
@@ -125,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         <button id="loadMore">Načíst více uživatelů</button>
     </div>
     <div class="reservation_link">
-<a href="rezervace.php">Správa rezervací</a> 
+        <a href="rezervace.php">Správa rezervací</a> 
     </div>
 </article>
     <?php endif; ?>
