@@ -552,11 +552,9 @@ footer {
 .admin-user {
     color: red;
 }
-.error-border {
-    border: 2px solid red;
-
-
-}
+.error { color: red; }
+.error-label { color: red; font-weight: bold; }
+.error-input { border: 2px solid red; }
 
     @media print {        
         * {

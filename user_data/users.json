@@ -118,5 +118,15 @@
         "phone": "",
         "password": "$2y$10$jcL49LLfbIPqTb9b5IZhq.Xn\/d1dn0oqPvsMDsO8lq9Y1G.mnk0P6",
         "profile_picture": ".\/uploads\/674ed4440242d6.92697013.png"
+    },
+    {
+        "id": "674eddcf52a48",
+        "role": "user",
+        "firstname": "Vojta",
+        "lastname": "Michal",
+        "email": "vojta@vojta.cz",
+        "phone": "",
+        "password": "$2y$10$L7Lg8w0OU0w29\/ObiRJ.9e8T.yeSv5sdgyzdag9QknhKZi35\/GLFC",
+        "profile_picture": ".\/uploads\/674eddcf52ae59.57469076.png"
     }
 ]

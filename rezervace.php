@@ -36,7 +36,7 @@ if (!isset($_SESSION['role'])) {
                     <input type="time" id="reservation_time" name="reservation_time" min="12:00" max="23:00"tabindex="2" required>
 
                     <label for="quantity">Počet lidí:</label>
-                    <input type="number" id="quantity" name="quantity" min="1" max="5" tabindex="3">
+                    <input type="number" id="quantity" name="quantity" min="1" max="50" tabindex="3">
                 </div>
                 <br>
                 <input id="reg_submit" type="submit" value="Zarezervovat" tabindex="">

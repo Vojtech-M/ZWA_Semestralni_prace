@@ -26,6 +26,20 @@ if ($userData === null) {
     exit();
 }
 
+// Load reservations data from JSON
+$reservationsFile = './user_data/reservations.json';
+$reservations = json_decode(file_get_contents($reservationsFile), true);
+
+// Filter reservations for the logged-in user
+$userReservations = [];
+if (is_array($reservations)) {
+    foreach ($reservations as $reservation) {
+        if ($reservation['email'] === $_SESSION['email']) {
+            $userReservations[] = $reservation;
+        }
+    }
+}
+
 // Validation functions
 function validateName($name, $minLength = 3, $maxLength = 50) {
     if (strlen($name) < $minLength || strlen($name) > $maxLength) {
@@ -108,23 +122,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
-// Handle AJAX request to delete user
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    $input = json_decode(file_get_contents('php://input'), true);
-    $emailToDelete = $input['email'] ?? null;
-
-    if ($emailToDelete) {
-        $users = array_filter($users, function($user) use ($emailToDelete) {
-            return $user['email'] !== $emailToDelete;
-        });
-        file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
-        echo json_encode(['success' => true]);
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Email not provided']);
-    }
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -155,7 +152,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     <div class="right-text">
         <img src="<?php echo htmlspecialchars($userData['profile_picture']); ?>" width="500" alt="Profilový obrázek">
     </div>
+</article>
 
+<article>
+        <!-- Display user reservations -->
+        <h2>Moje rezervace</h2>
+        <?php if (!empty($userReservations)): ?>
+            <ul>
+                <?php foreach ($userReservations as $reservation): ?>
+                    <li>
+                        Datum: <?php echo htmlspecialchars($reservation['date']); ?>,
+                        Čas: <?php echo htmlspecialchars($reservation['time']); ?>,
+                        Počet lidí: <?php echo htmlspecialchars($reservation['quantity']); ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p>Nemáte žádné rezervace.</p>
+        <?php endif; ?>
+</article>
+
+
+
+
+
+<article>
     <?php if ($_SESSION['role'] !== 'admin'): ?>
         <!-- Regular user view -->
         <form method="post" enctype="multipart/form-data">
@@ -185,10 +206,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
             <input type="submit" value="Uložit změny">
         </form>
-    </article>
+</article>
+
+
     <?php else: ?>
         <!-- Admin view -->
-</article>
+
 <article>
     <div>
         <h2>Seznam uživatelů</h2>
@@ -344,7 +367,5 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchUsers();
 });
 </script>
-
-
 </body>
 </html>
