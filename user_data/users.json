@@ -23,7 +23,7 @@
         "id": "674e17ade18d2",
         "role": "user",
         "firstname": "Pepek",
-        "lastname": "Námořník",
+        "lastname": "N\u00e1mo\u0159n\u00edk",
         "email": "pepek@pepek.cz",
         "phone": "",
         "password": "$2y$10$JPTcZdHHMhaTJHuIy5eR9eDKzWKDlr\/OU344\/\/CqjhilJ1bCrYFHa",
@@ -51,9 +51,9 @@
     },
     {
         "id": "674e18d0e94bd",
-        "role": "user",
-        "firstname": "Václava",
-        "lastname": "Mrštíková",
+        "role": "admin",
+        "firstname": "V\u00e1clava",
+        "lastname": "Mr\u0161t\u00edkov\u00e1",
         "email": "vaclava@vaclava.cz",
         "phone": "784548758",
         "password": "$2y$10$8icPy1vOZfLcdeFaUSY1qe1zYTHLZSKEEB3GvZsjhJSRVEkUQaS4G",
@@ -62,7 +62,7 @@
     {
         "id": "674e1966481a1",
         "role": "user",
-        "firstname": "Tomáš",
+        "firstname": "Tom\u00e1\u0161",
         "lastname": "Pochoutka",
         "email": "pochoutka@pochoutka.cz",
         "phone": "",
@@ -128,5 +128,45 @@
         "phone": "",
         "password": "$2y$10$L7Lg8w0OU0w29\/ObiRJ.9e8T.yeSv5sdgyzdag9QknhKZi35\/GLFC",
         "profile_picture": ".\/uploads\/674eddcf52ae59.57469076.png"
+    },
+    {
+        "id": "674efa0137053",
+        "role": "user",
+        "firstname": "All",
+        "lastname": "Pacino",
+        "email": "godfather@godfather.it",
+        "phone": "",
+        "password": "$2y$10$FD8tCu6pr78VWxuCXlJ57eX6l2CeWcbNms3fjYqW46CbRfhrGPNOa",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "674efa39e0deb",
+        "role": "user",
+        "firstname": "Quentin",
+        "lastname": "Tarantino",
+        "email": "tarantino@tarantino.us",
+        "phone": "",
+        "password": "$2y$10$71y.mo\/uNLJg1CSF5DpJTeZsPM.n.fl06OsQEKr5mPISIuu5t3.ZO",
+        "profile_picture": ".\/uploads\/674efa39e0dfa3.83992378.png"
+    },
+    {
+        "id": "674efa877fae0",
+        "role": "user",
+        "firstname": "Uma",
+        "lastname": "Thurman",
+        "email": "killbill@killbill.cz",
+        "phone": "",
+        "password": "$2y$10$4iVVTHRR2ECDd\/yNQXBeH.sxxf.vAzNYZJLaw6rRMN\/v8xMCWvQ0W",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "674efad38fc62",
+        "role": "admin",
+        "firstname": "Peter",
+        "lastname": "Jackson",
+        "email": "lordoftherings@lordoftherings.cz",
+        "phone": "",
+        "password": "$2y$10$OLR7LuYgZCIWr67PEalIxOMGg1pGaVAx9Go9ILVgsrpXMC9kkcIci",
+        "profile_picture": ".\/img\/profile.png"
     }
 ]

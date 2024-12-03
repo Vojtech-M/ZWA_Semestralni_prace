@@ -221,9 +221,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="reservation_link">
         <a href="rezervace.php">Správa rezervací</a> 
     </div>
-</article>
+    </article>
     <?php endif; ?>
-
+</article>
 <?php include './php/structure/footer.php'; ?>
 
 <script>
