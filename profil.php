@@ -4,6 +4,7 @@ session_start();
 // Check if the user is logged in
 if (empty($_SESSION['role'])) {
     header('Location: prihlaseni.php');
+    exit();
 }
 
 // Load user data from JSON
@@ -22,26 +23,90 @@ if (is_array($users)) {
 
 if ($userData === null) {
     echo "User data not found!";
+    exit();
+}
+
+// Validation functions
+function validateName($name, $minLength = 3, $maxLength = 50) {
+    if (strlen($name) < $minLength || strlen($name) > $maxLength) {
+        return "Jméno musí být mezi $minLength a $maxLength znaky dlouhé.";
+    }
+    if (!preg_match("/^[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]+$/", $name)) {
+        return "Jméno může obsahovat pouze písmena bez mezer nebo speciálních znaků.";
+    }
+    return null;
+}
+
+function validatePhone($phone) {
+    if (!empty($phone) && !preg_match("/^\d{9}$/", $phone)) {
+        return "Telefonní číslo musí mít 9 číslic.";
+    }
+    return null;
 }
 
 // Handle form submission to update user data
+$errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $userData['firstname'] = $_POST['firstname'] ?? $userData['firstname'];
-    $userData['lastname'] = $_POST['lastname'] ?? $userData['lastname'];
-    $userData['email'] = $_POST['email'] ?? $userData['email'];
-    $userData['phone'] = $_POST['phone'] ?? $userData['phone'];
-    $userData['profile_picture'] = $_POST['profile_picture'] ?? $userData['profile_picture'];
+    $firstname = htmlspecialchars(trim($_POST['firstname']));
+    $lastname = htmlspecialchars(trim($_POST['lastname']));
+    $phone = htmlspecialchars(trim($_POST['phone']));
 
-    // Update the user data in the JSON file
-    foreach ($users as &$user) {
-        if ($user['email'] === $_SESSION['email']) {
-            $user = $userData;
-            break;
+    // Validate inputs
+    $errors['firstname'] = validateName($firstname);
+    $errors['lastname'] = validateName($lastname);
+    $errors['phone'] = validatePhone($phone);
+
+    // Filter out null values from errors
+    $errors = array_filter($errors);
+
+    if (empty($errors)) {
+        $userData['firstname'] = $firstname;
+        $userData['lastname'] = $lastname;
+        $userData['phone'] = $phone;
+
+        // Handle file upload
+        if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
+            $file = $_FILES['profile_picture'];
+            $fileName = $file['name'];
+            $fileTmpName = $file['tmp_name'];
+            $fileSize = $file['size'];
+            $fileError = $file['error'];
+            $fileType = $file['type'];
+
+            $fileExt = explode('.', $fileName);
+            $fileActualExt = strtolower(end($fileExt));
+
+            $allowed = array('jpg', 'jpeg', 'png');
+
+            if (in_array($fileActualExt, $allowed)) {
+                if ($fileSize < 2000000) {
+                    $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+                    $fileDestination = './uploads/' . $fileNameNew;
+                    move_uploaded_file($fileTmpName, $fileDestination);
+                    $userData['profile_picture'] = $fileDestination;
+                } else {
+                    $errors['profile_picture'] = "File is too big";
+                }
+            } else {
+                $errors['profile_picture'] = "Invalid file type. Only JPG, JPEG, and PNG are allowed.";
+            }
+        }
+
+        if (empty($errors)) {
+            // Update the user data in the JSON file
+            foreach ($users as &$user) {
+                if ($user['email'] === $_SESSION['email']) {
+                    $user = $userData;
+                    break;
+                }
+            }
+            file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+            // Redirect to profile page to show updated data
+            header('Location: profil.php');
+            exit();
         }
     }
-    file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
-
-    // Redirect to profile page to show updated data
 }
 
 // Handle AJAX request to delete user
@@ -70,12 +135,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     <meta name="Author" content="Vojtěch Michal">
     <meta name="Keywords" content="motokáry">
     <meta name="description" content="Nejzábavnější motokárová dráha ve středních Čechách.">
-    <title>Motokárové centrum Benešov - Profil</title>
+    <title>Motokárové centrum Benešov</title>
     <link rel="stylesheet" href="./css/styles.css">
-    <link rel="icon" id="favicon" type="image/png" href="./img/helma.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/helma.png"> 
 </head>
 <body>
-
 
 <?php include './php/structure/header.php'; ?>
 
@@ -96,20 +161,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         <form method="post" enctype="multipart/form-data">
             <label for="firstname">Jméno:</label>
             <input type="text" name="firstname" id="firstname" value="<?php echo htmlspecialchars($userData['firstname']); ?>"><br>
+            <?php if (isset($errors['firstname'])): ?>
+                <div class="error"><?php echo $errors['firstname']; ?></div>
+            <?php endif; ?>
 
             <label for="lastname">Příjmení:</label>
             <input type="text" name="lastname" id="lastname" value="<?php echo htmlspecialchars($userData['lastname']); ?>"><br>
+            <?php if (isset($errors['lastname'])): ?>
+                <div class="error"><?php echo $errors['lastname']; ?></div>
+            <?php endif; ?>
 
             <label for="phone">Telefonní číslo:</label>
             <input type="text" name="phone" id="phone" value="<?php echo htmlspecialchars($userData['phone']); ?>"><br>
+            <?php if (isset($errors['phone'])): ?>
+                <div class="error"><?php echo $errors['phone']; ?></div>
+            <?php endif; ?>
 
             <label for="profile_picture">Profilový obrázek:</label>
             <input type="file" name="profile_picture" id="profile_picture"><br>
+            <?php if (isset($errors['profile_picture'])): ?>
+                <div class="error"><?php echo $errors['profile_picture']; ?></div>
+            <?php endif; ?>
 
             <input type="submit" value="Uložit změny">
         </form>
-
-       
     </article>
     <?php else: ?>
         <!-- Admin view -->

@@ -552,6 +552,11 @@ footer {
 .admin-user {
     color: red;
 }
+.error-border {
+    border: 2px solid red;
+
+
+}
 
     @media print {        
         * {
