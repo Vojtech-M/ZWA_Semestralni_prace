@@ -40,16 +40,6 @@
         "profile_picture": ".\/img\/profile.png"
     },
     {
-        "id": "674e17da840e7",
-        "role": "user",
-        "firstname": "user",
-        "lastname": "user",
-        "email": "user@user.cz",
-        "phone": "",
-        "password": "$2y$10$oATOG4QS\/4a5ipF7SpFowO5I6N9DtzZ\/Uzh5gje9G7Tvny.P5tugi",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
         "id": "674e18d0e94bd",
         "role": "admin",
         "firstname": "V\u00e1clava",
@@ -100,26 +90,6 @@
         "profile_picture": ".\/img\/profile.png"
     },
     {
-        "id": "674ecbfe51788",
-        "role": "user",
-        "firstname": "asdf",
-        "lastname": "asdf",
-        "email": "asdf@asdf.cy",
-        "phone": "",
-        "password": "$2y$10$RdSYJcopjaP8\/IRoGOgDOeCysdAuh8R2oc.ilprNFUA.ZQ3sG1vpG",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "id": "674ed09b89e80",
-        "role": "user",
-        "firstname": "Hranolky",
-        "lastname": "sKecupem",
-        "email": "example@example.cz",
-        "phone": "",
-        "password": "$2y$10$jcL49LLfbIPqTb9b5IZhq.Xn\/d1dn0oqPvsMDsO8lq9Y1G.mnk0P6",
-        "profile_picture": ".\/uploads\/674ed4440242d6.92697013.png"
-    },
-    {
         "id": "674eddcf52a48",
         "role": "user",
         "firstname": "Vojta",
@@ -141,7 +111,7 @@
     },
     {
         "id": "674efa39e0deb",
-        "role": "user",
+        "role": "admin",
         "firstname": "Quentin",
         "lastname": "Tarantino",
         "email": "tarantino@tarantino.us",
@@ -151,22 +121,12 @@
     },
     {
         "id": "674efa877fae0",
-        "role": "user",
+        "role": "admin",
         "firstname": "Uma",
         "lastname": "Thurman",
         "email": "killbill@killbill.cz",
         "phone": "",
         "password": "$2y$10$4iVVTHRR2ECDd\/yNQXBeH.sxxf.vAzNYZJLaw6rRMN\/v8xMCWvQ0W",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "id": "674efad38fc62",
-        "role": "admin",
-        "firstname": "Peter",
-        "lastname": "Jackson",
-        "email": "lordoftherings@lordoftherings.cz",
-        "phone": "",
-        "password": "$2y$10$OLR7LuYgZCIWr67PEalIxOMGg1pGaVAx9Go9ILVgsrpXMC9kkcIci",
         "profile_picture": ".\/img\/profile.png"
     }
 ]

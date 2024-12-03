@@ -274,7 +274,11 @@ document.addEventListener("DOMContentLoaded", function () {
             // Add delete button
             const deleteButton = document.createElement("button");
             deleteButton.textContent = "Delete";
-            deleteButton.addEventListener("click", () => deleteUser(user.email));
+            deleteButton.addEventListener("click", () => {
+                if (confirm("Are you sure to add admin rights to this user?")) {
+                    deleteUser(user.email);
+                }
+            });
             li.appendChild(deleteButton);
 
             // Add admin button
@@ -301,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function deleteUser(email) {
-        fetch('./delete_user.php', {
+        fetch('./php/delete_user.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -330,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function addAdmin(email) {
-        fetch('./add_admin.php', {
+        fetch('./php/add_admin.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

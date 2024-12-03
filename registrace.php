@@ -95,6 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $fileUploadError = "Invalid file type. Only JPG, JPEG, and PNG are allowed.";
         $formValid = false;
+        $errors['file'];
     }   
     /*
     kontrolovat
