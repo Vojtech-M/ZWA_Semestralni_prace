@@ -1,4 +1,9 @@
 <?php
+/**
+ * Job: Register users
+ */
+
+
 session_start(); // Start session
 
 $firstname = $lastname = $email = $phone = '';
@@ -76,27 +81,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $allowed = array('jpg', 'jpeg', 'png');
 
-    if (in_array($fileActualExt, $allowed)){
-        if ($fileError === 0){
-            if ($fileSize < 2000000){
-                $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-                $fileDestination = './uploads/' . $fileNameNew;
-                move_uploaded_file($fileTmpName,  $fileDestination);
-                
 
+   
+        if (in_array($fileActualExt, $allowed)){
+            if ($fileError === 0){
+                if ($fileSize < 2000000){
+                    $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+                    $fileDestination = './uploads/' . $fileNameNew;
+                    move_uploaded_file($fileTmpName,  $fileDestination);
+                    
+
+                } else {
+                    $fileUploadError = "File is too big";
+                    $formValid = false;
+                }
             } else {
-                $fileUploadError = "File is too big";
+                $fileUploadError = "There was error uploading file";
                 $formValid = false;
             }
         } else {
-            $fileUploadError = "There was error uploading file";
+            $fileUploadError = "Invalid file type. Only JPG, JPEG, and PNG are allowed.";
             $formValid = false;
-        }
-    } else {
-        $fileUploadError = "Invalid file type. Only JPG, JPEG, and PNG are allowed.";
-        $formValid = false;
-        $errors['file'];
-    }   
+        }   
+    
     /*
     kontrolovat
     jmeno

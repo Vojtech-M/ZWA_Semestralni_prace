@@ -38,7 +38,7 @@ if (!isset($_SESSION['role'])) {
                     <label for="quantity">Počet lidí:</label>
                     <input type="number" id="quantity" name="quantity" min="1" max="50" tabindex="3">
                 </div>
-                <br>
+                
                 <input id="reg_submit" type="submit" value="Zarezervovat" tabindex="">
                 <h5>* Pole označené jsou povinné</h5>
                 <h4>Cena rezervace dle: <a href="cenik.php">Ceník</a></h4>
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     file_put_contents($file, json_encode($jsonArray, JSON_PRETTY_PRINT));
 
     // Confirm registration
-    echo "Rezervace proběhla úspěšně, vítej, Těš��me se na tebe.";
+    echo "Rezervace proběhla úspěšně, vítej, Těšíme se na tebe.";
 }
 
 ?>

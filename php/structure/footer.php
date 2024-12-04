@@ -31,11 +31,6 @@
     <div class="copyright">
         <p>Copyright © 2024 Vojtěch Michal</p>
     </div>
-    
-    <div class="documentation_page">
-        <a class="links" href="dokumentace.html">Dokumentace</a>
-    </div>
-
     <div class="footer-text">
         <p>Motokárové centrum Benešov</p>
     </div>

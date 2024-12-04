@@ -150,12 +150,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p>Telefonní číslo: <?php echo htmlspecialchars($userData['phone']); ?></p>
     </div>
     <div class="right-text">
-        <img src="<?php echo htmlspecialchars($userData['profile_picture']); ?>" width="500" alt="Profilový obrázek">
+        <img src="<?php echo htmlspecialchars($userData['profile_picture']); ?>" alt="Profilový obrázek">
     </div>
 </article>
 
 <article>
-        <!-- Display user reservations -->
+      
         <h2>Moje rezervace</h2>
         <?php if (!empty($userReservations)): ?>
             <ul>
@@ -172,12 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 </article>
 
-
-
-
-
 <article>
-    <?php if ($_SESSION['role'] !== 'admin'): ?>
         <!-- Regular user view -->
         <form method="post" enctype="multipart/form-data">
             <label for="firstname">Jméno:</label>
@@ -207,11 +202,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="submit" value="Uložit změny">
         </form>
 </article>
-
-
-    <?php else: ?>
+<?php if ($_SESSION['role'] == 'admin'): ?>
         <!-- Admin view -->
-
 <article>
     <div>
         <h2>Seznam uživatelů</h2>
@@ -248,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!Array.isArray(data)) {
                     throw new Error("The fetched data is not an array.");
                 }
-                users = data; // Store all user data
+                users = data; 
                 loadUsers(); // Load the first batch of users
             })
             .catch(error => {
@@ -370,6 +362,12 @@ document.addEventListener("DOMContentLoaded", function () {
     loadMoreButton.addEventListener("click", loadUsers);
     fetchUsers();
 });
+
+    // function editUser(email){
+
+
+
+    // }
 </script>
 </body>
 </html>

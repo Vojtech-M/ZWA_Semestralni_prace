@@ -43,7 +43,7 @@ if ($email) {
                         <img class="profile_picture" src="<?php echo $profilePicture; ?>" alt="Profil">
                         <?php echo $firstName; ?>
                     </a>
-                    <a class="links" href="logout.php">Odhlásit se</a>
+                    <a class="links" href="./php/logout.php">Odhlásit se</a>
                 <?php else: ?>
                     <a class="links_active" href="prihlaseni.php">Přihlášení</a>
                     <a class="links" href="registrace.php">Registrace</a>
@@ -62,7 +62,7 @@ if ($email) {
                             <?php echo $email; ?>
                         </a>
                     </li>
-                    <li><a class="menuItem" href="logout.php">Odhlásit se</a></li>
+                    <li><a class="menuItem" href="./php/logout.php">Odhlásit se</a></li>
                 <?php else: ?>
                     <li><a class="menuItem" href="prihlaseni.php">Přihlášení</a></li>
                     <li><a class="menuItem" href="registrace.php">Registrace</a></li>

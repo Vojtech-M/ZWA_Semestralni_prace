@@ -7,126 +7,56 @@
         "email": "admin@admin.cz",
         "phone": "123123123",
         "password": "$2y$10$AYN4TFm\/2F.ujs25mdQgf.vLP1znPxfXwJ9bIoqTRjkhAUk8m6JuO",
-        "profile_picture": ".\/uploads\/6745b21e82a757.06329687.jpg"
+        "profile_picture": ".\/uploads\/6750319854cfc6.57489518.jpeg"
     },
     {
-        "id": "674e136e3f6b3",
+        "id": "675029512746e",
+        "role": "user",
+        "firstname": "tom",
+        "lastname": "tom",
+        "email": "tom@tom.cz",
+        "phone": "",
+        "password": "$2y$10$hHjSj35Ez6PvVHhGcX4au.Qy9bXc3oV3pcQZXHvy9kQUShqUfhrpu",
+        "profile_picture": ".\/uploads\/67502951277d68.61894299.png"
+    },
+    {
+        "id": "67502988a3cd4",
+        "role": "user",
+        "firstname": "Pavel",
+        "lastname": "Pavel",
+        "email": "pavel@pavel.pavel",
+        "phone": "",
+        "password": "$2y$10$CdbUM96M9\/C2GNGf\/r3sLex5Csm33XhjymGPjhL2TiOWXmrnFL8pm",
+        "profile_picture": ".\/uploads\/67502988a3cdc4.39022079.png"
+    },
+    {
+        "id": "675029b3d86a7",
+        "role": "user",
+        "firstname": "Honza",
+        "lastname": "Honza",
+        "email": "honza@honza.honza",
+        "phone": "",
+        "password": "$2y$10$m4LCjq.pmq1bv8yi.N7T3.6NSgPfTtxH93GwSFJ3dl.h2jOpGqooG",
+        "profile_picture": ".\/uploads\/675029b3d86b01.93621538.jpg"
+    },
+    {
+        "id": "675030fd3949e",
         "role": "admin",
-        "firstname": "Trek",
-        "lastname": "Procaliber",
-        "email": "Trek@trek.trek",
+        "firstname": "Pavel",
+        "lastname": "pavel",
+        "email": "pavel@pavel.cz",
         "phone": "",
-        "password": "$2y$10$5QBFQIZm6a9sZWLa0l4p6.mOAgf31PvC6s3MljEXMvFCtp.fbPGK2",
+        "password": "$2y$10$Z0gl9HZapRfZq6C1iqe55eJD0ydcn6pluZNL0R3.RMgGLlGpECIvy",
         "profile_picture": ".\/img\/profile.png"
     },
     {
-        "id": "674e17ade18d2",
+        "id": "6750317ced9a4",
         "role": "user",
-        "firstname": "Pepek",
-        "lastname": "N\u00e1mo\u0159n\u00edk",
-        "email": "pepek@pepek.cz",
+        "firstname": "hranolkz",
+        "lastname": "hranoklkz",
+        "email": "hranolky@hranolky.cz",
         "phone": "",
-        "password": "$2y$10$JPTcZdHHMhaTJHuIy5eR9eDKzWKDlr\/OU344\/\/CqjhilJ1bCrYFHa",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "id": "674e17c4747c6",
-        "role": "user",
-        "firstname": "Petr",
-        "lastname": "tojejedno",
-        "email": "Petr@petr.cz",
-        "phone": "",
-        "password": "$2y$10$bDgun6b5Al0dCPI4Qx58zO11HLPKY2x4vKUoNx01\/FqKZqk3Bpipe",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "id": "674e18d0e94bd",
-        "role": "admin",
-        "firstname": "V\u00e1clava",
-        "lastname": "Mr\u0161t\u00edkov\u00e1",
-        "email": "vaclava@vaclava.cz",
-        "phone": "784548758",
-        "password": "$2y$10$8icPy1vOZfLcdeFaUSY1qe1zYTHLZSKEEB3GvZsjhJSRVEkUQaS4G",
-        "profile_picture": ".\/uploads\/674e18d0e94d21.90932075.png"
-    },
-    {
-        "id": "674e1966481a1",
-        "role": "user",
-        "firstname": "Tom\u00e1\u0161",
-        "lastname": "Pochoutka",
-        "email": "pochoutka@pochoutka.cz",
-        "phone": "",
-        "password": "$2y$10$7Yoo6aGPpy7w5hRHLvxS1.vUhCJNdreV61eXEIDjnrVhNzJ8SxNme",
-        "profile_picture": ".\/uploads\/674e1966481b12.29879040.png"
-    },
-    {
-        "id": "674e19ca40f4e",
-        "role": "admin",
-        "firstname": "Bruce",
-        "lastname": "Wayne",
-        "email": "batman@batman.cz",
-        "phone": "606909606",
-        "password": "$2y$10$cb1NABUV8s7Ja7UdGxU.f.Ugt7JmNj.RW64pK7UohOOeucKNYb42O",
-        "profile_picture": ".\/uploads\/674e19ca40fee4.23957415.png"
-    },
-    {
-        "id": "674e1a10a9269",
-        "role": "user",
-        "firstname": "Rowan",
-        "lastname": "Atkinson",
-        "email": "mrbean@mrbean.cz",
-        "phone": "606154154",
-        "password": "$2y$10$WDjXJjkAZ5r3lu59a.dBzeON2nTf2VhaM\/jgxjrILiEmHW8kmfn1q",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "id": "674e1a3bb18bc",
-        "role": "user",
-        "firstname": "Keanu",
-        "lastname": "Reeves",
-        "email": "johnwick@johnwick.cz",
-        "phone": "606451748",
-        "password": "$2y$10$29Ocuiqc9Qbq5z.p2ooGbuAR\/cfZ3s7T8pSAWG15D49\/bPn\/kK2fm",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "id": "674eddcf52a48",
-        "role": "user",
-        "firstname": "Vojta",
-        "lastname": "Michal",
-        "email": "vojta@vojta.cz",
-        "phone": "",
-        "password": "$2y$10$L7Lg8w0OU0w29\/ObiRJ.9e8T.yeSv5sdgyzdag9QknhKZi35\/GLFC",
-        "profile_picture": ".\/uploads\/674eddcf52ae59.57469076.png"
-    },
-    {
-        "id": "674efa0137053",
-        "role": "user",
-        "firstname": "All",
-        "lastname": "Pacino",
-        "email": "godfather@godfather.it",
-        "phone": "",
-        "password": "$2y$10$FD8tCu6pr78VWxuCXlJ57eX6l2CeWcbNms3fjYqW46CbRfhrGPNOa",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "id": "674efa39e0deb",
-        "role": "admin",
-        "firstname": "Quentin",
-        "lastname": "Tarantino",
-        "email": "tarantino@tarantino.us",
-        "phone": "",
-        "password": "$2y$10$71y.mo\/uNLJg1CSF5DpJTeZsPM.n.fl06OsQEKr5mPISIuu5t3.ZO",
-        "profile_picture": ".\/uploads\/674efa39e0dfa3.83992378.png"
-    },
-    {
-        "id": "674efa877fae0",
-        "role": "admin",
-        "firstname": "Uma",
-        "lastname": "Thurman",
-        "email": "killbill@killbill.cz",
-        "phone": "",
-        "password": "$2y$10$4iVVTHRR2ECDd\/yNQXBeH.sxxf.vAzNYZJLaw6rRMN\/v8xMCWvQ0W",
+        "password": "$2y$10$HWsqThrMi59IY4uDDqKEC.TxwpcgnJlObwbogdAm13o.8k5FjBPc6",
         "profile_picture": ".\/img\/profile.png"
     }
 ]

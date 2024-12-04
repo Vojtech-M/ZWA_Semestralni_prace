@@ -28,17 +28,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    $users = array_filter($users, function ($user) use ($email) {
-        return $user['email'] !== $email;
-    });
+    $userToDelete = null;
+    foreach ($users as $index => $user) {
+        if ($user['email'] === $email) {
+            $userToDelete = $user;
+            unset($users[$index]);
+            break;
+        }
+    }
 
     // Reindex the array to remove gaps in the keys
     $users = array_values($users);
 
-    if (file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))) {
-        echo json_encode(['success' => true]);
+    if ($userToDelete !== null) {
+        // Delete the profile picture if it exists and is not the default picture
+        $defaultProfilePicture = './img/profile.png'; // Update this to match your default picture path
+        $profilePicturePath = str_replace('.\\', '', $userToDelete['profile_picture'] ?? '');
+        if ($profilePicturePath && $profilePicturePath !== $defaultProfilePicture && file_exists('../' . $profilePicturePath)) {
+            unlink('../' . $profilePicturePath);
+        }
+
+        if (file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error saving user data']);
+        }
     } else {
-        echo json_encode(['success' => false, 'message' => 'Error saving user data']);
+        echo json_encode(['success' => false, 'message' => 'User not found']);
     }
 }
 ?>
