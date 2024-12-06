@@ -2,8 +2,6 @@
 /**
  * Job: Register users
  */
-
-
 $firstname = $lastname = $email = $phone = '';
 $errors = [];
 $formValid = true; // formulář je na začátku valid

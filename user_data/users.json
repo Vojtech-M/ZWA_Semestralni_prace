@@ -81,7 +81,7 @@
     },
     {
         "id": "6750b2b87de5f",
-        "firstname": "Vojt\u011bch",
+        "firstname": "Vojtěch",
         "lastname": "Michalll",
         "email": "michal@michal.cz",
         "phone": "123111222",
@@ -138,5 +138,15 @@
         "phone": "",
         "password": "$2y$10$C5Vpr.eP5XO1e5tZjHUkMe4i4EtDA\/OueV1QqPRxFaQHHNSng.38K",
         "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "675373838a980",
+        "role": "user",
+        "firstname": "lola",
+        "lastname": "lola",
+        "email": "lola@lola.lola",
+        "phone": "123123123",
+        "password": "$2y$10$trpi.y1CE6nrMGY3V5y0AeIXOy4JeMWz3pgG6fwBESemNes.I5lPa",
+        "profile_picture": ".\/uploads\/675373838ae597.85182711.png"
     }
 ]

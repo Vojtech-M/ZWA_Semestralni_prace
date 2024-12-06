@@ -31,15 +31,15 @@
                     <label for="reservation_date">Datum rezervace</label>
                     <input type="date" id="reservation_date" name="reservation_date" min='2024-04-04' max='2030-01-01' tabindex="1" required>
                     
-                    <label for="cars">Čas rezervace</label>
-                        <select name="cars" id="cars">
-                        <option value="volvo">14:00 - 15:00</option>
-                        <option value="saab">15:00 - 16:00</option>
-                        <option value="mercedes">16:00 - 17:00</option>
-                        <option value="audi">17:00 - 18:00</option>
-                        <option value="volvo">18:00 - 19:00</option>
-                        <option value="saab">20:00 - 21:00</option>
-                        <option value="mercedes">22:00 - 23:00</option>
+                    <label for="timeslot">Čas rezervace</label>
+                        <select name="timeslot" id="cars">
+                        <option value="14">14:00 - 15:00</option>
+                        <option value="15">15:00 - 16:00</option>
+                        <option value="16">16:00 - 17:00</option>
+                        <option value="17">17:00 - 18:00</option>
+                        <option value="18">18:00 - 19:00</option>
+                        <option value="19">20:00 - 21:00</option>
+                        <option value="20">22:00 - 23:00</option>
                     </select>
 
                     <label for="quantity">Počet lidí:</label>
@@ -54,49 +54,60 @@
     </section>
 
 <?php
-if ($user["role"] == 'admin') {
+ $file = './user_data/reservations.json';
 
     // Check if the form was submitted
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = $_SESSION['email'];
-        $date = $_POST['reservation_date'] ?? '';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $email = $user['email'];
+        $date = $_POST['reservation_date'];
         if ($date) {
             $myDateTime = DateTime::createFromFormat('Y-m-d', $date);
             $date = $myDateTime->format('d.m.Y'); // Convert to DD.MM.YYYY format
         }
+        $timeslot = $_POST['timeslot'];
+        $quantity = $_POST['quantity']; // Default to 1 if not set
     
-        $time = $_POST['cars'] ?? ''; // Fix 'cars' instead of 'reservation_time'
-        $quantity = $_POST['quantity'] ?? 1; // Default to 1 if not set
-    
+
+       // Function to check for reservation collision
+    function check_collision($file, $date, $timeslot, $reservations) {
+        foreach ($reservations as $reservation) {
+            if ($reservation['date'] == $date && $reservation['timeslot'] == $timeslot) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Read existing reservations from the JSON file
+    if (file_exists($file)) {
+        $jsonData = file_get_contents($file);
+        $reservations = json_decode($jsonData, true);
+    } else {
+        $reservations = [];
+    }
+
+    // Check for collision
+    if (check_collision($file, $date, $timeslot, $reservations)) {
+        echo "<p>Rezervace již existuje pro tento časový úsek.</p>";
+    } else {
         // Prepare data to be saved into JSON
         $data = [
             'email' => $email,
             'date' => $date,
-            'time' => $time,
+            'timeslot' => $timeslot,
             'quantity' => $quantity
         ];
 
-        $file = './user_data/reservations.json'; 
-        if (file_exists($file)) {
-            $jsonData = file_get_contents($file);
-            $jsonArray = json_decode($jsonData, true);
-        } else {
-            $jsonArray = [];
-        }
-
-        // Add new data to the existing array
-        $jsonArray[] = $data;
+        // Add new reservation to the array
+        saveDataToJsonFile($file, $data);
 
         // Convert array back to JSON and save to file
-        file_put_contents($file, json_encode($jsonArray, JSON_PRETTY_PRINT));
-
-        // Confirm registration
-        echo "Rezervace proběhla úspěšně, vítej, Těšíme se na tebe.";
+        echo "<p>Rezervace byla úspěšně vytvořena.</p>";
     }
+}
 
+if ($user["role"] == 'admin') {
     // File containing the reservation data
-    $file = './user_data/reservations.json';
-
     // Check if the file exists
     if (file_exists($file)) {
         // Read the file content
@@ -136,12 +147,12 @@ if ($user["role"] == 'admin') {
             foreach ($currentReservations as $reservation) {
                 $email = htmlspecialchars($reservation['email']);
                 $date = htmlspecialchars($reservation['date']);
-                $time = htmlspecialchars($reservation['time']);
+                $timeslot = htmlspecialchars($reservation['timeslot']);
                 $quantity = htmlspecialchars($reservation['quantity']);
                 echo "<tr>
                         <td>$email</td>
                         <td>$date</td>
-                        <td>$time</td>
+                        <td>$timeslot</td>
                         <td>$quantity</td>
                         <td><button class=\"edit_reservations\">Edit</button></td>
                         <td><button class=\"remove_reservations\">Smazat</button></td>
@@ -178,32 +189,9 @@ if ($user["role"] == 'admin') {
         echo "Rezervační soubor neexistuje.";
     }
 }
-?>
 
+?>
 <?php include './php/structure/footer.php'; ?>
 
-<script>
-function deleteReservation(reservationId) {
-    if (confirm("Are you sure you want to delete this reservation?")) {
-        fetch('delete_reservation.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id: reservationId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert("Reservation deleted successfully.");
-                location.reload(); // Reload the page to see the changes
-            } else {
-                alert("Failed to delete reservation.");
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-}
-</script>
 </body>
 </html>
