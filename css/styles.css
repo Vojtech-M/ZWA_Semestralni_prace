@@ -265,23 +265,32 @@ input {
   }
 
 input[type=submit] {
-background-color: #04AA6D;
+background-color: #0F4C75;
 color: white;
 }
-
-.formular{
+.formular, .login_formular {
     margin: 50px auto 20px auto;
-    display:flex;
+    display: flex;
     justify-content: space-around;
-    flex-direction: row;
+    flex-direction: column;
     align-content: center;
     align-items: center;
     flex-wrap: wrap;
     text-align: center;
     background-color: #4582B8;
-    width: 70%;
+    box-shadow: 4 8px 16px rgba(0, 0, 0, 0.1);
     padding: 20px;
 }
+
+.formular {
+    width: 30%;
+}
+
+.login_formular {
+    width: 40%;
+}
+
+
 
 .registration_field{
     justify-content: center;
@@ -514,6 +523,10 @@ footer {
 }
 
 .pagination h3 {
+    background-color: #0d2d47;
+    margin: 20px;
+    padding: 20px;
+    text-decoration: none;
     color: red;
 
 }
@@ -556,6 +569,14 @@ footer {
 .error-label { color: red; font-weight: bold; }
 .error-input { border: 2px solid red; }
 
+.red_text {
+    color: red;
+
+}
+.register_link{
+    text-decoration: none;
+
+}
     @media print {        
         * {
             font-size: 16px;

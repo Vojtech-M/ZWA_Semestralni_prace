@@ -1,5 +1,5 @@
 <?php
-session_start();
+ include "./php/check_login.php";
 ?>
 <!DOCTYPE html>
 <html lang="cs">

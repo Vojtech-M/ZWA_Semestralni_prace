@@ -21,7 +21,7 @@ session_start();
     <div class="error_site">
     <h2> něco se nepovedlo </h2>
     <img src="../img/404_cat.jpg" alt="ikona trati">
-    <a class="links" href="index.php">Zpět na úvodní stránku</a>
+    <a class="links" href="../index.php">Zpět na úvodní stránku</a>
     </div>
     <?php include './structure/footer.php'; ?>
 </body>

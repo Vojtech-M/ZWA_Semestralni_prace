@@ -1,125 +1,30 @@
 <?php
-session_start();
+include './php/check_login.php';
+include "./php/lib.php";
 
-// Check if the user is logged in
-if (empty($_SESSION['role'])) {
-    header('Location: prihlaseni.php');
-    exit();
+if (isset($_SESSION['id'])) {
+    $user_id = $_SESSION['id'];
+    $user = getDataById($user_id);
 }
 
-// Load user data from JSON
-$usersFile = './user_data/users.json';
-$users = json_decode(file_get_contents($usersFile), true);
 
-$userData = null;
-if (is_array($users)) {
-    foreach ($users as $user) {
-        if ($user['email'] === $_SESSION['email']) {
-            $userData = $user;
-            break;
-        }
-    }
-}
-
-if ($userData === null) {
-    echo "User data not found!";
-    exit();
-}
-
-// Load reservations data from JSON
-$reservationsFile = './user_data/reservations.json';
-$reservations = json_decode(file_get_contents($reservationsFile), true);
-
-// Filter reservations for the logged-in user
-$userReservations = [];
-if (is_array($reservations)) {
-    foreach ($reservations as $reservation) {
-        if ($reservation['email'] === $_SESSION['email']) {
-            $userReservations[] = $reservation;
-        }
-    }
-}
-
-// Validation functions
-function validateName($name, $minLength = 3, $maxLength = 50) {
-    if (strlen($name) < $minLength || strlen($name) > $maxLength) {
-        return "Jméno musí být mezi $minLength a $maxLength znaky dlouhé.";
-    }
-    if (!preg_match("/^[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]+$/", $name)) {
-        return "Jméno může obsahovat pouze písmena bez mezer nebo speciálních znaků.";
-    }
-    return null;
-}
-
-function validatePhone($phone) {
-    if (!empty($phone) && !preg_match("/^\d{9}$/", $phone)) {
-        return "Telefonní číslo musí mít 9 číslic.";
-    }
-    return null;
-}
-
-// Handle form submission to update user data
-$errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $firstname = htmlspecialchars(trim($_POST['firstname']));
-    $lastname = htmlspecialchars(trim($_POST['lastname']));
-    $phone = htmlspecialchars(trim($_POST['phone']));
+    $action = $_POST['action'];
 
-    // Validate inputs
-    $errors['firstname'] = validateName($firstname);
-    $errors['lastname'] = validateName($lastname);
-    $errors['phone'] = validatePhone($phone);
-
-    // Filter out null values from errors
-    $errors = array_filter($errors);
-
-    if (empty($errors)) {
-        $userData['firstname'] = $firstname;
-        $userData['lastname'] = $lastname;
-        $userData['phone'] = $phone;
-
-        // Handle file upload
-        if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
-            $file = $_FILES['profile_picture'];
-            $fileName = $file['name'];
-            $fileTmpName = $file['tmp_name'];
-            $fileSize = $file['size'];
-            $fileError = $file['error'];
-            $fileType = $file['type'];
-
-            $fileExt = explode('.', $fileName);
-            $fileActualExt = strtolower(end($fileExt));
-
-            $allowed = array('jpg', 'jpeg', 'png');
-
-            if (in_array($fileActualExt, $allowed)) {
-                if ($fileSize < 2000000) {
-                    $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-                    $fileDestination = './uploads/' . $fileNameNew;
-                    move_uploaded_file($fileTmpName, $fileDestination);
-                    $userData['profile_picture'] = $fileDestination;
-                } else {
-                    $errors['profile_picture'] = "File is too big";
-                }
-            } else {
-                $errors['profile_picture'] = "Invalid file type. Only JPG, JPEG, and PNG are allowed.";
-            }
-        }
-
-        if (empty($errors)) {
-            // Update the user data in the JSON file
-            foreach ($users as &$user) {
-                if ($user['email'] === $_SESSION['email']) {
-                    $user = $userData;
-                    break;
-                }
-            }
-            file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-
-            // Redirect to profile page to show updated data
-            header('Location: profil.php');
-            exit();
-        }
+    if ($action === 'add') {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $avatar = $_POST['avatar'];
+        addUser($name, $email, $avatar);
+    } elseif ($action === 'update') {
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $avatar = $_POST['avatar'];
+        editUser($id, $name, $email, $avatar);
+    } elseif ($action === 'delete') {
+        $id = $_POST['id'];
+        deleteUser($id);
     }
 }
 ?>
@@ -144,13 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <article>
     <div class="left-text">
         <h1>Profil uživatele</h1>
-        <p>Jméno: <?php echo htmlspecialchars($userData['firstname']); ?></p>
-        <p>Příjmení: <?php echo htmlspecialchars($userData['lastname']); ?></p>
-        <p>Email: <?php echo htmlspecialchars($userData['email']); ?></p>
-        <p>Telefonní číslo: <?php echo htmlspecialchars($userData['phone']); ?></p>
+        <p>Jméno: <?php echo htmlspecialchars($user['firstname']); ?></p>
+        <p>Příjmení: <?php echo htmlspecialchars($user['lastname']); ?></p>
+        <p>Email: <?php echo htmlspecialchars($user['email']); ?></p>
+        <p>Telefonní číslo: <?php echo htmlspecialchars($user['phone']); ?></p>
     </div>
     <div class="right-text">
-        <img src="<?php echo htmlspecialchars($userData['profile_picture']); ?>" alt="Profilový obrázek">
+        <img src="<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profilový obrázek">
     </div>
 </article>
 
@@ -176,19 +81,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Regular user view -->
         <form method="post" enctype="multipart/form-data">
             <label for="firstname">Jméno:</label>
-            <input type="text" name="firstname" id="firstname" value="<?php echo htmlspecialchars($userData['firstname']); ?>"><br>
+            <input type="text" name="firstname" id="firstname" value="<?php echo htmlspecialchars($user['firstname']); ?>"><br>
             <?php if (isset($errors['firstname'])): ?>
                 <div class="error"><?php echo $errors['firstname']; ?></div>
             <?php endif; ?>
 
             <label for="lastname">Příjmení:</label>
-            <input type="text" name="lastname" id="lastname" value="<?php echo htmlspecialchars($userData['lastname']); ?>"><br>
+            <input type="text" name="lastname" id="lastname" value="<?php echo htmlspecialchars($user['lastname']); ?>"><br>
             <?php if (isset($errors['lastname'])): ?>
                 <div class="error"><?php echo $errors['lastname']; ?></div>
             <?php endif; ?>
 
             <label for="phone">Telefonní číslo:</label>
-            <input type="text" name="phone" id="phone" value="<?php echo htmlspecialchars($userData['phone']); ?>"><br>
+            <input type="text" name="phone" id="phone" value="<?php echo htmlspecialchars($user['phone']); ?>"><br>
             <?php if (isset($errors['phone'])): ?>
                 <div class="error"><?php echo $errors['phone']; ?></div>
             <?php endif; ?>
@@ -202,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="submit" value="Uložit změny">
         </form>
 </article>
-<?php if ($_SESSION['role'] == 'admin'): ?>
+<?php if ($user["role"] == 'admin'): ?>
         <!-- Admin view -->
 <article>
     <div>
@@ -214,6 +119,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="rezervace.php">Správa rezervací</a> 
     </div>
     </article>
+
+    <article>
+        <!-- CRUD -->
+        <section>
+            <!-- CREATE -->
+            <h2>Přidat nového uživatele</h2>
+            <form action="" method="post">
+                <label>
+                    Jméno:
+                    <input type="text" name="firstname" required>
+                </label>
+                <label>
+                    Příjmení:
+                    <input type="text" name="lastname" required>
+                </label>
+                <label>
+                    Email:
+                    <input type="email" name="email" required>
+                </label>
+                <label>
+                    Telefon:
+                    <input type="text" name="phone" required>
+                </label>
+                <label>
+                    Heslo:
+                    <input type="text" name="passwd" required>
+                </label>
+                <button type="submit" name="action" value="add">Přidat</button>
+            </form>
+
+            <!-- UPDATE -->
+            <h2>Upravit uživatele</h2>
+            <form action="" method="post">
+                <label>
+                    ID uživatele:
+                    <input type="text" name="id" required>
+                </label>
+                <label>
+                    Jméno:
+                    <input type="text" name="name">
+                </label>
+                <label>
+                    Email:
+                    <input type="email" name="email">
+                </label>
+                <label>
+                    Avatar:
+                    <input type="text" name="avatar">
+                </label>
+                <button type="submit" name="action" value="update">Upravit</button>
+            </form>
+
+            <!-- DELETE -->
+            <h2>Smazat uživatele</h2>
+            <form action="" method="post">
+                <label>
+                    ID uživatele:
+                    <input type="text" name="id" required>
+                </label>
+                <button type="submit" name="action" value="delete">Smazat</button>
+            </form>
+        </section>
+        </article>
+
+
     <?php endif; ?>
 </article>
 <?php include './php/structure/footer.php'; ?>
@@ -256,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
         for (let i = loadedUsersCount; i < end; i++) {
             const user = users[i];
             const li = document.createElement("li");
-            li.textContent = `${user.email} (${user.role})`;
+            li.textContent = `${user.email} (${user.role}) ${user.id}`;
 
             // Apply red font for admin users
             if (user.role === 'admin') {

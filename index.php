@@ -1,14 +1,16 @@
 <?php
-session_start();
-if (isset($_SESSION['loggedin'])) {
-    $_SESSION['loggedin'] = false;
-    $_SESSION['email'] = '';
-    $_SESSION['role'] = '';
-    $_SESSION['data'] = [];
-    header("Location: index.php");
-}
-?>
 
+/**
+ * @author Vojtěch Michal
+ * 
+ * 
+ */
+
+
+ 
+ // Check if the user is logged in
+require "./php/check_login.php";
+?>
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -19,7 +21,6 @@ if (isset($_SESSION['loggedin'])) {
     <meta name="description" content="Nejzábavnější motokárová dráha ve středních Čechách.">
     <title>Motokárové centrum Benešov</title>
     <link rel="stylesheet" href="./css/styles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
     <link rel="icon" id="favicon" type="image/png" href="./img/helma.png"> 
 </head>
 <body>
@@ -42,6 +43,7 @@ if (isset($_SESSION['loggedin'])) {
     <a href="./zecviceni/9.cviceni/index2.php">`php formular</a>-->
     <a href="./zecviceni/10.cvicenicopy/index.php">`php formular</a>
     <a href="./zecviceni/10.cvicenicopy/index3.php">`php formular</a>
+    <a href="./zecviceni/11.cviceni/index.php">11 cviko  SESSION formular</a>
 
 <section class="features">
     <div class="small_text">
@@ -89,16 +91,33 @@ if (isset($_SESSION['loggedin'])) {
     </div>
     
     <div class="reservation_link">
-    <?php if ($email): ?> <!-- prihlaseny / neprihlaseny-->
+    <?php if($_SESSION["id"]): ?> <!-- prihlaseny / neprihlaseny-->
             <a href="rezervace.php">REZERVACE</a>       
         <?php else: ?>
-            <a href="prihlaseni.php">REZERVACE</a>
+            <a href="login.php">REZERVACE</a>
         <?php endif; ?>
     </div>
 </div>
 
 <?php include './php/structure/footer.php'; ?>
 <!-- Dát script nakonec-->
-<!--<script src="./scripts/hello.js" type=module></script> -->
+<!--<script src="./scripts/hello.js" type=module></script> 
+
+
+alt + z - zalamování řádků
+
+cokkies ? 
+data - textová hodnota
+
+je to řetežec - klic a hodnota uložená v prohlížeči a ne na serveru 
+posílají se s každým požadavkem
+
+start 
+v session žádný data uložený 
+
+
+JSON format jak se ukaladaji data
+
+-->
 </body>
 </html>
