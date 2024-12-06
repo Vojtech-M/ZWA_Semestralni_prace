@@ -10,8 +10,6 @@ if (isset($_SESSION['id'])) {
 }
 ?>
 
-
-
 <header>
     <nav>
         <div class="logo_corner">
@@ -43,7 +41,7 @@ if (isset($_SESSION['id'])) {
                     <li>
                         <a class="menuItem" href="profil.php">
                             <img class="profile_picture" src="<?php echo $profilePicture; ?>" alt="Profil">
-                            <?php echo $email; ?>
+                            <?php echo $firstName; ?>
                         </a>
                     </li>
                     <li><a class="menuItem" href="./php/logout.php">Odhlásit se</a></li>

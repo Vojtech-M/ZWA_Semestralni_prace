@@ -42,10 +42,10 @@ function getUser($id) {
     return null;
 }
 
-function addUser($name, $email, $avatar) {
+function addUser($role,$firstname, $lastname, $email,$phone, $password, $profile_picture) {
     $users = loadUsers();
     $id = uniqid();
-    $newUser = ['id' => $id, 'name' => $name, 'email' => $email, 'avatar' => $avatar];
+    $newUser = ['id' => $id, 'role'=> $role,'firstname' => $firstname,'lastname' => $lastname, 'email' => $email,'phone'=> $phone, 'password"'=> $password,'profile_picture' => $profile_picture];
     $users[] = $newUser;
     saveUsers($users);
     return $id;
@@ -63,13 +63,16 @@ function deleteUser($id) {
     saveUsers($updatedUsers);
 }
 
-function editUser($id, $name, $email, $avatar) {
+function editUser($id, $role,$firstname, $lastname, $email,$phone, $password, $profile_picture ) {
     $users = loadUsers();
     foreach ($users as &$user) {  // & - reference na prvek v poli (nikoliv kopii)
         if ($user['id'] === $id) {
-            $user['name'] = $name;
+            $user['firstname'] = $firstname;
+            $user['lastname'] = $lastname;
             $user['email'] = $email;
-            $user['avatar'] = $avatar;
+            $user['phone'] = $phone;
+            $user['password'] = $password;
+            $user['profile_picture'] = $profile_picture;
             break;
         }
     }

@@ -130,16 +130,6 @@
         "profile_picture": ".\/img\/profile.png"
     },
     {
-        "id": "6752a4525bb71",
-        "role": "user",
-        "firstname": "Vojt\u011bch",
-        "lastname": "Michal",
-        "email": "rychlejvlak@seznam.cz",
-        "phone": "606136602",
-        "password": "$2y$10$Lj4knFwRy03lRb5HbTS3PONYroEBjctcxvew3aQd0OYDvCrYSPhmG",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
         "id": "6752e209878af",
         "role": "user",
         "firstname": "hola",
@@ -147,16 +137,6 @@
         "email": "hola@hola.cz",
         "phone": "",
         "password": "$2y$10$C5Vpr.eP5XO1e5tZjHUkMe4i4EtDA\/OueV1QqPRxFaQHHNSng.38K",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "id": "6752e39b3c79e",
-        "role": "user",
-        "firstname": "lola",
-        "lastname": "lola",
-        "email": "lola@lola.cz",
-        "phone": "",
-        "password": "$2y$10$UEfWx7wK7mwjjlCnJ4J5YOU83YyWhZm0Rci8JE\/XAXmiRtLMEHAoC",
         "profile_picture": ".\/img\/profile.png"
     }
 ]

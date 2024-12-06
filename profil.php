@@ -12,16 +12,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'];
 
     if ($action === 'add') {
-        $name = $_POST['name'];
+        $role = $_POST['role'];
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
         $email = $_POST['email'];
-        $avatar = $_POST['avatar'];
-        addUser($name, $email, $avatar);
+        $phone = $_POST['phone'];
+        $passwd = $_POST['passwd'];
+        $profile_picture = './img/profile.png';
+        addUser($role,$firstname, $lastname, $email, $phone, $passwd,$profile_picture);
     } elseif ($action === 'update') {
         $id = $_POST['id'];
-        $name = $_POST['name'];
+        $role = $_POST['role'];
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
         $email = $_POST['email'];
-        $avatar = $_POST['avatar'];
-        editUser($id, $name, $email, $avatar);
+        $phone = $_POST['phone'];
+        $password = $_POST['passwd'];
+        $profile_picture = './img/profile.png';
+        editUser($id, $role,$firstname, $lastname, $email,$phone, $password, $profile_picture);
     } elseif ($action === 'delete') {
         $id = $_POST['id'];
         deleteUser($id);
@@ -126,6 +134,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <!-- CREATE -->
             <h2>Přidat nového uživatele</h2>
             <form action="" method="post">
+                <label for="role">Vyberte roli:</label>
+                    <select id="role" name="role">
+                    <option value="user">user</option>
+                    <option value="admin">admin</option>
+                    </select> 
                 <label>
                     Jméno:
                     <input type="text" name="firstname" required>
@@ -152,21 +165,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <!-- UPDATE -->
             <h2>Upravit uživatele</h2>
             <form action="" method="post">
+                <label for="role">Vyberte roli:</label>
+                    <select id="role" name="role">
+                    <option value="user">user</option>
+                    <option value="admin">admin</option>
+                    </select> 
+                <label>
                 <label>
                     ID uživatele:
                     <input type="text" name="id" required>
                 </label>
                 <label>
                     Jméno:
-                    <input type="text" name="name">
+                    <input type="text" name="firstname" required>
+                </label>
+                <label>
+                    Příjmení:
+                    <input type="text" name="lastname" required>
                 </label>
                 <label>
                     Email:
-                    <input type="email" name="email">
+                    <input type="email" name="email" required>
                 </label>
                 <label>
-                    Avatar:
-                    <input type="text" name="avatar">
+                    Telefon:
+                    <input type="text" name="phone" required>
+                </label>
+                <label>
+                    Heslo:
+                    <input type="text" name="passwd" required>
                 </label>
                 <button type="submit" name="action" value="update">Upravit</button>
             </form>
@@ -187,157 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 </article>
 <?php include './php/structure/footer.php'; ?>
+<script src="./scripts/load_users.js" ></script> 
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const userList = document.getElementById("userList");
-    const loadMoreButton = document.getElementById("loadMore");
-
-    let users = []; // Array to hold all user data
-    let loadedUsersCount = 0; // Counter for users already loaded
-    const usersPerPage = 5; // Number of users to load per click
-
-    // Load users with AJAX
-    function fetchUsers() {
-        fetch('./user_data/users.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Failed to fetch: " + response.statusText);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (!Array.isArray(data)) {
-                    throw new Error("The fetched data is not an array.");
-                }
-                users = data; 
-                loadUsers(); // Load the first batch of users
-            })
-            .catch(error => {
-                console.error("Error loading user data:", error);
-                userList.innerHTML = `<li>Error: ${error.message}</li>`;
-            });
-    }
-
-    function loadUsers() {
-        const fragment = document.createDocumentFragment();
-        const end = Math.min(loadedUsersCount + usersPerPage, users.length);
-
-        for (let i = loadedUsersCount; i < end; i++) {
-            const user = users[i];
-            const li = document.createElement("li");
-            li.textContent = `${user.email} (${user.role}) ${user.id}`;
-
-            // Apply red font for admin users
-            if (user.role === 'admin') {
-                li.classList.add('admin-user');
-            }
-
-            // Add delete button
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Delete";
-            deleteButton.addEventListener("click", () => {
-                if (confirm("Are you sure to add admin rights to this user?")) {
-                    deleteUser(user.email);
-                }
-            });
-            li.appendChild(deleteButton);
-
-            // Add admin button
-            const adminButton = document.createElement("button");
-            adminButton.textContent = "Add Admin";
-            adminButton.addEventListener("click", () => {
-                if (confirm("Are you sure to add admin rights to this user?")) {
-                    addAdmin(user.email);
-                }
-            });
-            li.appendChild(adminButton);
-
-            fragment.appendChild(li);
-        }
-
-        userList.appendChild(fragment);
-        loadedUsersCount = end;
-
-        if (loadedUsersCount >= users.length) {
-            loadMoreButton.style.display = "none";
-        } else {
-            loadMoreButton.style.display = "block";
-        }
-    }
-
-    function deleteUser(email) {
-        fetch('./php/delete_user.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Failed to delete user: " + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                users = users.filter(user => user.email !== email);
-                userList.innerHTML = '';
-                loadedUsersCount = 0;
-                loadUsers();
-            } else {
-                console.error("Error deleting user:", data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Error deleting user:", error);
-        });
-    }
-
-    function addAdmin(email) {
-        fetch('./php/add_admin.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Failed to add admin: " + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                users = users.map(user => {
-                    if (user.email === email) {
-                        return { ...user, role: 'admin' };
-                    }
-                    return user;
-                });
-                userList.innerHTML = '';
-                loadedUsersCount = 0;
-                loadUsers();
-            } else {
-                console.error("Error adding admin:", data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Error adding admin:", error);
-        });
-    }
-
-    loadMoreButton.addEventListener("click", loadUsers);
-    fetchUsers();
-});
-
-    // function editUser(email){
-
-
-
-    // }
-</script>
 </body>
 </html>
