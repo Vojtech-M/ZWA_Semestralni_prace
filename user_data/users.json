@@ -81,72 +81,12 @@
     },
     {
         "id": "6750b2b87de5f",
-        "firstname": "Vojtěch",
+        "firstname": "Vojt\u011bch",
         "lastname": "Michalll",
         "email": "michal@michal.cz",
         "phone": "123111222",
         "password": "$2y$10$AGkmJTTbz\/DXZFd\/NPWsTOd1YfOecgSK8KOx8zDAXq0OTXtX5TVJ.",
         "role": "user",
         "profile_picture": ".\/uploads\/6750b3a348be79.98098609.png"
-    },
-    {
-        "id": "6750c508a0c13",
-        "role": "user",
-        "firstname": "TOMAAAN",
-        "lastname": "TOMAAAN",
-        "email": "asdf@asdfasdfasdf.asdf",
-        "phone": "",
-        "password": "$2y$10$Oj2nd1d397S3vbPb\/k1uc.wfCZsYjI7hbGkdqtf5ly35s2dWJ9jni",
-        "profile_picture": null
-    },
-    {
-        "id": "6750c5baa84cd",
-        "role": "user",
-        "firstname": "asdfasdf",
-        "lastname": "asdfasdf",
-        "email": "hjkljkljklj@askdjfklasj.cz",
-        "phone": "",
-        "password": "$2y$10$vvNdGpcoiR5kaApzpaaQ1.zM9gvcoWYHpOsVQMXAzItMG3FEGOIre",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "id": "6750c5d758efc",
-        "role": "user",
-        "firstname": "Pepik",
-        "lastname": "Boban",
-        "email": "killer@k.k",
-        "phone": "123456548",
-        "password": "$2y$10$YSB7b21.VS6ea0oJw5MHoODE.WAht\/jQf7tTGRWXy9CmTeqbSVYPO",
-        "profile_picture": ".\/uploads\/6750c618c9bb53.58229160.png"
-    },
-    {
-        "id": "6750c7d50216c",
-        "role": "admin",
-        "firstname": "Barbora",
-        "lastname": "Barbora",
-        "email": "barbora@barbora.cz",
-        "phone": "",
-        "password": "$2y$10$z1b0poBONyj7ceS\/e451ae3WVpIr20ExQwr0XgptI4KfOGUCptlIm",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "id": "6752e209878af",
-        "role": "user",
-        "firstname": "hola",
-        "lastname": "hola",
-        "email": "hola@hola.cz",
-        "phone": "",
-        "password": "$2y$10$C5Vpr.eP5XO1e5tZjHUkMe4i4EtDA\/OueV1QqPRxFaQHHNSng.38K",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "id": "675373838a980",
-        "role": "user",
-        "firstname": "lola",
-        "lastname": "lola",
-        "email": "lola@lola.lola",
-        "phone": "123123123",
-        "password": "$2y$10$trpi.y1CE6nrMGY3V5y0AeIXOy4JeMWz3pgG6fwBESemNes.I5lPa",
-        "profile_picture": ".\/uploads\/675373838ae597.85182711.png"
     }
 ]

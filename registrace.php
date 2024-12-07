@@ -138,13 +138,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="form_field">
                     <label for="pass1_field" class="required_label">Heslo</label>
-                    <input type="password" id="pass1_field" name="passwd" placeholder="Heslo" required />
+                    <input type="password" id="pass1_field" name="passwd" placeholder="Heslo" required tabindex="5" />
                 
-                    <img id="password-toggle" src="./img/closed_eye.png" alt="Toggle password visibility" role="button" tabindex="5" aria-label="Show password" />      
+                    <img id="password-toggle" src="./img/closed_eye.png" alt="Toggle password visibility" role="button" tabindex="6" aria-label="Show password" />      
                     
                     <div class="error" id="pass1Error"></div>
                     <label for="pass2_field" class="required_label">Heslo znovu</label>
-                    <input id="pass2_field" type="password" name="passwd2" required placeholder="Heslo znovu" tabindex="6" >
+                    <input id="pass2_field" type="password" name="passwd2" required placeholder="Heslo znovu" tabindex="7" >
                 <?php if (isset($errors['passwd'])): ?>
                     <div class="error" id="pass2Error"><?= htmlspecialchars($errors['passwd']) ?></div>
                 <?php endif; ?>
@@ -152,17 +152,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>  
                 <div class="form_field">
                     <label for="myFile">Profilový obrázek</label>
-                    <input type="file" id="myFile" name="file" >
+                    <input type="file" id="myFile" name="file" tabindex="8">
                 </div>
                 <div class="error">
                     <?php echo isset($fileUploadError) ? htmlspecialchars($fileUploadError) : ''; ?>
                 </div>
                 <div class="form_field">
                     <label for="agreement_field" class="required_label">Souhlasím s <a href="conditions.html" target="blank">podmínkami</a></label>
-                    <input id="agreement_field" type="checkbox" name="agreement" required tabindex="7">
+                    <input id="agreement_field" type="checkbox" name="agreement" required tabindex="9">
                 </div>
                 <p>Políčka označená <span class="red_text">*</span> jsou povinná</p>
-                <input id="submit" type="submit" value="Registrovat se" tabindex="8">  
+                <input id="submit" type="submit" value="Registrovat se" tabindex="10">  
                 <p> Máte už účet ? <a class="register_link" href="login.php">Přihlaste se !</a> </p>
             </form>
         </div>

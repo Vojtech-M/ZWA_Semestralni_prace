@@ -50,27 +50,26 @@ function addUser($firstname,$lastname, $email,$passwd) {
     return $id;
 }
 
+function deleteProfilePicture($userToDelete) {
+    $defaultProfilePicture = './img/profile.png';
+    $profilePicturePath = str_replace('.\\', '', $userToDelete['profile_picture'] ?? '');
+    if ($profilePicturePath && $profilePicturePath !== $defaultProfilePicture && file_exists('../' . $profilePicturePath)) {
+        unlink('../' . $profilePicturePath);
+    }
+}
+
 function deleteUser($id) {
     $updatedUsers = [];
     $users = loadUsers();
     foreach ($users as $user) {
         if ($user['id'] !== $id) {
             $updatedUsers[] = $user;
+        } else {
+            deleteProfilePicture($user);
         }
     }
 
     saveUsers($updatedUsers);
 }
 
-function editUser($id, $name, $email, $avatar) {
-    $users = loadUsers();
-    foreach ($users as &$user) {  // & - reference na prvek v poli (nikoliv kopii)
-        if ($user['id'] === $id) {
-            $user['name'] = $name;
-            $user['email'] = $email;
-            $user['avatar'] = $avatar;
-            break;
-        }
-    }
-    saveUsers($users);
-}
+

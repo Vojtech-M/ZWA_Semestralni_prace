@@ -1,5 +1,6 @@
 <?php
 include './php/check_login.php';
+include './php/validation.php';
 include "./php/lib.php";
 
 if (isset($_SESSION['id'])) {
@@ -19,7 +20,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $phone = $_POST['phone'];
         $passwd = $_POST['passwd'];
         $profile_picture = './img/profile.png';
+
+        $errors['firstname'] = validateName($firstname);
+        $errors['lastname'] = validateName($lastname);
+        $errors['email'] = validateEmail($email);
+        $errors['phone'] = validatePhone($phone);
+        $errors['passwd'] = validatePassword($passwd, $passwd);
+    
+        // Filter out null values from errors
+        $errors = array_filter($errors);
+    
+        if (empty($errors)) {
+            $formValid = true;
+        } else {
+            $formValid = false;
+        }
+    
+        $hash = password_hash($passwd, PASSWORD_DEFAULT);  // zaheshování hesla
+
+
+        if ($formValid) {
         addUser($role,$firstname, $lastname, $email, $phone, $passwd,$profile_picture);
+        } else {
+            echo "Formulář není validní";
+        }
     } elseif ($action === 'update') {
         $id = $_POST['id'];
         $role = $_POST['role'];
@@ -67,17 +91,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </article>
 
 <article>
-      
         <h2>Moje rezervace</h2>
         <?php if (!empty($userReservations)): ?>
             <ul>
-                <?php foreach ($userReservations as $reservation): ?>
-                    <li>
-                        Datum: <?php echo htmlspecialchars($reservation['date']); ?>,
-                        Čas: <?php echo htmlspecialchars($reservation['time']); ?>,
-                        Počet lidí: <?php echo htmlspecialchars($reservation['quantity']); ?>
-                    </li>
-                <?php endforeach; ?>
+            <?php foreach ($userReservations as $reservation): ?>
+                <li>
+                    Datum: <?php echo htmlspecialchars($reservation['date']); ?>,
+                    Čas: <?php echo htmlspecialchars($reservation['time']); ?>,
+                    Počet lidí: <?php echo htmlspecialchars($reservation['quantity']); ?>
+                </li>
+            <?php endforeach; ?>
             </ul>
         <?php else: ?>
             <p>Nemáte žádné rezervace.</p>

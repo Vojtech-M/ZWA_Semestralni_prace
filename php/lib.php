@@ -50,6 +50,19 @@ function addUser($role,$firstname, $lastname, $email,$phone, $password, $profile
     saveUsers($users);
     return $id;
 }
+function deleteProfilePicture($userToDelete) {
+    $defaultProfilePicture = './img/profile.png';
+    $profilePicturePath = $userToDelete['profile_picture'];
+
+    // Ensure the profile picture path is not the default picture
+    if ($profilePicturePath && $profilePicturePath !== $defaultProfilePicture) {
+        // Resolve the absolute path
+        $absolutePath = realpath(__DIR__ . '/../' . $profilePicturePath);
+        if ($absolutePath && file_exists($absolutePath)) {
+            unlink($absolutePath);
+        }
+    }
+}
 
 function deleteUser($id) {
     $updatedUsers = [];
@@ -57,11 +70,15 @@ function deleteUser($id) {
     foreach ($users as $user) {
         if ($user['id'] !== $id) {
             $updatedUsers[] = $user;
+        } else {
+            echo $user["profile_picture"];
+            deleteProfilePicture($user);
         }
     }
 
     saveUsers($updatedUsers);
 }
+
 
 function editUser($id, $role,$firstname, $lastname, $email,$phone, $password, $profile_picture ) {
     $users = loadUsers();
