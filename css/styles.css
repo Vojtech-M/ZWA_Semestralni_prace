@@ -8,11 +8,6 @@ body {
     font-family: Verdana, sans-serif;
 }
 
-nav {
-    display: flex;
-    background-color: #0F4C75;
-    justify-content: space-between;
-}
 
 .logo_corner{
     padding: 1% 5%;
@@ -251,7 +246,10 @@ article h3 {
 .profile_picture{
     width: 32px;
     height: 32px;
-
+}
+.profile_picture_view{
+    width: 200px;
+    height: 200px;
 }
 
 input {
@@ -397,25 +395,6 @@ input{
     height: 128px;
     }
 
-footer {
-    background-color: #1B262C;
-    padding: 0px 30px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-    position: relative;
-    bottom: 0;
-    margin-top: auto;
-}
-
-.footer-text {
-    justify-content: center;
-    flex: 1;
-    text-align: center;
-    color: white;
-    padding: 10px;
-}
 
 .hamburger,.closeIcon, .menu, .mobile_screens{
     display: none
@@ -482,62 +461,6 @@ footer {
 }
 
 
-/* General table styles */
-.reservation-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 1rem;
-    font-family: Arial, sans-serif;
-    text-align: left;
-    background-color: #04AA6D;
-}
-
-/* Table header styles */
-.reservation-table thead th {
-    background-color: #f4f4f4;
-    color: #333;
-    text-transform: uppercase;
-    padding: 10px;
-    border: 1px solid #ddd;
-}
-
-/* Table body styles */
-.reservation-table tbody td {
-    padding: 10px;
-    border: 1px solid #ddd;
-}
-
-.pagination{
-    display: flex;
-    font-size: 42px;
-    color: white;
-    margin: 20px;
-}
-.pagination a{
-    background-color: #0d2d47;
-    color: white;
-    margin: 20px;
-    padding: 20px;
-    text-decoration: none;
-}
-
-.pagination h3 {
-    background-color: #0d2d47;
-    margin: 20px;
-    padding: 20px;
-    text-decoration: none;
-    color: red;
-
-}
-
-.admin_table{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-}
-
 
 
 .logo_ img {
@@ -577,11 +500,30 @@ footer {
     text-decoration: none;
 
 }
+
+.editForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    max-width: 1200px;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 30px auto;    
+}
+.hidden {
+    display: none;
+}
+
     @media print {        
         * {
             font-size: 16px;
         }
-        .hero-image, .hero-image, .hero-text, nav, footer {
+        .hero-image, .hero-image, .hero-text, header, footer {
             display: none;
         }
     }

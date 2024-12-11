@@ -5,10 +5,9 @@
 $firstname = $lastname = $email = $phone = '';
 $errors = [];
 $formValid = true; // formulář je na začátku valid
-
+include "./php/check_login.php";
 include './php/validation.php';
 include './php/file_upload.php';
-include './php/get_data.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstname = htmlspecialchars(trim($_POST['firstname']));
@@ -97,6 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
     <link rel="icon" type="image/png" sizes="32x32" href="./img/helma.png"> 
+    <link rel="stylesheet" href="./css/layout.css">
 </head>
 <body>
 <?php include './php/structure/header.php'; ?> 

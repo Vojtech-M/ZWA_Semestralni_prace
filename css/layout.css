@@ -1,0 +1,17 @@
+footer {
+    background-color: #1B262C;
+    padding: 0px 30px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    position: relative;
+    bottom: 0;
+    margin-top: auto;
+}
+
+header {
+    display: flex;
+    background-color: #0F4C75;
+    justify-content: space-between;
+}

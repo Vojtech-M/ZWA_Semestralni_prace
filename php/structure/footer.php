@@ -1,8 +1,10 @@
+
+<link rel="stylesheet" href="./css/footer.css">
 <div class="contact">
     <div class="contact_text">
         <img class="map_marker" src="./img/opening_hours.svg" alt="map marker" >
         <table>
-            <tr><th>Pondělí</th><td>zavřeno</td></tr>
+            <tr><th>Pondělí</th><td>14:00 - 23:00</td></tr>
             <tr><th>Úterý</th><td>14:00 - 23:00</td></tr>
             <tr><th>Středa</th><td>14:00 - 23:00</td></tr>
             <tr><th>Čtvrtek</th><td>14:00 - 23:00</td></tr>

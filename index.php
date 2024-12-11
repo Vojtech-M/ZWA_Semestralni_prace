@@ -5,9 +5,6 @@
  * 
  * 
  */
-
-
- 
  // Check if the user is logged in
 require "./php/check_login.php";
 ?>
@@ -21,6 +18,7 @@ require "./php/check_login.php";
     <meta name="description" content="Nejzábavnější motokárová dráha ve středních Čechách.">
     <title>Motokárové centrum Benešov</title>
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/layout.css">
     <link rel="icon" id="favicon" type="image/png" href="./img/helma.png"> 
 </head>
 <body>
@@ -91,11 +89,13 @@ require "./php/check_login.php";
     </div>
     
     <div class="reservation_link">
-    <?php if($_SESSION["id"]): ?> <!-- prihlaseny / neprihlaseny-->
-            <a href="rezervace.php">REZERVACE</a>       
-        <?php else: ?>
-            <a href="login.php">REZERVACE</a>
-        <?php endif; ?>
+    <?php if (isset($_SESSION['id'])) { ?> 
+        <!-- User is logged in -->
+        <a href="rezervace.php">REZERVACE</a>       
+    <?php } else { ?>
+        <!-- User is not logged in -->
+        <a href="login.php">REZERVACE</a>
+    <?php } ?>
     </div>
 </div>
 

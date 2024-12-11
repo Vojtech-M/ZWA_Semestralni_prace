@@ -1,5 +1,8 @@
 
 <?php
+
+
+
 if (isset($_SESSION['id'])) {
     $user_id = $_SESSION['id'];
     $user = getDataById($user_id);
@@ -11,7 +14,6 @@ if (isset($_SESSION['id'])) {
 ?>
 
 <header>
-    <nav>
         <div class="logo_corner">
             <a href="index.php"><img src="./img/logo1.png" alt="logo"></a>
         </div>
@@ -55,6 +57,5 @@ if (isset($_SESSION['id'])) {
                 <img src="./img/menu_white.png" height="32" width="32" alt="Close" class="closeIcon" style="display: none;"> 
             </button>
         </div>
-    </nav>
     <script src="./scripts/toggle_menu.js" type=module></script>
 </header>

@@ -1,14 +1,17 @@
 <?php
  include "./php/check_login.php";
+ include "./php/lib.php";
 
  if (isset($_SESSION['id'])) {
     $user_id = $_SESSION['id'];
     $user = getDataById($user_id);
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="cs">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="Author" content="Vojtěch Michal">
@@ -19,6 +22,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
     <link rel="icon" type="image/png" sizes="32x32" href="./img/helma.png"> 
     <script defer src="./scripts/validation.js"></script>
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/reservations.css">
 </head>
 <body>
 <?php include './php/structure/header.php'; ?> 
@@ -38,15 +43,18 @@
                         <option value="16">16:00 - 17:00</option>
                         <option value="17">17:00 - 18:00</option>
                         <option value="18">18:00 - 19:00</option>
-                        <option value="19">20:00 - 21:00</option>
-                        <option value="20">22:00 - 23:00</option>
+                        <option value="19">19:00 - 20:00</option>
+                        <option value="20">20:00 - 21:00</option>
+                        <option value="21">21:00 - 22:00</option>
+                        <option value="22">22:00 - 23:00</option>
                     </select>
 
                     <label for="quantity">Počet lidí:</label>
-                    <input type="number" id="quantity" name="quantity" min="1" max="50" tabindex="3">
+                    <input type="number" id="quantity" name="quantity" min="1" max="50" tabindex="3" required>
                 </div>
                 
-                <input id="reg_submit" type="submit" value="Zarezervovat" tabindex="1">
+                <button id="reg_submit" type="submit" name="action" value="reserve"   tabindex="4">Rezervovat</button>
+             
                 <h5>* Pole označené jsou povinné</h5>
                 <h4>Cena rezervace dle: <a href="cenik.php">Ceník</a></h4>
             </form>
@@ -58,52 +66,65 @@
 
     // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = $user['email'];
-        $date = $_POST['reservation_date'];
-        if ($date) {
-            $myDateTime = DateTime::createFromFormat('Y-m-d', $date);
-            $date = $myDateTime->format('d.m.Y'); // Convert to DD.MM.YYYY format
-        }
-        $timeslot = $_POST['timeslot'];
-        $quantity = $_POST['quantity']; // Default to 1 if not set
-    
+        $action = $_POST['action'];
+        if ($action === 'reserve') {
 
-       // Function to check for reservation collision
-    function check_collision($file, $date, $timeslot, $reservations) {
-        foreach ($reservations as $reservation) {
-            if ($reservation['date'] == $date && $reservation['timeslot'] == $timeslot) {
-                return true;
+            $registration_id = uniqid();
+            $user_id = $user['id'];
+            $email = $user['email'];
+            $date = $_POST['reservation_date'];
+            if ($date) {
+                $myDateTime = DateTime::createFromFormat('Y-m-d', $date);
+                $date = $myDateTime->format('d.m.Y'); // Convert to DD.MM.YYYY format
             }
+            $timeslot = $_POST['timeslot'];
+            $quantity = $_POST['quantity']; // Default to 1 if not set
+        
+    
+           // Function to check for reservation collision
+        function check_collision($file, $date, $timeslot, $reservations) {
+            foreach ($reservations as $reservation) {
+                if ($reservation['date'] == $date && $reservation['timeslot'] == $timeslot) {
+                    return true;
+                }
+            }
+            return false;
         }
-        return false;
-    }
+    
+        // Read existing reservations from the JSON file
+        if (file_exists($file)) {
+            $jsonData = file_get_contents($file);
+            $reservations = json_decode($jsonData, true);
+        } else {
+            $reservations = [];
+        }
+    
+        // Check for collision
+        if (check_collision($file, $date, $timeslot, $reservations)) {
+            echo "<p>Rezervace již existuje pro tento časový úsek.</p>";
+        } else {
+            // Prepare data to be saved into JSON
+            $data = [
+                'id' => $registration_id,
+                'user_id' => $user_id,
+                'email' => $email,
+                'date' => $date,
+                'timeslot' => $timeslot,
+                'quantity' => $quantity
+            ];
+    
+            // Add new reservation to the array
+            saveDataToJsonFile($file, $data);
+    
+            // Convert array back to JSON and save to file
+            echo "<p>Rezervace byla úspěšně vytvořena.</p>";
+        }
+        }
 
-    // Read existing reservations from the JSON file
-    if (file_exists($file)) {
-        $jsonData = file_get_contents($file);
-        $reservations = json_decode($jsonData, true);
-    } else {
-        $reservations = [];
-    }
-
-    // Check for collision
-    if (check_collision($file, $date, $timeslot, $reservations)) {
-        echo "<p>Rezervace již existuje pro tento časový úsek.</p>";
-    } else {
-        // Prepare data to be saved into JSON
-        $data = [
-            'email' => $email,
-            'date' => $date,
-            'timeslot' => $timeslot,
-            'quantity' => $quantity
-        ];
-
-        // Add new reservation to the array
-        saveDataToJsonFile($file, $data);
-
-        // Convert array back to JSON and save to file
-        echo "<p>Rezervace byla úspěšně vytvořena.</p>";
-    }
+        elseif ($action === 'delete') {
+            $id = $_POST['id'];
+            deleteReservation($id);
+        }
 }
 
 if ($user["role"] == 'admin') {
@@ -145,14 +166,18 @@ if ($user["role"] == 'admin') {
             echo "<tbody>";
 
             foreach ($currentReservations as $reservation) {
+                $reservation_id = htmlspecialchars($reservation['id']);
                 $email = htmlspecialchars($reservation['email']);
                 $date = htmlspecialchars($reservation['date']);
                 $timeslot = htmlspecialchars($reservation['timeslot']);
                 $quantity = htmlspecialchars($reservation['quantity']);
+                $timeslot1 = $timeslot . ":00";
+                $timeslot2 = $timeslot + 1 . ":00";
                 echo "<tr>
+                        <td>$reservation_id</td>
                         <td>$email</td>
                         <td>$date</td>
-                        <td>$timeslot</td>
+                        <td>$timeslot1 - $timeslot2</td>
                         <td>$quantity</td>
                         <td><button class=\"edit_reservations\">Edit</button></td>
                         <td><button class=\"remove_reservations\">Smazat</button></td>
@@ -161,7 +186,6 @@ if ($user["role"] == 'admin') {
 
             echo "</tbody>";
             echo "</table>";
-
             // Display pagination links
             echo "<div class=\"pagination\">";
             if ($page > 1) {
@@ -189,8 +213,14 @@ if ($user["role"] == 'admin') {
         echo "Rezervační soubor neexistuje.";
     }
 }
-
 ?>
+<form action="" method="post">
+<label>
+    ID rezervace:
+    <input type="text" name="id" required>
+</label>
+<button type="submit" name="action" value="delete">Smazat</button>
+</form>
 <?php include './php/structure/footer.php'; ?>
 
 </body>

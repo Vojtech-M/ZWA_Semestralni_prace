@@ -1,0 +1,74 @@
+
+/* General table styles */
+.reservation-table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+    font-family: Arial, sans-serif;
+    text-align: left;
+    background-color: #BBE1FA;
+}
+
+/* Table header styles */
+.reservation-table thead th {
+    background-color: #f4f4f4;
+    color: #333;
+    text-transform: uppercase;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Table body styles */
+.reservation-table tbody td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.pagination{
+    display: flex;
+    font-size: 42px;
+    color: white;
+    margin: 20px;
+}
+.pagination a{
+    background-color: #0F4C75;
+    color: white;
+    margin: 20px;
+    padding: 20px;
+    text-decoration: none;
+}
+
+.pagination h3 {
+    background-color: #0F4C75;
+    margin: 20px;
+    padding: 20px;
+    text-decoration: none;
+    color: #d39717;
+
+}
+.pagination a:hover:not(h3) {background-color: #3282B8;}
+
+/* 
+#1B262C - tmavá
+#0F4C75 - tmavší
+#3282B8 - světlejší
+#BBE1FA - light modrá 
+
+#d39717 - oranzova
+
+*/
+
+.admin_table{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+/* 
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+ */

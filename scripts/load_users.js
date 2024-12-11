@@ -29,6 +29,13 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
+
+    /**
+     * 
+     * Načte dalších 5 uživatelů ze seznamu a přidá je do seznamu.
+     * 
+     * 
+     */
     function loadUsers() {
         const fragment = document.createDocumentFragment();
         const end = Math.min(loadedUsersCount + usersPerPage, users.length);
@@ -42,11 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (user.role === 'admin') {
                 li.classList.add('admin-user');
             }
-
-         
             fragment.appendChild(li);
         }
-
         userList.appendChild(fragment);
         loadedUsersCount = end;
 

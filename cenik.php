@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
     <link rel="icon" type="image/png" sizes="32x32" href="./img/helma.png"> 
-    <link rel=stylesheet href='./css/print.css' media=print>   
+    <link rel="stylesheet" href="./css/layout.css">
 </head>
 
 <body>
@@ -22,28 +22,26 @@
     <h3 class="draha_heading">Pronájmy motokár / cena za 10 min jízdy</h3>
         <div class="draha">
 
-       
         <div class="rental-option">
             <div class="time-slot">Motokáry sport birel</div>
             <div class="price">250 Kč <br> </div>
         </div>
         
         <div class="rental-option">
-            <div class="time-slot">Motokáry racing birel (závodní licence)</div>
+            <div class="time-slot">Motokáry racing Birel (závodní licence)</div>
             <div class="price">280 Kč <br></div>
         </div>
     </div>
 
-    <h3 class="draha_heading">Ceník firemních a soukromých akcí</h3>
+    <h3 class="draha_heading">Ceník firemních a soukromých akcí / cena za 1 hodinu</h3>
     <div class="draha">
         <div class="rental-option">
-            <div class="time-slot">PO - PÁ OD 15:00 DO 19:00 HOD.</div>
+            <div class="time-slot">PO - PÁ OD 14:00 DO 23:00 HOD.</div>
             <div class="price">16 000 Kč <br> <span>bez DPH *</span></div>
         </div>
 
-
         <div class="rental-option">
-            <div class="time-slot">SO - NE A SVÁTKY OD 11:00 DO 24:00 HOD.</div>
+            <div class="time-slot">SO - NE A SVÁTKY OD 14:00 DO 23:00 HOD.</div>
             <div class="price">20 000 Kč <br> <span>bez DPH *</span></div>
         </div>
     </section>
