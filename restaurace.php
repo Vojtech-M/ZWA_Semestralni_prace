@@ -54,6 +54,7 @@
     </section>
     </article>
 
+    
 <?php include './php/structure/footer.php'; ?>
 </body>
 </html>
