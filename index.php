@@ -3,9 +3,10 @@
 /**
  * @author Vojtěch Michal
  * 
+ * Job: Display the main page
+ * This file contains the main page of the website. It displays the main content and the header and footer.
  * 
  */
- // Check if the user is logged in
 require "./php/check_login.php";
 ?>
 <!DOCTYPE html>
@@ -42,21 +43,22 @@ require "./php/check_login.php";
     <a href="./zecviceni/10.cvicenicopy/index.php">`php formular</a>
     <a href="./zecviceni/10.cvicenicopy/index3.php">`php formular</a>
     <a href="./zecviceni/11.cviceni/index.php">11 cviko  SESSION formular</a>
+    <a href="./zecviceni/12.cviceni/index.php">12. cviko </a>
 
 <section class="features">
     <div class="small_text">
-        <img src="./img/trat_ikona.svg" height="128" width="128" alt="ikona trati">
+        <img src="./img/trat_ikona.svg" alt="ikona trati">
         <h3>Dráha</h3>
         <p>800 m</p>
 
     </div>
     <div class="small_text">
-        <img src="./img/restaurace2_ikona.svg" height="128" width="128" alt="ikona trati">
+        <img src="./img/restaurace2_ikona.svg" alt="ikona trati">
         <h3> Restaurace</h3>
         <p>Až pro 80 lidí </p>
     </div>
     <div class="small_text">
-    <img src="./img/konfety_ikona.svg" height="128" width="128" alt="ikona trati">
+    <img src="./img/konfety_ikona.svg" alt="ikona trati">
         <h3>Firemní akce</h3>
         <p>Netradiční setkání</p>
     </div>
@@ -68,7 +70,7 @@ require "./php/check_login.php";
         <p>Náš okruh s 11 vzrušujícími zatáčkami vás nenechá na pochybách o skutečném závodním zážitku! Od širokých pasáží po technické a úzké úseky, každý z nich přináší novou výzvu a zvyšuje adrenalin. Zatímco se budete snažit najít dokonalou stopu, zažijete pocit vzrušení a rychlosti. Přijďte si to vyzkoušet a objevte, co v sobě máte! </p>
     </div>
     <div class="right-text">
-        <img src="./img/bitmapa.png" width="500" alt="okruh" >
+        <img src="./img/bitmapa.png" alt="okruh" >
     </div>
 </article>
 
@@ -117,6 +119,31 @@ v session žádný data uložený
 
 
 JSON format jak se ukaladaji data
+
+PHP 
+kod, musime najit chyby
+jak bysme neco napsali
+
+obsluha formulare
+cokokies, session,
+prace se soubory, nejaky funkce
+caschovani, sifrovani a kontrola hesel
+cookies, jako slovnik klic a hodnota, obycejny slovnik, textove retezce
+
+location se pouziva pro presmerovani na jinou str
+exit ukonci skript
+diky & se posilaji data v lib.php
+
+šifry, hashe
+
+
+klic a hodnota a posilaji se pri kazdem requestu
+
+kazde volani passwrdhash vygeneruje stejny hesh
+
+
+CSRF utok
+
 
 -->
 </body>

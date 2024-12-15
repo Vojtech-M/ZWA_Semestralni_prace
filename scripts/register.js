@@ -108,9 +108,6 @@ function checkPassword(inputField, errorElementId) {
     }
 }
 
-
-
-
 // Function to check if the passwords match
 function checkPasswordMatch(pass1Input, pass2Input, errorElementId) {
     if (pass1Input.value !== pass2Input.value) {
@@ -123,7 +120,6 @@ function checkPasswordMatch(pass1Input, pass2Input, errorElementId) {
     }
 }
 
-
 // Add event listener to dynamically check password match
 pass2Input.addEventListener("input", function () {
     checkPasswordMatch(pass1Input, pass2Input, "pass2Error");
@@ -132,9 +128,6 @@ pass2Input.addEventListener("input", function () {
 pass1Input.addEventListener("input", function () {
     checkPassword(pass1Input, "pass1Error");
 });
-
-
-
 
 // Form submission handler
 document.getElementById("registrationForm").addEventListener("submit", function (event) {

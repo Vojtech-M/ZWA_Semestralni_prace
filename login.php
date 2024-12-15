@@ -1,4 +1,8 @@
 <?php
+/**
+ * Job: Login users
+ * This file contains a form for user login. It checks if the user exists in the database and if the password is correct.
+ */
 require "./php/check_login.php";
 include './php/validation.php';
 
@@ -8,27 +12,20 @@ $password = "";
 $valid = true;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email']);
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
     $errors["email"] = validateEmail($email);
-    $errors["passwd"] = validatePassword($password,$password);
+    $errors["password"] = validatePassword($password,$password);
 
     $errors = array_filter($errors);
 
-    if (empty($errors)) {
-        $formValid = true;
-    } else {
-        $formValid = false;
-    }
-
+    $formValid = empty($errors);
     if ($valid) {
-        $isExist = false;
         $usersFile = './user_data/users.json';
         $users = json_decode(file_get_contents($usersFile), true);
         foreach ($users as $user) {
             if ($user['email'] === $email && password_verify($password, $user['password'])) {
-                $isExist = true;
                 $_SESSION['id'] = $user['id']; // Save user ID in session
                 header("Location: ./index.php");
                 exit;
@@ -39,8 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = ""; // Ensure email is empty for first load
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -69,12 +64,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php endif; ?>
                     <div class="error" id="emailError"></div>
                 </div>
-                <div id="passwd">
+                <div id="password">
                     <label for="password">Heslo:</label>
                     <input type="password" name="password" id="password" value="<?php if(isset($_GET['password'])) echo(htmlspecialchars($_GET['password']));?>" required placeholder="vase heslo" tabindex="2">
                     <div class="error" id="passwordError"></div>
-                <?php if (isset($errors['passwd'])): ?>
-                    <div class="error" id="pass2Error"><?= htmlspecialchars($errors['passwd']) ?></div>
+                <?php if (isset($errors['password'])): ?>
+                    <div class="error" id="pass2Error"><?= htmlspecialchars($errors['password']) ?></div>
                 <?php endif; ?>
                 </div>
                 <input type="submit" name="login" value="Přihlásit se" tabindex="3">
@@ -89,4 +84,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include './php/structure/footer.php'; ?>
     <script src="./scripts/login.js" type=module></script> 
 </body>
-</html>

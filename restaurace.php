@@ -20,7 +20,6 @@
 <body>
 <?php include './php/structure/header.php'; ?>    
 
-
 <article> 
         <h2>O naší restauraci</h2>
         <p>Naše restaurace nabízí jedinečný zážitek s širokým výběrem pokrmů připravených z čerstvých surovin. Prostředí je vhodné pro rodinné oslavy, firemní akce a příjemné posezení po závodech.</p>
@@ -54,7 +53,6 @@
         </div>
     </section>
     </article>
-
 
 <?php include './php/structure/footer.php'; ?>
 </body>

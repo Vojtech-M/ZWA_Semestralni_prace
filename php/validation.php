@@ -21,9 +21,19 @@ function validateEmail($email) {
     return null;
 }
 
+function check_email($email){   
+    $users = loadUsers();
+    foreach ($users as $user) {
+        if ($user['email'] === $email) {
+            return true;
+        }
+    }
+    return false;
+
+}  
+
 function validatePhone($phone) {
     // Check for 9 digits (Czech phone number format)   
-
     if (empty($phone)) {
         return null;
     }

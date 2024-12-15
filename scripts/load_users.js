@@ -1,6 +1,5 @@
-
 document.addEventListener("DOMContentLoaded", function () {
-    const userList = document.getElementById("userList");
+    const userTable = document.getElementById("userTableBody"); // Table body for users
     const loadMoreButton = document.getElementById("loadMore");
 
     let users = []; // Array to hold all user data
@@ -20,38 +19,64 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!Array.isArray(data)) {
                     throw new Error("The fetched data is not an array.");
                 }
-                users = data; 
-                loadUsers(); // Load the first batch of users
+
+                // Sort users alphabetically by lastname, then firstname
+                users = data.sort((a, b) => {
+                    if (a.lastname === b.lastname) {
+                        return a.firstname.localeCompare(b.firstname);
+                    }
+                    return a.lastname.localeCompare(b.lastname);
+                });
+
+                printUsers(); // Load the first batch of users
             })
             .catch(error => {
                 console.error("Error loading user data:", error);
-                userList.innerHTML = `<li>Error: ${error.message}</li>`;
+                userTable.innerHTML = `<tr><td colspan="6">Error: ${error.message}</td></tr>`;
             });
     }
 
-
-    /**
-     * 
-     * Načte dalších 5 uživatelů ze seznamu a přidá je do seznamu.
-     * 
-     * 
-     */
-    function loadUsers() {
-        const fragment = document.createDocumentFragment();
+    function printUsers() {
         const end = Math.min(loadedUsersCount + usersPerPage, users.length);
 
         for (let i = loadedUsersCount; i < end; i++) {
             const user = users[i];
-            const li = document.createElement("li");
-            li.textContent = `${user.email} (${user.role}) ${user.id}`;
+            const tr = document.createElement("tr");
+            tr.dataset.userId = user.id; // Store user ID in data attribute
 
             // Apply red font for admin users
             if (user.role === 'admin') {
-                li.classList.add('admin-user');
+                tr.classList.add('admin-user');
             }
-            fragment.appendChild(li);
+
+            // Create table cells
+            tr.innerHTML = `
+                <td>${user.id}</td>
+                <td>${user.email}</td>
+                <td>${user.role}</td>
+                <td>${user.firstname}</td>
+                <td>${user.lastname}</td>
+                <td><button class="table_button delete_user_button">Delete</button></td>
+                <td><button class="table_button edit_user_button">Edit</button></td>
+            `;
+
+            // Add delete functionality
+            const deleteButton = tr.querySelector(".delete_user_button");
+            deleteButton.addEventListener("click", () => deleteUser(user.id, tr));
+            const editButton = tr.querySelector(".edit_user_button");
+            editButton.addEventListener("click", () => {
+                //alert(`Edit button clicked for User ID: ${user.id}`);
+                // Add further edit logic here
+                const element = document.querySelector(".editDifferentFormUser");
+                if (element.style.display === "none" || element.style.display === "") {
+                    element.style.display = "flex";
+                } else {
+                    element.style.display = "none";
+                }
+            });
+
+            userTable.appendChild(tr);
         }
-        userList.appendChild(fragment);
         loadedUsersCount = end;
 
         if (loadedUsersCount >= users.length) {
@@ -60,6 +85,39 @@ document.addEventListener("DOMContentLoaded", function () {
             loadMoreButton.style.display = "block";
         }
     }
-    loadMoreButton.addEventListener("click", loadUsers);
+
+
+    function deleteUser(userId, tableRow) {
+        // Create a form element
+        const form = document.createElement("form");
+        form.method = "post";
+        form.action = "";
+
+        // Create an input element for the user ID
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "id";
+        input.value = userId;
+
+        // Create an input element for the action
+        const actionInput = document.createElement("input");
+        actionInput.type = "hidden";
+        actionInput.name = "action";
+        actionInput.value = "delete";
+
+        // Append the inputs to the form
+        form.appendChild(input);
+        form.appendChild(actionInput);
+
+        // Append the form to the body and submit it
+        document.body.appendChild(form);
+
+        // Remove the table row from the DOM
+        tableRow.remove();
+
+        form.submit();
+    }
+
+    loadMoreButton.addEventListener("click", printUsers);
     fetchUsers();
 });

@@ -1,11 +1,7 @@
 <?php
  include "./php/check_login.php";
  include "./php/lib.php";
-
- if (isset($_SESSION['id'])) {
-    $user_id = $_SESSION['id'];
-    $user = getDataById($user_id);
-}
+ include "./php/reservation_validation.php";
 
 ?>
 <!DOCTYPE html>
@@ -80,25 +76,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $timeslot = $_POST['timeslot'];
             $quantity = $_POST['quantity']; // Default to 1 if not set
         
-    
-           // Function to check for reservation collision
-        function check_collision($file, $date, $timeslot, $reservations) {
-            foreach ($reservations as $reservation) {
-                if ($reservation['date'] == $date && $reservation['timeslot'] == $timeslot) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    
-        // Read existing reservations from the JSON file
-        if (file_exists($file)) {
-            $jsonData = file_get_contents($file);
-            $reservations = json_decode($jsonData, true);
-        } else {
-            $reservations = [];
-        }
-    
+           
+            $reservations = loadReservations();    
         // Check for collision
         if (check_collision($file, $date, $timeslot, $reservations)) {
             echo "<p>Rezervace již existuje pro tento časový úsek.</p>";
@@ -124,104 +103,163 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         elseif ($action === 'delete') {
             $id = $_POST['id'];
             deleteReservation($id);
+        } elseif ($action === 'edit') {
+            $id = $_POST['id'];
+            echo "what ?"   ;
+            echo '<section class="edit-reservation">';
+            echo '<form action="rezervace.php" method="post">';
+            echo '<input type="hidden" name="id" value="">';
+            echo '<label for="reservation_date">Datum rezervace</label>';
+            echo '<input type="date" id="reservation_date" name="reservation_date" value="" required>';
+            echo '<label for="timeslot">Čas rezervace</label>';
+            echo '<select name="timeslot" id="timeslot">';
+            echo '</select>';
+            echo '<label for="quantity">Počet lidí:</label>';
+            echo '<input type="number" id="quantity" name="quantity" value="" min="1" max="50" required>';
+            echo '<button type="submit" name="action" value="update">Uložit změny</button>';
+            echo '</form>';
+            echo '</section>';
+        }
+
+        elseif ($action === 'update') {
+            $id = $_POST['id'];
+            $date = $_POST['reservation_date'];
+            $timeslot = $_POST['timeslot'];
+            $quantity = $_POST['quantity'];
+            $data = [
+                'id' => $id,
+                'date' => $date,
+                'timeslot' => $timeslot,
+                'quantity' => $quantity
+            ];
+            updateReservation($id, $data);
         }
 }
+if (file_exists($file)) {
+    // Read the file content
+    $reservations = loadReservations();   
+    // Check if the data was successfully decoded
+    if ($reservations) {
+        // Sort the reservations by date
+        usort($reservations, function($a, $b) {
+            $dateA = DateTime::createFromFormat('d.m.Y', $a['date']);
+            $dateB = DateTime::createFromFormat('d.m.Y', $b['date']);
+            return $dateA <=> $dateB;
+        });
 
-if ($user["role"] == 'admin') {
-    // File containing the reservation data
-    // Check if the file exists
-    if (file_exists($file)) {
-        // Read the file content
-        $jsonData = file_get_contents($file);
+        // Number of records per page
+        $RPP = 10;
 
-        // Decode JSON data into PHP array
-        $reservations = json_decode($jsonData, true);
-    
-        // Check if the data was successfully decoded
-        if ($reservations) {
-            // Number of records per page
-            $RPP = 10;
+        // Determine the current page
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
 
-            // Determine the current page
-            $page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
+        // Calculate the total number of pages
+        $totalPages = ceil(count($reservations) / $RPP);
 
-            // Calculate the total number of pages
-            $totalPages = ceil(count($reservations) / $RPP);
+        // Ensure the current page is within bounds
+        $page = max(1, min($page, $totalPages));
 
-            // Ensure the current page is within bounds
-            $page = max(1, min($page, $totalPages));
+        // Calculate the start index for the current page
+        $startIndex = ($page - 1) * $RPP;
 
-            // Calculate the start index for the current page
-            $startIndex = ($page - 1) * $RPP;
+        // Extract the reservations for the current page
+        $currentReservations = array_slice($reservations, $startIndex, $RPP);
 
-            // Extract the reservations for the current page
-            $currentReservations = array_slice($reservations, $startIndex, $RPP);
+        // Display reservations in a table
+        echo "<div class=\"reservation_table\">";
+        echo "<table class=\"reservation-table\">";
+        echo "<thead>";
+        echo "<tr>";
+        if ($user["role"] == "admin") {
+            echo "<th>ID</th><th>Email</th>";
+        }
+        echo "<th>Datum</th><th>Čas</th><th>Počet lidí</th>";
+        if ($user["role"] == "admin") {
+            echo "<th>Edit</th><th>Smazat</th>";
+        }
+        echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
 
-            // Display reservations in a table
-            echo "<div class=\"admin_table\">";
-            echo "<table class=\"reservation-table\">";
-            echo "<thead>";
-            echo "<tr><th>Email</th><th>Datum</th><th>Čas</th><th>Počet lidí</th><th>Edit</th><th>Smazat</th></tr>";
-            echo "</thead>";
-            echo "<tbody>";
+        foreach ($currentReservations as $reservation) {
+            $date = htmlspecialchars($reservation['date']);
+            $timeslot = htmlspecialchars($reservation['timeslot']);
+            $quantity = htmlspecialchars($reservation['quantity']);
+            $timeslot1 = $timeslot . ":00";
+            $timeslot2 = ($timeslot + 1) . ":00";
 
-            foreach ($currentReservations as $reservation) {
+            echo "<tr>";
+            if ($user["role"] == "admin") {
                 $reservation_id = htmlspecialchars($reservation['id']);
                 $email = htmlspecialchars($reservation['email']);
-                $date = htmlspecialchars($reservation['date']);
-                $timeslot = htmlspecialchars($reservation['timeslot']);
-                $quantity = htmlspecialchars($reservation['quantity']);
-                $timeslot1 = $timeslot . ":00";
-                $timeslot2 = $timeslot + 1 . ":00";
-                echo "<tr>
-                        <td>$reservation_id</td>
-                        <td>$email</td>
-                        <td>$date</td>
-                        <td>$timeslot1 - $timeslot2</td>
-                        <td>$quantity</td>
-                        <td><button class=\"edit_reservations\">Edit</button></td>
-                        <td><button class=\"remove_reservations\">Smazat</button></td>
-                    </tr>";
+                echo "<td>$reservation_id</td><td>$email</td>";
             }
+            echo "<td>$date</td><td>$timeslot1 - $timeslot2</td><td>$quantity</td>";
 
-            echo "</tbody>";
-            echo "</table>";
-            // Display pagination links
-            echo "<div class=\"pagination\">";
-            if ($page > 1) {
-                $prevPage = $page - 1;
-                echo "<a href=\"?page=$prevPage\">&laquo; Previous</a> ";
+            if ($user["role"] == "admin") {
+                echo "<td>
+                        <form action=\"rezervace.php\" method=\"post\">
+                            <input type=\"hidden\" name=\"id\" value=\"$reservation_id\">
+                            <button type=\"submit\" name=\"action\" value=\"edit\" class=\"edit_reservations\">Edit</button>
+                        </form>
+                      </td>";
+                echo "<td>
+                        <form action=\"rezervace.php\" method=\"post\">
+                            <input type=\"hidden\" name=\"id\" value=\"$reservation_id\">
+                            <button type=\"submit\" name=\"action\" value=\"delete\" class=\"remove_reservations\">Smazat</button>
+                        </form>
+                      </td>";
             }
-            for ($x = 1; $x <= $totalPages; $x++) {
-                if ($x == $page) {
-                    echo "<h3>$x</h3> ";
-                } else {
-                    echo "<a href=\"?page=$x\">$x</a> ";
-                }
-            }
-            if ($page < $totalPages) {
-                $nextPage = $page + 1;
-                echo "<a href=\"?page=$nextPage\">Next &raquo;</a>";
-            }
-            echo "</div>";
-            echo "</div>";
-
-        } else {
-            echo "Chyba při čtení dat rezervací.";
+            echo "</tr>";
         }
+
+        echo "</tbody>";
+        echo "</table>";
+
+        // Display pagination links
+        echo "<div class=\"pagination\">";
+        if ($page > 1) {
+            $prevPage = $page - 1;
+            echo "<a href=\"?page=$prevPage\">&laquo; Previous</a> ";
+        }
+        for ($x = 1; $x <= $totalPages; $x++) {
+            if ($x == $page) {
+                echo "<h3>$x</h3> ";
+            } else {
+                echo "<a href=\"?page=$x\">$x</a> ";
+            }
+        }
+        if ($page < $totalPages) {
+            $nextPage = $page + 1;
+            echo "<a href=\"?page=$nextPage\">Next &raquo;</a>";
+        }
+        echo "</div>";
+        echo "</div>";
     } else {
-        echo "Rezervační soubor neexistuje.";
+        echo "Chyba při čtení dat rezervací.";
     }
+} else {
+    echo "Rezervační soubor neexistuje.";
 }
 ?>
-<form action="" method="post">
+<?php include './php/structure/footer.php'; ?>
+<script> 
+document.querySelectorAll('.remove_reservations').forEach(button => {
+    button.addEventListener('click', function (e) {
+        if (!confirm('Opravdu chcete tuto rezervaci smazat?')) {
+            e.preventDefault();
+        }
+    });
+});
+</script>
+</body>
+</html>
+
+
+<!-- <form action="" method="post">
 <label>
     ID rezervace:
     <input type="text" name="id" required>
 </label>
 <button type="submit" name="action" value="delete">Smazat</button>
-</form>
-<?php include './php/structure/footer.php'; ?>
-
-</body>
-</html>
+</form> -->

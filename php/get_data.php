@@ -50,7 +50,6 @@ function saveDataToJsonFile($filePath, $data) {
 }
 
 
-
 /**
  * 
  * Funkce pro načtení rezervací z JSON souboru
@@ -67,6 +66,8 @@ function loadReservations() {
         return [];
     }
 }
+
+
 /**
  * 
  * Funkce pro načtení uživatelů z JSON souboru

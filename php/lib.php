@@ -21,7 +21,6 @@ function loadUsers() {
     }
     return $users;
 }
-
 /**
  * 
  * uložení uživatelů do souboru
@@ -135,7 +134,7 @@ function deleteUser($id) {
         if ($user['id'] !== $id) {
             $updatedUsers[] = $user;
         } else {
-            echo $user["profile_picture"];
+            //echo $user["profile_picture"]; //debugging - check if the path is correct
             deleteProfilePicture($user);
         }
     }
@@ -168,6 +167,26 @@ function deleteReservation($id) {
 }
 
 
+function editReservation($id, $date, $timeslot, $quantity) {
+    $file = './user_data/reservations.json';
+    if (file_exists($file)) {
+        $jsonData = file_get_contents($file);
+        $reservations = json_decode($jsonData, true);
+
+        foreach ($reservations as &$reservation) {
+            if ($reservation['id'] === $id) {
+                $reservation['date'] = $date;
+                $reservation['timeslot'] = $timeslot;
+                $reservation['quantity'] = $quantity;
+                break;
+            }
+        }
+
+        file_put_contents($file, json_encode($reservations));
+    }
+}
+
+// åfunction updateReservation()
 
 /**
  * 
@@ -186,7 +205,7 @@ function deleteReservation($id) {
  */
 function editUser($id, $role,$firstname, $lastname, $email,$phone, $password, $profile_picture ) {
     $users = loadUsers();
-    foreach ($users as &$user) {  // & - reference na prvek v poli (nikoliv kopii)
+    foreach ($users as &$user) { // & - reference
         if ($user['id'] === $id) {
             $user['firstname'] = $firstname;
             $user['lastname'] = $lastname;
