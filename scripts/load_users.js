@@ -57,9 +57,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${user.firstname}</td>
                 <td>${user.lastname}</td>
                 <td><button class="table_button delete_user_button">Delete</button></td>
-                <td><button class="table_button edit_user_button">Edit</button></td>
+                <td>
+                <button class="table_button edit_user_button">Edit</button>              
+                </td>
             `;
-
+// <button class="table_button edit_user_button">Edit</button>
             // Add delete functionality
             const deleteButton = tr.querySelector(".delete_user_button");
             deleteButton.addEventListener("click", () => deleteUser(user.id, tr));

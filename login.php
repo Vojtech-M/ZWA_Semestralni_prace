@@ -10,31 +10,43 @@ $errors = [];
 $email = "";
 $password = "";
 $valid = true;
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
     $errors["email"] = validateEmail($email);
-    $errors["password"] = validatePassword($password,$password);
+    $errors["password"] = validatePassword($password, $password);
 
     $errors = array_filter($errors);
 
     $formValid = empty($errors);
-    if ($valid) {
+    $userExists = false; // Variable to track if the user exists
+
+    if ($formValid) {
         $usersFile = './user_data/users.json';
         $users = json_decode(file_get_contents($usersFile), true);
+
         foreach ($users as $user) {
-            if ($user['email'] === $email && password_verify($password, $user['password'])) {
-                $_SESSION['id'] = $user['id']; // Save user ID in session
-                header("Location: ./index.php");
-                exit;
+            if ($user['email'] === $email) {
+                $userExists = true; // User with this email exists
+                if (password_verify($password, $user['password'])) {
+                    $_SESSION['id'] = $user['id']; // Save user ID in session
+                    header("Location: ./index.php");
+                    exit;
+                } else {
+                    $errors['password'] = "Špatné heslo."; // Incorrect password error
+                }
+                break;
             }
         }
+
+        // If the email does not exist in the database
+        if (!$userExists) {
+            $errors['email'] = "Uživatel s tímto e-mailem neexistuje.";
+        }
     }
-} else {
-    $email = ""; // Ensure email is empty for first load
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="cs">
@@ -73,9 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php endif; ?>
                 </div>
                 <input type="submit" name="login" value="Přihlásit se" tabindex="3">
-                <?php if (!empty($error)): ?>
-                    <p class="error"><?php echo $error; ?></p>
-                <?php endif; ?>
                 <p> Ještě nemáte učet ? <a class="register_link" href="registrace.php">Zaregistrujte se !</a> </p>
                 
             </form>

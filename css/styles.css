@@ -662,7 +662,10 @@ input{
             transform: translateY(0);
             background: #1B262C;
         }
-       
+        .login_formular {
+            width: 80%;
+        }
+        
     
         article {
             display: flex;

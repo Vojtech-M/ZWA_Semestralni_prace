@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * 
  * Načtení uživatelů ze souboru

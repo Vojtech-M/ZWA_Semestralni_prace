@@ -32,7 +32,7 @@ function loadUsers() {
 
 function saveUsers($users) {
     global $filePath;
-    file_put_contents($filePath, json_encode($users, JSON_PRETTY_PRINT));
+    file_put_contents($filePath, json_encode($users, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)); // JSON_UNESCAPED_UNICODE - zabraňuje kódování znaků do unicode
 }
 
 
@@ -208,6 +208,7 @@ function editUser($id, $role,$firstname, $lastname, $email,$phone, $password, $p
     foreach ($users as &$user) { // & - reference
         if ($user['id'] === $id) {
             $user['firstname'] = $firstname;
+            $user['role'] = $role;
             $user['lastname'] = $lastname;
             $user['email'] = $email;
             $user['phone'] = $phone;

@@ -7,6 +7,12 @@ include './php/check_login.php';
 include './php/validation.php';
 include './php/lib.php';
 include './php/file_upload.php';
+include './php/reservation_validation.php';
+
+// Load user data
+$user = getDataById($_SESSION['id']);
+$userReservations = getUserReservations($_SESSION['id']);
+$defaultProfilePicture = './img/profile.png';
 
 // Handle user actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -16,34 +22,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'add':
         case 'update':
             // Handle common user form logic for add and update actions
-            $id = $_POST['id'] ?? '';
+            $id = $_POST['id'];
             $role = $_POST['role'];
             $firstname = $_POST['firstname'];
             $lastname = $_POST['lastname'];
             $email = $_POST['email'];
             $phone = $_POST['phone'];
             $password = $_POST['password'];
-            $profile_picture = './img/profile.png';
+            $password2 = $_POST['password2'];
+            $defaultProfilePicture = './img/profile.png';
 
             // Validate inputs
             $errors['firstname'] = validateName($firstname);
             $errors['lastname'] = validateName($lastname);
             $errors['email'] = validateEmail($email);
             $errors['phone'] = validatePhone($phone);
-            $errors['password'] = validatePassword($password, $password);
+            $errors['password'] = validatePassword($password, $password2);
 
+            $fileUploadResult = handleFileUpload('file');
+            if ($fileUploadResult['success']) {
+                $fileNameNew = $fileUploadResult['filePath'];
+            } else {
+            if (isset($fileUploadResult['noFile']) && $fileUploadResult['noFile'] === true) {
+                // No file was uploaded
+                $fileNameNew = $defaultProfilePicture;
+            } else {
+                // A file was uploaded but invalid
+                echo $fileUploadResult['error']; // Display error message
+                $fileNameNew = null; // Or handle as required
+            }
+        }
             // Filter out null errors
             $errors = array_filter($errors);
             $formValid = empty($errors);
 
+            var_dump($errors);
             // If valid, proceed with the respective action
             if ($formValid) {
                 $hash = password_hash($password, PASSWORD_DEFAULT);
                 if ($action === 'add') {
-                    addUser($role, $firstname, $lastname, $email, $phone, $hash, $profile_picture);
+                    addUser($role, $firstname, $lastname, $email, $phone, $hash, $fileNameNew);
                 } elseif ($action === 'update') {
                     $id = $_POST['id'];
-                    editUser($id, $role, $firstname, $lastname, $email, $phone, $hash, $profile_picture);
+                    editUser($id, $role, $firstname, $lastname, $email, $phone, $hash,$fileNameNew);
                 }
             }
             break;
@@ -55,39 +76,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
 
         case 'update_self':
-            // Handle self profile update logic
+            // Get the current user's data
             $user = getDataById($_SESSION['id']);
             $id = $_SESSION['id'];
-            $role = $user['role'];
-            $firstname = htmlspecialchars($_POST['firstname']);
-            $lastname = htmlspecialchars($_POST['lastname']);
-            $email = htmlspecialchars($_POST['email']);
-            $phone = htmlspecialchars($_POST['phone']);
-            $password = htmlspecialchars($_POST['password']);
-            $profile_picture = $user['profile_picture'];
-
-            // Validate inputs for self profile update
+            $role = $user['role']; // Role remains unchanged for self-update
+            $firstname = htmlspecialchars(trim($_POST['firstname']));
+            $lastname = htmlspecialchars(trim($_POST['lastname']));
+            $email = htmlspecialchars(trim($_POST['email']));
+            $phone = htmlspecialchars(trim($_POST['phone']));
+            $newPassword = isset($_POST['password']) ? htmlspecialchars(trim($_POST['password'])) : '';
+            $confirmPassword = isset($_POST['password2']) ? htmlspecialchars(trim($_POST['password2'])) : '';
+            $profile_picture = $user['profile_picture']; // Default to current profile picture
+        
+            // Validate input fields
+            $errors = [];
             $errors['firstname'] = validateName($firstname);
             $errors['lastname'] = validateName($lastname);
             $errors['email'] = validateEmail($email);
             $errors['phone'] = validatePhone($phone);
-            $errors['password'] = validatePassword($password, $password);
-
-            // Filter out null errors
-            $errors = array_filter($errors);
-
-            // Handle file upload if any
-            if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
-                $fileUploadResult = handleFileUpload('profile_picture');
-                if ($fileUploadResult['success']) {
-                    $profile_picture = $fileUploadResult['filePath'];
-                    deleteProfilePicture($user);
-                }
+        
+            // Password validation (if a new password is provided)
+            if (!empty($newPassword)) {
+                $errors['password'] = validatePassword($newPassword, $confirmPassword);
             }
+        
+         
+           
 
-            // If valid, update the user profile
+            $fileUploadResult = handleFileUpload('file');
+            if ($fileUploadResult['success']) {
+                $profile_picture = $fileUploadResult['filePath'];
+                deleteProfilePicture($user);
+            } else {
+                // A file was uploaded but invalid
+                echo $fileUploadResult['error']; // Display error message
+                $fileNameNew = null; // Or handle as required
+            }
+            $errors = array_filter($errors);
+        
+        
+            // If there are no errors, update the profile
             if (empty($errors)) {
-                editUser($id, $role, $firstname, $lastname, $email, $phone, $password, $profile_picture);
+                // Hash the password if it was updated, otherwise keep the old one
+                $passwordHash = !empty($newPassword) ? password_hash($newPassword, PASSWORD_DEFAULT) : $user['password'];
+                // Update the user's data
+                editUser($id, $role, $firstname, $lastname, $email, $phone, $passwordHash, $profile_picture);
+                echo "Profil byl úspěšně aktualizován.";
+            } else {
+                // Display errors to the user
+                foreach ($errors as $field => $error) {
+                    echo "<p class='error'>Chyba v poli {$field}: {$error}</p>";
+                }
             }
             break;
 
@@ -96,42 +135,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             deleteReservation($id);
             break;
 
-        case 'edit_reservation':
-            $id = $_POST['id'];
-            $date = $_POST['date'];
-            $myDateTime = DateTime::createFromFormat('Y-m-d', $date);
-            $date = $myDateTime->format('d.m.Y');
-            $timeslot = $_POST['timeslot'];
-            $quantity = $_POST['quantity'];
-
-            // Edit reservation logic (if needed, you can validate here)
-            editReservation($id, $date, $timeslot, $quantity);
-            break;
+            case 'edit_reservation':
+                $id = $_POST['id'];
+                $date = $_POST['date'];
+                $myDateTime = DateTime::createFromFormat('Y-m-d', $date);
+                $date = $myDateTime->format('d.m.Y');
+                $timeslot = $_POST['timeslot'];
+                $quantity = $_POST['quantity'];
+                $reservation_collision = false;
+            
+                // Load all existing reservations
+                $reservations = loadReservations();
+            
+                // Load the file for reservation data
+                $file = './data/reservations.json';
+            
+                // Check if the reservation already exists and is for the same user (ID)
+                if (check_collision($file, $date, $timeslot, $reservations, $id)) {
+                    $reservation_collision = true;
+                } else {
+                    // Update the reservation if no collision is found
+                    editReservation($id, $date, $timeslot, $quantity);
+                }
+        break;
     }
 }
-$user = getDataById($_SESSION['id']);
-$userReservations = getUserReservations($_SESSION['id']);
-
 ?>
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="Author" content="Vojtěch Michal">
-    <meta name="Keywords" content="motokáry">
-    <meta name="description" content="Nejzábavnější motokárová dráha ve středních Čechách.">
-    <title>Motokárové centrum Benešov</title>
-    <link rel="stylesheet" href="./css/styles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
-    <link rel="icon" type="image/png" sizes="32x32" href="./img/helma.png"> 
-    <link rel="stylesheet" href="./css/layout.css">
+    <?php include "./php/structure/head.html"; ?>
     <link rel="stylesheet" href="./css/profile.css">
 </head>
 <body>
-
 <?php include './php/structure/header.php'; ?>
 
+<!-- User profile view -->
 <article>
     <div class="left-text">
         <h1>Profil uživatele</h1>
@@ -146,20 +185,22 @@ $userReservations = getUserReservations($_SESSION['id']);
     </div>
 </article>
 
-<div id="editFormUser" class="editForm hidden">
+<div id="editFormUser" class="editForm">
+<?php
+            $firstname = $user['firstname'];
+            $lastname = $user['lastname'];
+            $email = $user['email'];
+            $phone = $user['phone'];
+            $errors = [];
+            $formValid = true; // for is valid at the beginning
+        ?>
         <!-- Regular user view -->
-        <form action="" method="post">
-                <h2> Upravit můj profil</h2>
-                <?php
-                    $firstname = $user['firstname'];
-                    $lastname = $user['lastname'];
-                    $email = $user['email'];
-                    $phone = $user['phone'];
-                    $errors = [];
-                    $formValid = true; // formulář je na začátku valid
-                    include './php/structure/form_temeplate.php'; ?> 
-                <button type="submit" name="action" value="update_self">Upravit</button>
-            </form>
+    <form action="" method="post">
+        <h2> Upravit můj profil</h2>
+        <?php
+            include './php/structure/form_temeplate.php'; ?> 
+        <button type="submit" name="action" value="update_self">Upravit</button>       
+    </form>
 </div>
 <article>
         <h2>Moje rezervace</h2>
@@ -177,38 +218,15 @@ $userReservations = getUserReservations($_SESSION['id']);
                     Počet lidí: <?php echo htmlspecialchars($reservation['quantity']); ?>
                     <form action="" method="post">
                     <input type="hidden" name="id" value="<?php echo htmlspecialchars($reservation['id']); ?>">
-                            <button type="submit" name="action" value="delete_reservation" class="remove_reservations">Smazat</button>
-                        </form>
+                        <button type="submit" name="action" value="delete_reservation" class="remove_reservations user_managment_button">Smazat</button>
+                    </form>
 
-                    <button class="toggleEditReservationForm">Upravit</button>
+                    <button class="toggleEditReservationForm user_managment_button">Upravit</button>
                     <div class="editReservationForm hidden">
-                        <form action="" method="post">
-                            <input type="hidden" name="id" value="<?php echo htmlspecialchars($reservation['id']); ?>">
-                            <label>
-                                Datum:
-                                <input type="date" name="date" value="<?php echo htmlspecialchars($reservation['date'] ?? ''); ?>" required>
-                            </label>
-                            <label>
-                                Čas:
-                                <label for="timeslot">Čas rezervace</label>
-                                    <select name="timeslot" id="timeslot" required>
-                                        <option value="14" <?php echo ($reservation['timeslot'] == 14); ?>>14:00 - 15:00</option>
-                                        <option value="15" <?php echo ($reservation['timeslot'] == 15); ?>>15:00 - 16:00</option>
-                                        <option value="16" <?php echo ($reservation['timeslot'] == 16); ?>>16:00 - 17:00</option>
-                                        <option value="17" <?php echo ($reservation['timeslot'] == 17); ?>>17:00 - 18:00</option>
-                                        <option value="18" <?php echo ($reservation['timeslot'] == 18); ?>>18:00 - 19:00</option>
-                                        <option value="19" <?php echo ($reservation['timeslot'] == 19); ?>>19:00 - 20:00</option>
-                                        <option value="20" <?php echo ($reservation['timeslot'] == 20); ?>>20:00 - 21:00</option>
-                                        <option value="21" <?php echo ($reservation['timeslot'] == 21); ?>>21:00 - 22:00</option>
-                                        <option value="22" <?php echo ($reservation['timeslot'] == 22); ?>>22:00 - 23:00</option>
-                                    </select>
-                            </label>
-                            <label>
-                                Počet lidí:
-                                <input type="number" name="quantity" value="<?php echo htmlspecialchars($reservation['quantity']); ?>" required>
-                            </label>
-                            <button type="submit" name="action" value="edit_reservation">Uložit</button>
-                        </form>
+                        <?php include './php/edit_reservation_form.php'; ?>
+                        <?php if ($reservation_collision): ?>
+                            <p class="error">Rezervace v tomto čase již existuje.</p>
+                        <?php endif; ?>
                     </div>
                 </li>
             <?php endforeach; ?>
@@ -257,12 +275,12 @@ $userReservations = getUserReservations($_SESSION['id']);
             <option value="user">user</option>
             <option value="admin">admin</option>
             </select> 
-            <?php
+        <?php
             $firstname = $lastname = $email = $phone = '';
             $errors = [];
             $formValid = true; // formulář je na začátku valid
             include './php/structure/form_temeplate.php'; ?> 
-        <button type="submit" name="action" value="update">Přidat</button>
+        <button type="submit" name="action" value="add">Přidat</button>
     </form>
 </section>
 </article>
@@ -274,12 +292,9 @@ $userReservations = getUserReservations($_SESSION['id']);
         <form action="" method="post">
         <h2>Upravit uživatele</h2>
         <label>
-                    ID uživatele:
-                    <input type="text" name="id" required>
-                </label>
-
-
-
+                ID uživatele:
+            <input type="text" name="id" required>
+            </label>
             <label for="role">Vyberte roli:</label>
             <select id="role" name="role">
             <option value="user">user</option>
@@ -290,7 +305,7 @@ $userReservations = getUserReservations($_SESSION['id']);
             $errors = [];
             $formValid = true; // formulář je na začátku valid
             include './php/structure/form_temeplate.php'; ?> 
-        <button type="submit" name="action" value="update">Přidat</button>
+        <button type="submit" name="action" value="update">Upravit</button>
     </form>
 </section>
 </article>
@@ -299,168 +314,6 @@ $userReservations = getUserReservations($_SESSION['id']);
 <?php include './php/structure/footer.php'; ?>
 <script src="./scripts/load_users.js" ></script> 
 <script src="./scripts/profile.js" ></script> 
+<script src="./scripts/register.js"></script> 
 </body>
 </html>
-
-                
-
-
-<!-- 
-?php 
-$firstname = $user['firstname'];
-include './php/structure/form_temeplate.php'; ?>
- -->
-
-
-
-            <!-- CREATE 
-            <h2>PPřidat nového uživatele</h2>
-            <form action="" method="post">
-                <label for="role">Vyberte roli:</label>
-                    <select id="role" name="role">
-                    <option value="user">user</option>
-                    <option value="admin">admin</option>
-                    </select> 
-                <label>
-                    Jméno:
-                    <input type="text" name="firstname" required>
-                    <php if (isset($errors['firstname'])): ?>
-                        <div class="error"><php echo $errors['firstname']; ?></div>
-                    <php endif; ?>
-                </label>
-                <label>
-                    Příjmení:
-                    <input type="text" name="lastname" required>
-                    <php if (isset($errors['lastname'])): ?>
-                        <div class="error"><php echo $errors['lastname']; ?></div>
-                    <php endif; ?>
-                </label>
-                <label>
-                    Email:
-                    <input type="email" name="email" required>
-                    <php if (isset($errors['email'])): ?>
-                        <div class="error"><php echo $errors['email']; ?></div>
-                    <php endif; ?>
-                </label>
-                <label>
-                    Telefon:
-                    <input type="text" name="phone">
-                    <php if (isset($errors['phone'])): ?>
-                        <div class="error"><php echo $errors['phone']; ?></div>
-                    <php endif; ?>
-                </label>
-                <label>
-                    Heslo:
-                    <input type="password" name="password" required>
-                    <php if (isset($errors['password'])): ?>
-                        <div class="error"><php echo $errors['password']; ?></div>
-                    <php endif; ?>
-                </label>
-              <label for="profile_picture">Profilový obrázek:</label>
-                    <input type="file" name="profile_picture" id="profile_picture"><br>
-                     php if (isset($errors['profile_picture'])): ?> 
-                        <div class="error">php echo $errors['profile_picture']; ?></div>-->
-                    <!-- php endif; ?> 
-                <input type="file" id="myFile" name="file" tabindex="8"> 
-
-                <button type="submit" name="action" value="add">Přidat</button>
-            </form>-->
-
-            <!-- UPDATE 
-            <h2>Upravit uživatele</h2>
-            <php
-            $users = loadUsers(); // This could be from a database or a JSON file
-            ?>
-           <form action="" method="post">
-                <h2>Upravit uživatele</h2>
-                <label for="user_select">Vyberte uživatele:</label>
-                <select id="user_select" name="id" required>
-                    <option value="">-- Vyberte uživatele --</option>
-                    <//?php foreach ($users as $user): ?>
-                        <option value="<//?php echo htmlspecialchars($user['id']); ?>"><//?php echo htmlspecialchars($user['firstname'] . ' ' . $user['lastname']); ?></option>
-                    <//?php endforeach; ?>
-                </select>
-                <label for="role">Vyberte roli:</label>
-                    <select id="role" name="role">
-                    <option value="user">user</option>
-                    <option value="admin">admin</option>
-                    </select> 
-                <label>
-                <label>
-                    Jméno:
-                    <input type="text" name="firstname" required>
-                </label>
-                <label>
-                    Příjmení:
-                    <input type="text" name="lastname" required>
-                </label>
-                <label>
-                    Email:
-                    <input type="email" name="email" required>
-                </label>
-                <label>
-                    Telefon:
-                    <input type="text" name="phone" required>
-                </label>
-                <label>
-                    Heslo:
-                    <input type="text" name="password" required>
-                </label>
-                <label>
-                    Profilový obrázek:
-                    <input type="file" name="profile_picture">
-                </label>
-                <img class="profile_picture_view" src="" alt="Profilový obrázek">
-                <//?php if (isset($errors['firstname'])):?>
-                        <div class="error"></?php echo $errors['firstname']; ?></div>
-                    <//?php endif; ?>
-                <button type="submit" name="action" value="update">Upravit</button>
-            </form>
-
-            <form action="" method="post">
-                <label for="role">Vyberte roli:</label>
-                    <select id="role" name="role">
-                    <option value="user">user</option>
-                    <option value="admin">admin</option>
-                    </select> 
-                <label>
-                <label>
-                    ID uživatele:
-                    <input type="text" name="id" required>
-                </label>
-                <label>
-                    Jméno:
-                    <input type="text" name="firstname" required>
-                </label>
-                <label>
-                    Příjmení:
-                    <input type="text" name="lastname" required>
-                </label>
-                <label>
-                    Email:
-                    <input type="email" name="email" required>
-                </label>
-                <label>
-                    Telefon:
-                    <input type="text" name="phone" required>
-                </label>
-                <label>
-                    Heslo:
-                    <input type="text" name="password" required>
-                </label>
-                <label>
-                    Profilový obrázek:
-                    <input type="file" name="profile_picture">
-                </label>
-                <button type="submit" name="action" value="update">Upravit</button>
-            </form>
-
-             DELETE 
-            <h2>Smazat uživatele</h2>
-             <form action="" method="post">
-                <label>
-                    ID uživatele:
-                    <input type="text" name="id" required>
-                </label>
-                <button type="submit" name="action" value="delete">Smazat</button>
-            </form> -->

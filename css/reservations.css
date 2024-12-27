@@ -74,6 +74,15 @@
     align-items: center;
 
 }
+
+button {
+    background-color: #0F4C75;
+    color: white;
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+}
 /* 
 .pagination a.active {
     background-color: #4CAF50;

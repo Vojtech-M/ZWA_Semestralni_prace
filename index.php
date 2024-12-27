@@ -7,24 +7,18 @@
  * This file contains the main page of the website. It displays the main content and the header and footer.
  * 
  */
-require "./php/check_login.php";
+
+include "./php/check_login.php";
 ?>
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="Author" content="Vojtěch Michal">
-    <meta name="Keywords" content="motokáry">
-    <meta name="description" content="Nejzábavnější motokárová dráha ve středních Čechách.">
-    <title>Motokárové centrum Benešov</title>
-    <link rel="stylesheet" href="./css/styles.css">
-    <link rel="stylesheet" href="./css/layout.css">
-    <link rel="icon" id="favicon" type="image/png" href="./img/helma.png"> 
+    <?php include "./php/structure/head.html"; ?>
 </head>
 <body>
-
 <noscript>You need to enable JavaScript to run this app.</noscript>
+
+<!-- Included header with navigation -->
 <?php include './php/structure/header.php'; ?>
 
 <div class="hero-image">
@@ -35,30 +29,22 @@ require "./php/check_login.php";
         </div>
     </div>
 </div>
-<!--<a  href="./zecviceni/test.html">REZERVACE</a>smazat 
-    <a  href="./zecviceni/naseptava.html">naseptava</a> smazat
-    <a href="./zecviceni/8.cviceni/index.html">tttsfsdtt</a>
-    <a href="./zecviceni/9.cviceni/index.php">`php formular</a>
-    <a href="./zecviceni/9.cviceni/index2.php">`php formular</a>-->
-    <a href="./zecviceni/10.cvicenicopy/index.php">`php formular</a>
-    <a href="./zecviceni/10.cvicenicopy/index3.php">`php formular</a>
-    <a href="./zecviceni/11.cviceni/index.php">11 cviko  SESSION formular</a>
-    <a href="./zecviceni/12.cviceni/index.php">12. cviko </a>
 
 <section class="features">
     <div class="small_text">
         <img src="./img/trat_ikona.svg" alt="ikona trati">
         <h3>Dráha</h3>
         <p>800 m</p>
-
     </div>
+
     <div class="small_text">
-        <img src="./img/restaurace2_ikona.svg" alt="ikona trati">
+        <img src="./img/restaurace2_ikona.svg" alt="ikona restaurace">
         <h3> Restaurace</h3>
         <p>Až pro 80 lidí </p>
     </div>
+
     <div class="small_text">
-    <img src="./img/konfety_ikona.svg" alt="ikona trati">
+    <img src="./img/konfety_ikona.svg" alt="ikona konfety">
         <h3>Firemní akce</h3>
         <p>Netradiční setkání</p>
     </div>
@@ -76,7 +62,7 @@ require "./php/check_login.php";
 
 <article>
     <div class="left-text">
-        <img src="./img/gokarts3.jpg" alt="motokáry start" >
+        <img src="./img/gokarts3.jpg" alt="motokáry historie" >
     </div>
     <div class="right-text">
         <h3>Trocha historie. </h3>
@@ -100,51 +86,6 @@ require "./php/check_login.php";
     <?php } ?>
     </div>
 </div>
-
 <?php include './php/structure/footer.php'; ?>
-<!-- Dát script nakonec-->
-<!--<script src="./scripts/hello.js" type=module></script> 
-
-
-alt + z - zalamování řádků
-
-cokkies ? 
-data - textová hodnota
-
-je to řetežec - klic a hodnota uložená v prohlížeči a ne na serveru 
-posílají se s každým požadavkem
-
-start 
-v session žádný data uložený 
-
-
-JSON format jak se ukaladaji data
-
-PHP 
-kod, musime najit chyby
-jak bysme neco napsali
-
-obsluha formulare
-cokokies, session,
-prace se soubory, nejaky funkce
-caschovani, sifrovani a kontrola hesel
-cookies, jako slovnik klic a hodnota, obycejny slovnik, textove retezce
-
-location se pouziva pro presmerovani na jinou str
-exit ukonci skript
-diky & se posilaji data v lib.php
-
-šifry, hashe
-
-
-klic a hodnota a posilaji se pri kazdem requestu
-
-kazde volani passwrdhash vygeneruje stejny hesh
-
-
-CSRF utok
-
-
--->
 </body>
 </html>

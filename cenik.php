@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
     <link rel="icon" type="image/png" sizes="32x32" href="./img/helma.png"> 
     <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/price_list.css">
 </head>
 
 <body>
@@ -46,6 +47,9 @@
         </div>
     </section>
 
+    <div class="center-container">
+    <a href="rezervace.php" class="reservation_link2">Rezervovat</a>
+</div>
     <?php include './php/structure/footer.php'; ?>
 </body>
 </html>

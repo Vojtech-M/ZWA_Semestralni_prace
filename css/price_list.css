@@ -1,0 +1,21 @@
+/* Wrapper to center the link */
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+/* Styles for the link */
+.reservation_link2 {
+    font-size: 3vw;
+    width: 50%;
+    padding: 20px;
+    text-align: center;
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #3282B8;
+    border: 2px solid black;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

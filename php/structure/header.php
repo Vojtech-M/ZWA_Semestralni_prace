@@ -1,8 +1,5 @@
 
 <?php
-
-
-
 if (isset($_SESSION['id'])) {
     $user_id = $_SESSION['id'];
     $user = getDataById($user_id);
@@ -12,7 +9,6 @@ if (isset($_SESSION['id'])) {
     $profilePicture = $user['profile_picture'];
 }
 ?>
-
 <header>
         <div class="logo_corner">
             <a href="index.php"><img src="./img/logo1.png" alt="logo"></a>
