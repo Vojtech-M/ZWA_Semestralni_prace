@@ -13,6 +13,7 @@ const emailError = document.getElementById("emailError");
 const phoneError = document.getElementById("phone_fieldError");
 const pass1Error = document.getElementById("pass1Error");
 const pass2Error = document.getElementById("pass2Error");
+console.log("Password input value:", pass1Input.value);
 // Get the password input field and toggle button
 // Get all password input fields and their corresponding toggle buttons
 const passwordInputs = document.querySelectorAll(".password-input");
@@ -105,7 +106,7 @@ function checkPassword(inputField, errorElementId) {
 
     if (!validPasswordPattern.test(value)) {
         document.getElementById(errorElementId).innerText =
-            "Pole musí být delší než 8 znaků a obsahovat minimálně jedno velké písmeno a speciální znak";
+            "Pole musí být delší než 8 znaků, kratší než 50 a obsahovat minimálně jedno velké písmeno a speciální znak";
         return false;
     } else {
         document.getElementById(errorElementId).innerText = ""; // Clear error
@@ -133,6 +134,15 @@ lastnameInput.addEventListener("input", function () {
     checkUsername(lastnameInput, "lastNameError");
 });
 
+emailInput.addEventListener("input", function () {
+    checkEmail(emailInput, "emailError");
+}
+);
+phoneInput.addEventListener("input", function () {
+    checkPhoneNumber(phoneInput, "phone_fieldError");
+}
+);
+
 // Add event listener to dynamically check password match
 pass2Input.addEventListener("input", function () {
     checkPasswordMatch(pass1Input, pass2Input, "pass2Error");
@@ -154,6 +164,7 @@ document.getElementById("registrationForm").addEventListener("submit", function 
     // Check if all validations passed
     if (!ispasswordValid2 || !isFirstnameValid || !isLastnameValid  || !isEmailValid || !isPasswordValid || !isPhoneValid) {
         console.warn("Form validation failed. Submission prevented.");
+        consloe.log("Password  value:", pass1Input.value);
         event.preventDefault(); // Prevent the form from submitting
     } else {
         console.log("Form validation passed. Submission allowed.");

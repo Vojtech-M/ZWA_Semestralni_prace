@@ -13,6 +13,7 @@ include "./php/check_login.php";
 <html lang="cs">
 <head>
     <?php include "./php/structure/head.html"; ?>
+    <link rel="stylesheet" href="./css/front_page.css">
 </head>
 <body>
 <noscript>Musíte povolit Javascript </noscript>

@@ -194,6 +194,7 @@ function handleUpdateSelf($postData) {
         <!-- Regular user view -->
     <form action="profil.php" method="post" enctype="multipart/form-data">
         <h2> Upravit můj profil</h2>
+        <h4>* Při zadání nového hesla dojde ke změně !</h4>
         <?php
             include './php/structure/form_temeplate.php'; ?> 
         <button type="submit" name="action" value="update_self">Upravit</button>   
@@ -201,7 +202,11 @@ function handleUpdateSelf($postData) {
 </article>
 <article>
         <h2>Moje rezervace</h2>
-        <?php if (!empty($userReservations)): ?>
+        <?php if (!empty($userReservations)): 
+        usort($userReservations, function($a, $b) {
+            return strtotime($a['date']) - strtotime($b['date']);
+        });
+    ?>
             <ul>
             <?php foreach ($userReservations as $reservation): ?>
                 <li>
@@ -244,9 +249,8 @@ function handleUpdateSelf($postData) {
         </table>
 <button class="user_managment_button" id="loadMore">Načíst uživatele</button>
 <button class="user_managment_button" id="add_user">Přidat uživatele</button>
-<button class="user_managment_button" id="edit_user">Upravit uživatele</button>
 </article>
-<?php endif; ?>
+
 
 
 
@@ -294,7 +298,7 @@ function handleUpdateSelf($postData) {
     </form>
 </section>
 </article>
-
+<?php endif; ?>
 <?php include './php/structure/footer.php'; ?>
 <script src="./scripts/load_users.js" ></script> 
 <script src="./scripts/profile.js" ></script> 

@@ -38,5 +38,35 @@
         "phone": "",
         "password": "$2y$10$4v4hA2dM4ch7h1n7aLdBhOoO95JhilTxPEExxI5S6qhMkwwRVOJpu",
         "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "67713800a49b5",
+        "role": "user",
+        "firstname": "vojta",
+        "lastname": "vojta",
+        "email": "voj@voj.cz",
+        "phone": "",
+        "password": "$2y$10$Mi.9QAUXVlSe5XygNsU4Euav3muQexULyQfqrpglDwzgB2.xjFnem",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "67713d6731f65",
+        "role": "user",
+        "firstname": "aaa",
+        "lastname": "aaa",
+        "email": "aaa@aaa.cz",
+        "phone": "",
+        "password": "$2y$10$Gn1XK.PTWD0X38WEMCk5BOxZqKXLMeOLTvJCsOGaOXAUn9XQjBSgm",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "67714e6778001",
+        "role": "user",
+        "firstname": "Petr",
+        "lastname": "Petr",
+        "email": "petr@petr.cz",
+        "phone": "456789456",
+        "password": "$2y$10$0\/Mg6Wd4C1Vcc1.Ys6zVJe81WJCHD2UcJRq1mUFIRF5GK4NvU5n.6",
+        "profile_picture": ".\/uploads\/67714e67780182.06035018.png"
     }
 ]

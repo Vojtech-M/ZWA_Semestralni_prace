@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Add new reservation to the array
         saveDataToJsonFile($file, $data);
         // Convert array back to JSON and save to file
-        echo "<p>Rezervace byla úspěšně vytvořena.</p>";
+        echo "<p class='reservation-result success'>Rezervace byla úspěšně vytvořena.</p>";
     }
     }
 
@@ -119,20 +119,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (check_collision($file, $date, $timeslot, $reservations, $id)) {
             $reservation_collision = true;
             $reservation_result = "Rezervace již existuje pro tento časový úsek";
-            echo "<p class='error-message'>Rezervace již existuje pro tento časový úsek.</p>";
+            echo "<p class='reservation-result error'>Rezervace již existuje pro tento časový úsek.</p>";
         } else {
             // Update the reservation if no collision is found
             editReservation($id, $date, $timeslot, $quantity);
             $reservation_result = "Rezervace byla úspěšně upravena.";
             echo "<p class='reservation-result success'>$reservation_result</p>";
-           
-
-
         }
     }
 }
-echo "<p class='reservation-result'>$reservation_result</p>";
-
 if (file_exists($file)) {
     // Read the file content
     $reservations = loadReservations();   
@@ -217,7 +212,7 @@ if (file_exists($file)) {
         echo "<div class=\"pagination\">";
         if ($page > 1) {
             $prevPage = $page - 1;
-            echo "<a href=\"?page=$prevPage\">&laquo; Previous</a> ";
+            echo "<a href=\"?page=$prevPage\">&laquo; Předchozí</a> ";
         }
         for ($x = 1; $x <= $totalPages; $x++) {
             if ($x == $page) {
@@ -228,7 +223,7 @@ if (file_exists($file)) {
         }
         if ($page < $totalPages) {
             $nextPage = $page + 1;
-            echo "<a href=\"?page=$nextPage\">Next &raquo;</a>";
+            echo "<a href=\"?page=$nextPage\">Další &raquo;</a>";
         }
         echo "</div>";
         echo "</div>";
@@ -244,37 +239,44 @@ $userReservations = getUserReservations($_SESSION['id']);
 
 
 <article>
-        <h2>Moje rezervace</h2>
-        <?php if (!empty($userReservations)): ?>
-            <ul>
-            <?php foreach ($userReservations as $reservation): ?>
-                <li>
-                    <?php 
-                    $timeslot = $reservation['timeslot'];
-                    $timeslot1 = $timeslot . ":00";
-                    $timeslot2 = $timeslot + 1 . ":00";
-                    ?>
-                    Datum: <?php echo htmlspecialchars($reservation['date']); ?>,
-                    Čas: <?php echo htmlspecialchars("$timeslot1 - $timeslot2"); ?>,
-                    Počet lidí: <?php echo htmlspecialchars($reservation['quantity']); ?>
-                    <form action="" method="post">
-                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($reservation['id']); ?>">
-                        <button type="submit" name="action" value="delete_reservation" class="remove_reservations user_managment_button">Smazat</button>
-                    </form>
-                    <?php include './php/edit_reservation_form.php'; ?>
-                </li>
-            <?php endforeach; ?>
-            </ul>
-        <?php else: ?>
-            <p>Nemáte žádné rezervace.</p>
-        <?php endif; ?>
+    <h2>Moje rezervace</h2>
+    <?php 
+    // Sort the reservations by date
+    if (!empty($userReservations)) {
+        usort($userReservations, function($a, $b) {
+            return strtotime($a['date']) - strtotime($b['date']);
+        });
+    }
+    ?>
 
-        <div class="reservation_link">
+    <?php if (!empty($userReservations)): ?>
+        <ul>
+        <?php foreach ($userReservations as $reservation): ?>
+            <li>
+                <?php 
+                $timeslot = $reservation['timeslot'];
+                $timeslot1 = $timeslot . ":00";
+                $timeslot2 = $timeslot + 1 . ":00";
+                ?>
+                Datum: <?php echo htmlspecialchars($reservation['date']); ?>,
+                Čas: <?php echo htmlspecialchars("$timeslot1 - $timeslot2"); ?>,
+                Počet lidí: <?php echo htmlspecialchars($reservation['quantity']); ?>
+                <form action="" method="post">
+                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($reservation['id']); ?>">
+                    <button type="submit" name="action" value="delete_reservation" class="remove_reservations user_managment_button">Smazat</button>
+                </form>
+                <?php include './php/edit_reservation_form.php'; ?>
+            </li>
+        <?php endforeach; ?>
+        </ul>
+    <?php else: ?>
+        <p>Nemáte žádné rezervace.</p>
+    <?php endif; ?>
+
+    <div class="reservation_link">
         <a href="profil.php">Zpět na profil</a> 
     </div>
 </article>
-
-
 
 
 

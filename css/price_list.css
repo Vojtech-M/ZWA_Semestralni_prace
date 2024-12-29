@@ -6,16 +6,44 @@
     margin: 20px 0;
 }
 
-/* Styles for the link */
-.reservation_link2 {
-    font-size: 3vw;
-    width: 50%;
-    padding: 20px;
+
+.price {
+    background-color: #1B262C;
     text-align: center;
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #3282B8;
-    border: 2px solid black;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+.price span {
+    font-size: 0.8em;
+    display: block;
+}
+
+.time-slot {
+    font-size: 1em;
+    padding-left: 10px;
+}
+
+.rental-option {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    background-color:#3282B8;
+    color: #fff;
+    margin-bottom: 10px;
+    padding: 10px;
+    align-items: center;
+}
+
+.draha{
+    width: 70%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color:#0F4C75; 
+    transition-duration: 2s;
+}
+
+.draha_heading{
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 32px;
 }

@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Handle file upload
+ * 
+ * This function handles file uploads. It checks if a file was uploaded, if it's the correct file type, and if it's within the size limit. If everything is correct, it moves the file to the uploads directory and returns the file path. If there was an error, it returns an error message.
+ * 
+ * @param string $fileKey
+ * @return array
+ */
 function handleFileUpload($fileKey) {
     if (!isset($_FILES[$fileKey]) || $_FILES[$fileKey]['error'] === UPLOAD_ERR_NO_FILE) {
         // No file was uploaded
