@@ -7,6 +7,11 @@ require "./php/check_login.php";
 include './php/validation.php';
 include './php/lib.php';
 
+if (isset($_SESSION['id'])) {
+    header("Location: ./index.php");
+    exit;
+}
+
 $errors = [];
 $email = "";
 $password = "";
@@ -58,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h2>Přihlášení</h2> 
             <form action="login.php" id="loginForm" method="post">
                 <div id="name">
-                    <label for="email" class="custom_text">Email:</label>
+                    <label for="email" class="custom_text required_label">Email:</label>
                     <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required placeholder="example@mail.com" tabindex="1">
                 <?php if (isset($errors['email'])): ?>
                     <div class="error"><?= htmlspecialchars($errors['email']) ?></div>
@@ -66,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="error" id="emailError"></div>
                 </div>
                 <div id="password_field">
-                    <label for="password">Heslo:</label>
+                    <label for="password" class="required_label">Heslo:</label>
                     <input type="password" name="password" id="password" value="<?php if(isset($_GET['password'])) echo(htmlspecialchars($_GET['password']));?>" required placeholder="vase heslo" tabindex="2">
                     <div class="error" id="passwordError"></div>
                 <?php if (isset($errors['password'])): ?>

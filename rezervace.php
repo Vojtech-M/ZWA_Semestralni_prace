@@ -27,7 +27,7 @@ include "./php/reservation_validation.php";
             <form action="rezervace.php" method="post">
                 <div id="name">
                     <label class="required_label" for="reservation_date">Datum rezervace</label>
-                    <input type="date" id="reservation_date" class="required_label" name="reservation_date" max='2030-01-01' tabindex="1" required>
+                    <input type="date" id="reservation_date" name="reservation_date" max='2030-01-01' tabindex="1" required>
                     
                     <label for="timeslot" class="required_label" required>Čas rezervace</label>
                         <select name="timeslot" id="cars">
@@ -48,7 +48,7 @@ include "./php/reservation_validation.php";
                 
                 <button class=""  id="reg_submit" type="submit" name="action" value="reserve"   tabindex="4">Rezervovat</button>
              
-                <h5>* Pole označené jsou povinné</h5>
+                <h5>Pole označené <span class="red_text">*</span> jsou povinná</h5>
                 <h5>Rezervaci je možné vytvořit maximálně pro 50 lidí</h5>
                 <h4>Cena rezervace dle: <a href="cenik.php">Ceník</a></h4>
             </form>
