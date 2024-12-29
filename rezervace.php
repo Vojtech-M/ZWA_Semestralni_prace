@@ -56,6 +56,7 @@ include "./php/reservation_validation.php";
     </section>
 <?php
 $file = './user_data/reservations.json';
+$reservation_result = "";
 
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -75,12 +76,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         
     // Check for collision
-    if (check_collision($file, $date, $timeslot, $reservations, $id)) {
-        echo "<p>Rezervace již existuje pro tento časový úsek.</p>";
-    } else {
-        // Update the reservation
-        editReservation($id, $date, $timeslot, $quantity);
-        echo "<p>Rezervace byla úspěšně upravena.</p>";
+    if (check_collision($file, $date, $timeslot, $reservations)) {
+        $reservation_result = "Rezervace již existuje pro tento časový úsekkk";
+    } 
+    elseif (!check_quantity($quantity)) {
+        echo "<p>Neplatný počet lidí.</p>";
+    } elseif (!check_timeslot($timeslot)) {
+        echo "<p>Neplatný čas.</p>";
+    } elseif (DateTime::createFromFormat('Y-m-d', $_POST['reservation_date']) < new DateTime('today')) {
+        echo "<p>Neplatné datum. Datum rezervace musí být dnešní nebo budoucí datum.</p>";
+    }
+    else {
+        // Prepare data to be saved into JSON
+        $data = [
+            'id' => $registration_id,
+            'user_id' => $user_id,
+            'email' => $email,
+            'date' => $date,
+            'timeslot' => $timeslot,
+            'quantity' => $quantity
+        ];
+        // Add new reservation to the array
+        saveDataToJsonFile($file, $data);
+        // Convert array back to JSON and save to file
+        echo "<p>Rezervace byla úspěšně vytvořena.</p>";
     }
     }
 
@@ -99,15 +118,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
         if (check_collision($file, $date, $timeslot, $reservations, $id)) {
             $reservation_collision = true;
-            echo "<p>Rezervace již existuje pro tento časový úsek.</p>";
+            $reservation_result = "Rezervace již existuje pro tento časový úsek";
+            echo "<p class='error-message'>Rezervace již existuje pro tento časový úsek.</p>";
         } else {
             // Update the reservation if no collision is found
             editReservation($id, $date, $timeslot, $quantity);
-            echo "<p>Rezervace byla úspěšně upravena.</p>";
+            $reservation_result = "Rezervace byla úspěšně upravena.";
+            echo "<p class='reservation-result success'>$reservation_result</p>";
+           
+
 
         }
     }
 }
+echo "<p class='reservation-result'>$reservation_result</p>";
 
 if (file_exists($file)) {
     // Read the file content
@@ -172,7 +196,7 @@ if (file_exists($file)) {
 
                   echo "<td>
                     <div class=\"hidden\" id=\"editForm_$reservation_id\">";
-                    include './php/edit_reservation_form.php';  // Include your form here
+                    include './php/edit_reservation_form.php'; 
                 echo "</div>
                 <button id=\"editButton_$reservation_id\" class=\"editButton\">Edit</button>
                 </td>";
@@ -214,7 +238,50 @@ if (file_exists($file)) {
 } else {
     echo "Rezervační soubor neexistuje.";
 }
+$userReservations = getUserReservations($_SESSION['id']);
 ?>
+<!-- <a class="table_link"href="profil.php">Zpět na profil</a>-->
+
+
+<article>
+        <h2>Moje rezervace</h2>
+        <?php if (!empty($userReservations)): ?>
+            <ul>
+            <?php foreach ($userReservations as $reservation): ?>
+                <li>
+                    <?php 
+                    $timeslot = $reservation['timeslot'];
+                    $timeslot1 = $timeslot . ":00";
+                    $timeslot2 = $timeslot + 1 . ":00";
+                    ?>
+                    Datum: <?php echo htmlspecialchars($reservation['date']); ?>,
+                    Čas: <?php echo htmlspecialchars("$timeslot1 - $timeslot2"); ?>,
+                    Počet lidí: <?php echo htmlspecialchars($reservation['quantity']); ?>
+                    <form action="" method="post">
+                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($reservation['id']); ?>">
+                        <button type="submit" name="action" value="delete_reservation" class="remove_reservations user_managment_button">Smazat</button>
+                    </form>
+                    <?php include './php/edit_reservation_form.php'; ?>
+                </li>
+            <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p>Nemáte žádné rezervace.</p>
+        <?php endif; ?>
+
+        <div class="reservation_link">
+        <a href="profil.php">Zpět na profil</a> 
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
 <?php include './php/structure/footer.php'; ?>
 <script src="./scripts/reservation.js" type=module> </script>
 </body>

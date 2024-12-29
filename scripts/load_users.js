@@ -48,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (user.role === 'admin') {
                 tr.classList.add('admin-user');
             }
-
             // Create table cells
             tr.innerHTML = `
                 <td>${user.id}</td>
@@ -58,24 +57,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${user.lastname}</td>
                 <td><button class="table_button delete_user_button">Delete</button></td>
                 <td>
-                <button class="table_button edit_user_button">Edit</button>              
-                </td>
             `;
 // <button class="table_button edit_user_button">Edit</button>
             // Add delete functionality
             const deleteButton = tr.querySelector(".delete_user_button");
             deleteButton.addEventListener("click", () => deleteUser(user.id, tr));
-            const editButton = tr.querySelector(".edit_user_button");
-            editButton.addEventListener("click", () => {
-                //alert(`Edit button clicked for User ID: ${user.id}`);
-                // Add further edit logic here
-                const element = document.querySelector(".editDifferentFormUser");
-                if (element.style.display === "none" || element.style.display === "") {
-                    element.style.display = "flex";
-                } else {
-                    element.style.display = "none";
-                }
-            });
 
             userTable.appendChild(tr);
         }

@@ -35,3 +35,10 @@
     padding: 10px;
     text-decoration: none;
 }
+.editForm, .editReservationForm {
+    display: none; /* Hide by default */
+}
+
+.editForm.active, .editReservationForm.active {
+    display: flex; /* Show when active */
+}

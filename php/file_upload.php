@@ -17,10 +17,10 @@ function handleFileUpload($fileKey) {
     $fileError = $file['error'];
     $fileType = $file['type'];
 
-    $fileExt = explode('.', $fileName);
-    $fileActualExt = strtolower(end($fileExt));
+    $fileExt = pathinfo($fileName, PATHINFO_EXTENSION); // Improved file extension check
+    $fileActualExt = strtolower($fileExt);
 
-    $allowed = array('jpg', 'jpeg', 'png');
+    $allowed = ['jpg', 'jpeg', 'png']; // Allowed file types
 
     if (in_array($fileActualExt, $allowed)) {
         if ($fileError === 0) {
@@ -39,7 +39,7 @@ function handleFileUpload($fileKey) {
             return ['success' => false, 'error' => 'There was an error uploading the file.', 'noFile' => false];
         }
     } else {
-        return ['success' => false, 'error' => 'Invalid file type. Only JPG, JPEG, and PNG are allowed.', 'noFile' => false];
+        return ['success' => false, 'error' => 'Invalid file type. Only JPG, JPEG, and PNG are allowed. Uploaded file type: ' . strtoupper($fileActualExt), 'noFile' => false];
     }
 }
 ?>

@@ -16,19 +16,6 @@ function checkEmail(inputField, errorElementId) {
         return true;
     }
 }
-
-function checkPassword(inputField, errorElementId) {
-    const value = inputField.value.trim();
-    if (value.length < 8) {
-        document.getElementById(errorElementId).innerText =
-            "Heslo musí být delší než 8 znaků.";
-        return false;
-    } else {
-        document.getElementById(errorElementId).innerText = ""; // Clear error
-        return true;
-    }
-}
-
 document.getElementById("loginForm").addEventListener("submit", function (event) {
     const isEmailValid = checkEmail(emailInput, "emailError");
     const isPasswordValid = checkPassword(pass1Input, "passwordError"); // Correct reference here

@@ -26,4 +26,35 @@ function check_timeslot($timeslot) {
     }
     
 }
+
+
+function handleEditReservation($postData) {
+    $id = $postData['id'];
+    $date = $postData['date'];
+    $myDateTime = DateTime::createFromFormat('Y-m-d', $date);
+    $date = $myDateTime->format('d.m.Y');
+    $timeslot = $postData['timeslot'];
+    $quantity = $postData['quantity'];
+    $reservation_collision = false;
+
+    // Load all existing reservations
+    $reservations = loadReservations();
+
+    // Load the file for reservation data
+    $file = './data/reservations.json';
+
+    // Check if the reservation already exists and is for the same user (ID)
+    if (check_collision($file, $date, $timeslot, $reservations, $id)) {
+        $reservation_collision = true;
+    } else {
+        // Update the reservation if no collision is found
+        editReservation($id, $date, $timeslot, $quantity);
+    }
+}
+
+
+
+
+
+
 ?>

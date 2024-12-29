@@ -33,11 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
     if (isset($fileUploadResult['noFile']) && $fileUploadResult['noFile'] === true) {
         // No file was uploaded
+        // Use default profile picture
         $fileNameNew = $defaultProfilePicture;
     } else {
         // A file was uploaded but invalid
-        echo $fileUploadResult['error']; // Display error message
-        $fileNameNew = null; // Or handle as required
+        $errors['image'] = $fileUploadResult['error'];
+        $fileNameNew = null; 
     }
 }
     // Validate inputs
@@ -95,7 +96,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<meta charset="UTF-8">
     <?php include "./php/structure/head.html"; ?>
 </head>
 <body>
@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form id="registrationForm" action="registrace.php" method="post" enctype="multipart/form-data">
             <?php  include './php/structure/form_temeplate.php'; ?>
             <div class="form_field">
-                <label for="agreement_field" class="required_label">Souhlasím s <a href="conditions.html" target="blank">podmínkami</a></label>
+                <label for="agreement_field" class="required_label">Souhlasím s <a href="./pdf/terms_and_conditions.pdf" target="blank">podmínkami</a></label>
                 <input id="agreement_field" type="checkbox" name="agreement" required tabindex="9">
             </div>
             <input id="submit" type="submit" value="Registrovat se" tabindex="10">  

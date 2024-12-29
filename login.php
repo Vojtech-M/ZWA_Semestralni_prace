@@ -5,6 +5,7 @@
  */
 require "./php/check_login.php";
 include './php/validation.php';
+include './php/lib.php';
 
 $errors = [];
 $email = "";
@@ -18,14 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors["password"] = validatePassword($password, $password);
 
     $errors = array_filter($errors);
-
     $formValid = empty($errors);
     $userExists = false; // Variable to track if the user exists
 
     if ($formValid) {
         $usersFile = './user_data/users.json';
-        $users = json_decode(file_get_contents($usersFile), true);
-
+        $users = loadUsers();
         foreach ($users as $user) {
             if ($user['email'] === $email) {
                 $userExists = true; // User with this email exists
@@ -39,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
             }
         }
-
         // If the email does not exist in the database
         if (!$userExists) {
             $errors['email'] = "Uživatel s tímto e-mailem neexistuje.";
@@ -51,23 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="Author" content="Vojtěch Michal">
-    <meta name="Keywords" content="motokáry">
-    <meta description="Nejzábavnější motokárová dráha ve středních Čechách.">
-    <title>Motokárové centrum Benešov</title>
-    <link rel="stylesheet" href="./css/styles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
-    <link rel="icon" type="image/png" sizes="32x32" href="./img/helma.png"> 
-    <link rel="stylesheet" href="./css/layout.css">
+<?php include "./php/structure/head.html"; ?>
 </head>
 <body>
     <?php include './php/structure/header.php'; ?>
     <section class="registrace">
         <div class="login_formular">
             <h2>Přihlášení</h2> 
-            <form action="" id="loginForm" method="post">
+            <form action="login.php" id="loginForm" method="post">
                 <div id="name">
                     <label for="email" class="custom_text">Email:</label>
                     <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required placeholder="example@mail.com" tabindex="1">
@@ -76,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php endif; ?>
                     <div class="error" id="emailError"></div>
                 </div>
-                <div id="password">
+                <div id="password_field">
                     <label for="password">Heslo:</label>
                     <input type="password" name="password" id="password" value="<?php if(isset($_GET['password'])) echo(htmlspecialchars($_GET['password']));?>" required placeholder="vase heslo" tabindex="2">
                     <div class="error" id="passwordError"></div>
@@ -92,4 +81,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </section>
     <?php include './php/structure/footer.php'; ?>
     <script src="./scripts/login.js" type=module></script> 
+    <script src="./scripts/register.js" type=module></script>
 </body>

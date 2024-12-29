@@ -1,5 +1,4 @@
-
-<link rel="stylesheet" href="./css/footer.css">
+<footer>
 <div class="contact">
     <div class="contact_text">
         <img class="map_marker" src="./img/opening_hours.svg" alt="map marker" >
@@ -29,11 +28,12 @@
         </ul>
     </div>
 </div>
-<footer>
+<div class="footer_bottom">
     <div class="copyright">
         <p>Vojtěch Michal 2024</p>
     </div>
     <div class="footer-text">
         <p>Motokárové centrum Benešov</p>
     </div>
+</div>
 </footer>

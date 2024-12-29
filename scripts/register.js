@@ -14,33 +14,38 @@ const phoneError = document.getElementById("phone_fieldError");
 const pass1Error = document.getElementById("pass1Error");
 const pass2Error = document.getElementById("pass2Error");
 // Get the password input field and toggle button
-const passwordInput = document.getElementById("pass1_field");
-const passwordToggle = document.getElementById("password-toggle");
+// Get all password input fields and their corresponding toggle buttons
+const passwordInputs = document.querySelectorAll(".password-input");
+const passwordToggles = document.querySelectorAll(".password-toggle");
 
 // Function to toggle password visibility
-function togglePasswordVisibility() {
+function togglePasswordVisibility(event) {
+    const button = event.currentTarget;
+    const passwordInput = button.previousElementSibling;
+
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
-        passwordToggle.src = "./img/opened_eye.png";
-        passwordToggle.setAttribute("aria-label", "Hide password");
+        button.src = "./img/opened_eye.png";
+        button.setAttribute("aria-label", "Hide password");
     } else {
         passwordInput.type = "password";
-        passwordToggle.src = "./img/closed_eye.png";
-        passwordToggle.setAttribute("aria-label", "Show password");
+        button.src = "./img/closed_eye.png";
+        button.setAttribute("aria-label", "Show password");
     }
 }
 
-// Add event listener to the toggle button
-passwordToggle.addEventListener("click", togglePasswordVisibility);
+// Add event listeners to all password toggle buttons
+passwordToggles.forEach((toggleButton) => {
+    toggleButton.addEventListener("click", togglePasswordVisibility);
 
-// Optional: Add keyboard accessibility for the toggle button
-passwordToggle.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-        togglePasswordVisibility();
-        event.preventDefault(); // Prevent default behavior for space key
-    }
+    // Optional: Add keyboard accessibility for the toggle button
+    toggleButton.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+            togglePasswordVisibility(event);
+            event.preventDefault(); // Prevent default behavior for space key
+        }
+    });
 });
-
 
 
 // Function to check the validity of a username (firstname or lastname)
@@ -119,6 +124,14 @@ function checkPasswordMatch(pass1Input, pass2Input, errorElementId) {
         return true;
     }
 }
+
+firstnameInput.addEventListener("input", function () {
+    checkUsername(firstnameInput, "firstNameError");
+});
+
+lastnameInput.addEventListener("input", function () {
+    checkUsername(lastnameInput, "lastNameError");
+});
 
 // Add event listener to dynamically check password match
 pass2Input.addEventListener("input", function () {

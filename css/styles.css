@@ -202,46 +202,6 @@ article h3 {
     padding-bottom: 20px;     
 }
 
-.contact {
-    margin-top: 10%;
-    display:flex;
-    justify-content: space-around;
-    color: white;
-    background-color: #0F4C75;
-
-}
-
-
-.contact_text{
-    justify-content: center;
-    text-align: center;
-    padding-left: 0;      
-    margin-left: 0;  
-    margin-top: 1rem;      
-}
-
-.contact_text h3 {
-    text-align: center;
-}
-
-
-.contact-text-table {
-    width: auto;
-    margin: 20px;
-    border-collapse: collapse;
-}
-
-.contact-text-table td {
-    font-size: 12px;
-    padding: 5px;
-    border: none;
-    background-color: transparent;
-}
-
-.contact_text img {
-    width: 64px;
-    height: 64px;
-    }
 
 .profile_picture{
     width: 32px;
@@ -519,14 +479,11 @@ input{
     display: none;
 }
 
-    @media print {        
-        * {
-            font-size: 16px;
-        }
-        .hero-image, .hero-image, .hero-text, header, footer {
-            display: none;
-        }
-    }
+.password-toggle{
+    width: 32px;
+    height: 32px;
+
+}
     @media screen and (max-width: 1100px) {     
         .computer_screen {
             display: none;

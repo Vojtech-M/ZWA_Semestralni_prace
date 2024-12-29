@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author Vojtěch Michal
  * 
@@ -16,7 +15,7 @@ include "./php/check_login.php";
     <?php include "./php/structure/head.html"; ?>
 </head>
 <body>
-<noscript>You need to enable JavaScript to run this app.</noscript>
+<noscript>Musíte povolit Javascript </noscript>
 
 <!-- Included header with navigation -->
 <?php include './php/structure/header.php'; ?>
@@ -78,10 +77,8 @@ include "./php/check_login.php";
     
     <div class="reservation_link">
     <?php if (isset($_SESSION['id'])) { ?> 
-        <!-- User is logged in -->
         <a href="rezervace.php">REZERVACE</a>       
     <?php } else { ?>
-        <!-- User is not logged in -->
         <a href="login.php">REZERVACE</a>
     <?php } ?>
     </div>

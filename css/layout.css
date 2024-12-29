@@ -1,4 +1,44 @@
-footer {
+.contact {
+    margin-top: 10%;
+    display:flex;
+    justify-content: space-around;
+    color: white;
+    background-color: #0F4C75;
+
+}
+
+
+.contact_text{
+    justify-content: center;
+    text-align: center;
+    padding-left: 0;      
+    margin-left: 0;  
+    margin-top: 1rem;      
+}
+
+.contact_text h3 {
+    text-align: center;
+}
+
+
+.contact-text-table {
+    width: auto;
+    margin: 20px;
+    border-collapse: collapse;
+}
+
+.contact-text-table td {
+    font-size: 12px;
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+}
+
+.contact_text img {
+    width: 64px;
+    height: 64px;
+    }
+.footer_bottom {
     background-color: #1B262C;
     padding: 0px 30px 20px;
     display: flex;
@@ -14,4 +54,12 @@ header {
     display: flex;
     background-color: #0F4C75;
     justify-content: space-between;
+}
+@media print {        
+    * {
+        font-size: 16px;
+    }
+    .hero-image, header,nav, footer {
+        display: none;
+    }
 }
