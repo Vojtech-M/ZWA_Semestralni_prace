@@ -26,6 +26,4 @@ function check_timeslot($timeslot) {
     }
     
 }
-
-
 ?>
