@@ -55,6 +55,7 @@ header {
     background-color: #0F4C75;
     justify-content: space-between;
 }
+
 @media print {        
     * {
         font-size: 16px;
