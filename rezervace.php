@@ -7,7 +7,7 @@
     The reservations are displayed in a table with pagination. Admins can edit and delete reservations.
 */
 include "./php/check_login.php";
-include "./php/lib.php";
+include "./php/data_handler.php";
 include "./php/reservation_validation.php";
 ?>
 <!DOCTYPE html>
@@ -22,7 +22,6 @@ include "./php/reservation_validation.php";
 <?php include './php/structure/header.php'; ?> 
 
 <?php  ?>
-    <section class="registrace">
         <div class ="formular">
             <form action="rezervace.php" method="post">
                 <div id="name">
@@ -50,10 +49,10 @@ include "./php/reservation_validation.php";
              
                 <h5>Pole označené <span class="red_text">*</span> jsou povinná</h5>
                 <h5>Rezervaci je možné vytvořit maximálně pro 50 lidí</h5>
-                <h4>Cena rezervace dle: <a href="cenik.php">Ceník</a></h4>
+                <h4>Cena rezervace dle: <a href="price_list.php">Ceník</a></h4>
             </form>
         </div>
-    </section>
+
 <?php
 $file = './user_data/reservations.json';
 $reservation_result = "";
@@ -77,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
     // Check for collision
     if (check_collision($file, $date, $timeslot, $reservations)) {
-        $reservation_result = "Rezervace již existuje pro tento časový úsekkk";
+        echo "<p class='reservation-result error'>Rezervace již existuje pro tento časový úsek.</p>";
     } 
     elseif (!check_quantity($quantity)) {
         echo "<p>Neplatný počet lidí.</p>";
@@ -141,7 +140,6 @@ if (file_exists($file)) {
         });
         // Number of records per page
         $RPP = 10;
-        // Determine the current page
         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
 
         // Calculate the total number of pages
@@ -189,9 +187,9 @@ if (file_exists($file)) {
 
             if ($user["role"] == "admin") {
 
-                  echo "<td>
-                    <div class=\"hidden\" id=\"editForm_$reservation_id\">";
-                    include './php/edit_reservation_form.php'; 
+                echo "<td>
+                <div class=\"hidden\" id=\"editForm_$reservation_id\">";
+                include './php/edit_reservation_form.php'; 
                 echo "</div>
                 <button id=\"editButton_$reservation_id\" class=\"editButton\">Edit</button>
                 </td>";
@@ -235,9 +233,6 @@ if (file_exists($file)) {
 }
 $userReservations = getUserReservations($_SESSION['id']);
 ?>
-<!-- <a class="table_link"href="profil.php">Zpět na profil</a>-->
-
-
 <article>
     <h2>Moje rezervace</h2>
     <?php 
@@ -277,12 +272,6 @@ $userReservations = getUserReservations($_SESSION['id']);
         <a href="profil.php">Zpět na profil</a> 
     </div>
 </article>
-
-
-
-
-
-
 
 <?php include './php/structure/footer.php'; ?>
 <script src="./scripts/reservation.js" type=module> </script>

@@ -40,11 +40,11 @@
 
     <div class="center-container">
     <div class="reservation_link">
-    <?php if (isset($_SESSION['id'])) { ?> 
-        <a href="rezervace.php">REZERVACE</a>       
-    <?php } else { ?>
-        <a href="login.php">REZERVACE</a>
-    <?php } ?>
+        <?php if (isset($_SESSION['id'])) { ?> 
+            <a href="rezervace.php">REZERVACE</a>       
+        <?php } else { ?>
+            <a href="login.php">REZERVACE</a>
+        <?php } ?>
     </div>
 </div>
     <?php include './php/structure/footer.php'; ?>

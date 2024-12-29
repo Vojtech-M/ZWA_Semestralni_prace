@@ -154,11 +154,6 @@ input{
     vertical-align: middle;
 }
 
-.time-slot {
-    font-size: 1em;
-    padding-left: 10px;
-}
-
 
 .copyright {
     flex: 2;
@@ -249,6 +244,15 @@ input{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin: 30px auto;    
+}
+
+noscript {
+    color: red;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
+    margin: 20px;
+
 }
 
     @media screen and (max-width: 1100px) {     

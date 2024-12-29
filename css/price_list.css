@@ -5,20 +5,16 @@
     align-items: center;
     margin: 20px 0;
 }
-
-
 .price {
     background-color: #1B262C;
     text-align: center;
     padding: 10px;
     font-size: 1.2em;
 }
-
 .price span {
     font-size: 0.8em;
     display: block;
 }
-
 .time-slot {
     font-size: 1em;
     padding-left: 10px;

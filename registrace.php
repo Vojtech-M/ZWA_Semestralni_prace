@@ -14,6 +14,9 @@ include "./php/check_login.php";
 include './php/validation.php';
 include './php/file_upload.php';
 include "./php/reservation_validation.php";
+include './php/data_handler.php';
+
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get data from the form
@@ -25,29 +28,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = htmlspecialchars(trim($_POST['email']));
     $phone = htmlspecialchars(trim($_POST['phone']));
     $password = htmlspecialchars(trim($_POST['password']));
+    $password2 = htmlspecialchars(trim($_POST['password2']));
+
+    $errors = validateInputs($firstname, $lastname, $email, $phone, $password, $password2);
+
+    if (!isset($_POST['agreement'])) {
+        $formValid = false;
+        $errors['agreement'] = "Musíte souhlasit s podmínkami."; // Error message for not agreeing to terms
+    }
 
    // Handle file upload
-    $fileUploadResult = handleFileUpload('file');
-    if ($fileUploadResult['success']) {
-        $fileNameNew = $fileUploadResult['filePath'];
-    } else {
-    if (isset($fileUploadResult['noFile']) && $fileUploadResult['noFile'] === true) {
-        // No file was uploaded
-        // Use default profile picture
-        $fileNameNew = $defaultProfilePicture;
-    } else {
-        // A file was uploaded but invalid
-        $errors['image'] = $fileUploadResult['error'];
-        $fileNameNew = null; 
-    }
-}
-    // Validate inputs
-    $errors['firstname'] = validateName($firstname);
-    $errors['lastname'] = validateName($lastname);
-    $errors['email'] = validateEmail($email);
-    $errors['phone'] = validatePhone($phone);
-    $errors['password'] = validatePassword($password, $_POST['password2']);
-    
+   $fileUploadResult = handleFileUpload('file');
+   if ($fileUploadResult['success']) {
+       $fileNameNew = $fileUploadResult['filePath'];
+   } else {
+       if (isset($fileUploadResult['noFile']) && $fileUploadResult['noFile'] === true) {
+           $fileNameNew = $defaultProfilePicture;
+       } else {
+           $formValid = False;
+           $errors['image'] = $fileUploadResult['error']; // Collect file upload error
+       }
+   } 
     // Filter out null values from errors
     $errors = array_filter($errors);
 
@@ -55,23 +56,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $formValid = empty($errors);
     $hash = password_hash($password, PASSWORD_DEFAULT);  // Hash the password
 
-    // Get existing data from the JSON file (if it exists)
-    $file = './user_data/users.json';
-    if (file_exists($file)) {
-        $jsonData = file_get_contents($file);
-        $jsonArray = json_decode($jsonData, true);
-    } else {
-        $jsonArray = [];
-    }
-
+    $jsonArray = loadUsers();
+    check_email($email, null); // Check if the email already exists
     // Check if the email already exists
     foreach ($jsonArray as $user) {
         if ($user['email'] == $email) {
-            $errors['email'] = "Tento e-mail již je zaregistrován.";
+            $errors['email'] = "Tento e-mail je již zaregistrován.";
             $formValid = false;
             break;
         }
     }
+
 
     if ($formValid) {
         // Prepare data to be saved into JSON
@@ -108,6 +103,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form_field">
                 <label for="agreement_field" class="required_label">Souhlasím s <a href="./pdf/terms_and_conditions.pdf" target="blank">podmínkami</a></label>
                 <input id="agreement_field" type="checkbox" name="agreement" required tabindex="9">
+                <?php if (isset($errors['agreement'])): ?>
+                    <div class="error"><? htmlspecialchars($errors['agreement']) ?></div>
+                <?php endif; ?>
             </div>
             <input id="submit" type="submit" value="Registrovat se" tabindex="10">  
             <p> Máte už účet ? <a class="register_link" href="login.php">Přihlaste se !</a> </p>

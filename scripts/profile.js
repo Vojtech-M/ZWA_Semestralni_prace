@@ -9,17 +9,7 @@ function toggleDisplay(buttonId, formClass) {
     });
 }
 
+// Toggle display of add user form
 toggleDisplay('add_user', 'addForm');
-toggleDisplay('edit_user', 'editForm');
 
 
-
-document.addEventListener("DOMContentLoaded", function () {
-    const editButtons = document.querySelectorAll("button.toggleEditReservationForm");
-    editButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            const form = this.nextElementSibling;
-            form.classList.toggle("active");
-        });
-    });
-});

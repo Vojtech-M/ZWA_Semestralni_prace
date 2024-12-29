@@ -52,11 +52,11 @@ passwordToggles.forEach((toggleButton) => {
 // Function to check the validity of a username (firstname or lastname)
 function checkUsername(inputField, errorElementId) {
     const value = inputField.value.trim();
-    const validUsernamePattern = /^[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,}$/; // At least 3 letters
+    const validUsernamePattern = /^[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,50}$/; // At least 3 letters
 
     if (!validUsernamePattern.test(value)) {
         document.getElementById(errorElementId).innerText =
-            "Pole musí být delší než 3 znaky a může obsahovat pouze písmena.";
+            "Pole musí být delší než 3 znaky, kratší než 50 a může obsahovat pouze písmena.";
         return false;
     } else {
         document.getElementById(errorElementId).innerText = ""; // Clear error
@@ -126,6 +126,8 @@ function checkPasswordMatch(pass1Input, pass2Input, errorElementId) {
     }
 }
 
+// Add event listeners to dynamically check input fields
+
 firstnameInput.addEventListener("input", function () {
     checkUsername(firstnameInput, "firstNameError");
 });
@@ -143,7 +145,6 @@ phoneInput.addEventListener("input", function () {
 }
 );
 
-// Add event listener to dynamically check password match
 pass2Input.addEventListener("input", function () {
     checkPasswordMatch(pass1Input, pass2Input, "pass2Error");
 });
@@ -164,7 +165,6 @@ document.getElementById("registrationForm").addEventListener("submit", function 
     // Check if all validations passed
     if (!ispasswordValid2 || !isFirstnameValid || !isLastnameValid  || !isEmailValid || !isPasswordValid || !isPhoneValid) {
         console.warn("Form validation failed. Submission prevented.");
-        consloe.log("Password  value:", pass1Input.value);
         event.preventDefault(); // Prevent the form from submitting
     } else {
         console.log("Form validation passed. Submission allowed.");

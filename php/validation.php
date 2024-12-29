@@ -34,17 +34,19 @@ function validateEmail($email) {
 * @param int|null $currentUserId
 * @return bool
 */
-function check_email($email, $currentUserId = null) {   
-    $users = loadUsers();
+function check_email($email, $currentUserId = null) {
+    $users = loadUsers(); // Load all users from the data source
     foreach ($users as $user) {
-        // Skip checking the email of the current user being edited
-        if ($user['email'] === $email && $user['id'] !== $currentUserId) {
-            return true; // Email already exists for another user
+        // Normalize email for case-insensitive comparison
+        if (strtolower($user['email']) === strtolower($email)) {
+            // Check if it's the same user or a different one
+            if ((string)$user['id'] !== (string)$currentUserId) {
+                return true; // Email already exists for another user
+            }
         }
     }
     return false; // Email is unique
 }
-
 /**
  * Validate phone number
  * @param string $phone

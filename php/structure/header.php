@@ -11,13 +11,15 @@ if (isset($_SESSION['id'])) {
     $profilePicture = $user['profile_picture'];
 }
 ?>
+<noscript>Pro správné fungování této stránky je nutné povolit Javascript </noscript>
+
 <header>
         <div class="logo_corner">
             <a href="index.php"><img src="./img/logo1.png" alt="logo"></a>
         </div>
         <div class="computer_screen">
             <div class="right-links">
-                <a class="links" href="cenik.php">Ceník</a>
+                <a class="links" href="price_list.php">Ceník</a>
                 <a class="links" href="restaurace.php">Restaurace</a>
 
                 <?php if (isset($_SESSION['id'])): ?>
@@ -34,7 +36,7 @@ if (isset($_SESSION['id'])) {
         </div>
         <div class="mobile_screens">
             <ul class="menu">
-                <li><a class="menuItem" href="cenik.php">Ceník</a></li>
+                <li><a class="menuItem" href="price_list.php">Ceník</a></li>
                 <li><a class="menuItem" href="restaurace.php">Restaurace</a></li>
 
                 <?php if (isset($_SESSION['id'])): ?>

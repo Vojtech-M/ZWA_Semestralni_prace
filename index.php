@@ -16,7 +16,6 @@ include "./php/check_login.php";
     <link rel="stylesheet" href="./css/front_page.css">
 </head>
 <body>
-<noscript>Musíte povolit Javascript </noscript>
 
 <!-- Included header with navigation -->
 <?php include './php/structure/header.php'; ?>
@@ -56,13 +55,13 @@ include "./php/check_login.php";
         <p>Náš okruh s 11 vzrušujícími zatáčkami vás nenechá na pochybách o skutečném závodním zážitku! Od širokých pasáží po technické a úzké úseky, každý z nich přináší novou výzvu a zvyšuje adrenalin. Zatímco se budete snažit najít dokonalou stopu, zažijete pocit vzrušení a rychlosti. Přijďte si to vyzkoušet a objevte, co v sobě máte! </p>
     </div>
     <div class="right-text">
-        <img src="./img/bitmapa.png" alt="okruh" >
+        <img src="./img/bitmapa.png" alt="okruh">
     </div>
 </article>
 
 <article>
     <div class="left-text">
-        <img src="./img/gokarts3.jpg" alt="motokáry historie" >
+        <img src="./img/gokarts3.jpg" alt="motokáry historie">
     </div>
     <div class="right-text">
         <h3>Trocha historie. </h3>
@@ -77,11 +76,11 @@ include "./php/check_login.php";
     </div>
     
     <div class="reservation_link">
-    <?php if (isset($_SESSION['id'])) { ?> 
-        <a href="rezervace.php">REZERVACE</a>       
-    <?php } else { ?>
-        <a href="login.php">REZERVACE</a>
-    <?php } ?>
+        <?php if (isset($_SESSION['id'])) { ?> 
+            <a href="rezervace.php">REZERVACE</a>       
+        <?php } else { ?>
+            <a href="login.php">REZERVACE</a>
+        <?php } ?>
     </div>
 </div>
 <?php include './php/structure/footer.php'; ?>
