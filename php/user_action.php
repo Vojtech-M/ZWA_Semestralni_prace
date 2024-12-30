@@ -1,4 +1,8 @@
 <?php
+/*
+* This file contains the user actions.
+*/
+
 /**
  * Handle user form
  * @param array $postData

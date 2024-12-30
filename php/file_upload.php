@@ -29,11 +29,12 @@ function handleFileUpload($fileKey) {
     $fileExt = pathinfo($fileName, PATHINFO_EXTENSION); // Improved file extension check
     $fileActualExt = strtolower($fileExt);
 
+    $maxSize = 15000000; // 15 MB
     $allowed = ['jpg', 'jpeg', 'png']; // Allowed file types
 
     if (in_array($fileActualExt, $allowed)) {
         if ($fileError === 0) {
-            if ($fileSize < 2000000) {
+            if ($fileSize < $maxSize) {
                 $fileNameNew = uniqid('', true) . "." . $fileActualExt;
                 $fileDestination = './uploads/' . $fileNameNew;
                 if (move_uploaded_file($fileTmpName, $fileDestination)) {

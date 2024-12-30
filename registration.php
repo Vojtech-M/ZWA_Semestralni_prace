@@ -98,16 +98,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class ="login_formular">
         <div class="registration_field">
             <h2>Registrace</h2> 
-            <form id="registrationForm" action="registrace.php" method="post" enctype="multipart/form-data">
+            <form id="registrationForm" action="registration.php" method="post" enctype="multipart/form-data">
             <?php  include './php/structure/form_temeplate.php'; ?>
             <div class="form_field">
                 <label for="agreement_field" class="required_label">Souhlasím s <a href="./pdf/terms_and_conditions.pdf" target="blank">podmínkami</a></label>
-                <input id="agreement_field" type="checkbox" name="agreement" required tabindex="9">
+                <input id="agreement_field" type="checkbox" name="agreement" required>
                 <?php if (isset($errors['agreement'])): ?>
                     <div class="error"><? htmlspecialchars($errors['agreement']) ?></div>
                 <?php endif; ?>
             </div>
-            <input id="submit" type="submit" value="Registrovat se" tabindex="10">  
+            <input id="submit" type="submit" value="Registrovat se">  
             <p> Máte už účet ? <a class="register_link" href="login.php">Přihlaste se !</a> </p>
             </form>
         </div>

@@ -37,11 +37,10 @@ function validateEmail($email) {
 function check_email($email, $currentUserId = null) {
     $users = loadUsers(); // Load all users from the data source
     foreach ($users as $user) {
-        // Normalize email for case-insensitive comparison
         if (strtolower($user['email']) === strtolower($email)) {
             // Check if it's the same user or a different one
             if ((string)$user['id'] !== (string)$currentUserId) {
-                return true; // Email already exists for another user
+                return true; // Email is not unique
             }
         }
     }

@@ -1,6 +1,8 @@
 
 <?php
-
+/*
+* This file contains the header of the website.
+*/
 
 if (isset($_SESSION['id'])) {
     $user_id = $_SESSION['id'];
@@ -15,12 +17,13 @@ if (isset($_SESSION['id'])) {
 
 <header>
         <div class="logo_corner">
-            <a href="index.php"><img src="./img/logo1.png" alt="logo"></a>
+            <a href="index.php"><img src="./img/icons/logo.png" alt="logo"></a>
         </div>
+
         <div class="computer_screen">
             <div class="right-links">
                 <a class="links" href="price_list.php">Ceník</a>
-                <a class="links" href="restaurace.php">Restaurace</a>
+                <a class="links" href="restaurant.php">Restaurace</a>
 
                 <?php if (isset($_SESSION['id'])): ?>
                     <a class="links_active" href="profil.php">
@@ -30,14 +33,14 @@ if (isset($_SESSION['id'])) {
                     <a class="links" href="./php/logout.php">Odhlásit se</a>
                 <?php else: ?>
                     <a class="links_active" href="login.php">Přihlášení</a>
-                    <a class="links" href="registrace.php">Registrace</a>
+                    <a class="links" href="registration.php">Registrace</a>
                 <?php endif; ?>
             </div>
         </div>
         <div class="mobile_screens">
             <ul class="menu">
                 <li><a class="menuItem" href="price_list.php">Ceník</a></li>
-                <li><a class="menuItem" href="restaurace.php">Restaurace</a></li>
+                <li><a class="menuItem" href="restaurant.php">Restaurace</a></li>
 
                 <?php if (isset($_SESSION['id'])): ?>
                     <li>
@@ -49,12 +52,12 @@ if (isset($_SESSION['id'])) {
                     <li><a class="menuItem" href="./php/logout.php">Odhlásit se</a></li>
                 <?php else: ?>
                     <li><a class="menuItem" href="login.php">Přihlášení</a></li>
-                    <li><a class="menuItem" href="registrace.php">Registrace</a></li>
+                    <li><a class="menuItem" href="registration.php">Registrace</a></li>
                 <?php endif; ?>
             </ul>
             <button class="hamburger">
-                <img src="./img/menu.png" height="32" width="32" alt="Menu" class="menuIcon"> 
-                <img src="./img/menu_white.png" height="32" width="32" alt="Close" class="closeIcon" style="display: none;"> 
+                <img src="./img/icons/menu.png" alt="Menu" class="menuIcon"> 
+                <img src="./img/icons/menu_white.png"alt="Close" class="closeIcon" style="display: none;"> 
             </button>
         </div>
     <script src="./scripts/toggle_menu.js" type=module></script>

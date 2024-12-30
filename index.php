@@ -31,7 +31,7 @@ include "./php/check_login.php";
 
 <section class="features">
     <div class="small_text">
-        <img src="./img/trat_ikona.svg" alt="ikona trati">
+        <img src="./img/icons/trat_ikona.svg" alt="ikona trati">
         <h3>Dráha</h3>
         <p>800 m</p>
     </div>
@@ -43,7 +43,7 @@ include "./php/check_login.php";
     </div>
 
     <div class="small_text">
-    <img src="./img/konfety_ikona.svg" alt="ikona konfety">
+    <img src="./img/icons/konfety_ikona.svg" alt="ikona konfety">
         <h3>Firemní akce</h3>
         <p>Netradiční setkání</p>
     </div>

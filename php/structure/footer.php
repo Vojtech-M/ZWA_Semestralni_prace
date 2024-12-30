@@ -1,7 +1,7 @@
 <footer>
 <div class="contact">
     <div class="contact_text">
-        <img class="map_marker" src="./img/opening_hours.svg" alt="map marker" >
+        <img class="map_marker" src="./img/opening_hours.svg" alt="opening hours" >
         <table class="opening_hours">
             <tr><th>Pondělí</th><td>14:00 - 23:00</td></tr>
             <tr><th>Úterý</th><td>14:00 - 23:00</td></tr>
@@ -14,7 +14,7 @@
     </div>
 
     <div class="contact_text">
-        <img class="map_marker" src="./img/map_marker.svg" alt="map marker" >
+        <img class="map_marker" src="./img/icons/map_marker.svg" alt="map marker" >
         <p>Červené Vršky 2217, 25601 Benešov </p>
         <iframe class="map-iframe" src="https://frame.mapy.cz/s/retojosafa" name="iframe_a" title="Iframe Example"></iframe>
     </div>
@@ -29,11 +29,11 @@
     </div>
 </div>
 <div class="footer_bottom">
-    <div class="copyright">
         <p>Vojtěch Michal 2024</p>
-    </div>
     <div class="footer-text">
         <p>Motokárové centrum Benešov</p>
     </div>
+    <a href="./pdf/bistro.pdf" target="_blank" class="styled-button">Dokumentace</a>
+    <a href="" class="styled-button">PHP Dokumentace</a>
 </div>
 </footer>

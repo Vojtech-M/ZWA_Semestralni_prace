@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <input type="submit" name="login" value="Přihlásit se" tabindex="3">
-                <p> Ještě nemáte učet ? <a class="register_link" href="registrace.php">Zaregistrujte se !</a> </p>
+                <p> Ještě nemáte učet ? <a class="register_link" href="registration.php">Zaregistrujte se !</a> </p>
             </form>
         </div>
     </section>

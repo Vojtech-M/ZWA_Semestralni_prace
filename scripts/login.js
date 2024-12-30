@@ -1,9 +1,7 @@
 const emailInput = document.getElementById("email");
 const emailError = document.getElementById("emailError");
 const passwordError = document.getElementById("passwordError");
-
 const pass1Input = document.getElementById("password");
-
 
 import { checkEmail } from './register.js';
 import { checkPassword } from './register.js';

@@ -26,11 +26,11 @@ function togglePasswordVisibility(event) {
 
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
-        button.src = "./img/opened_eye.png";
+        button.src = "./img/icons/opened_eye.png";
         button.setAttribute("aria-label", "Hide password");
     } else {
         passwordInput.type = "password";
-        button.src = "./img/closed_eye.png";
+        button.src = "./img/icons/closed_eye.png";
         button.setAttribute("aria-label", "Show password");
     }
 }
@@ -38,12 +38,10 @@ function togglePasswordVisibility(event) {
 // Add event listeners to all password toggle buttons
 passwordToggles.forEach((toggleButton) => {
     toggleButton.addEventListener("click", togglePasswordVisibility);
-
-    // Optional: Add keyboard accessibility for the toggle button
     toggleButton.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
             togglePasswordVisibility(event);
-            event.preventDefault(); // Prevent default behavior for space key
+            event.preventDefault();
         }
     });
 });
@@ -52,7 +50,7 @@ passwordToggles.forEach((toggleButton) => {
 // Function to check the validity of a username (firstname or lastname)
 function checkUsername(inputField, errorElementId) {
     const value = inputField.value.trim();
-    const validUsernamePattern = /^[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,50}$/; // At least 3 letters
+    const validUsernamePattern = /^[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,50}$/; // At least 3 letters max 50
 
     if (!validUsernamePattern.test(value)) {
         document.getElementById(errorElementId).innerText =
@@ -67,7 +65,7 @@ function checkUsername(inputField, errorElementId) {
 // Function to check phone number validity
 function checkPhoneNumber(inputField, errorElementId) {
     const value = inputField.value.trim();
-    const phonePattern = /^[0-9]{9}$/; // 9 digits for Czech phone numbers
+    const phonePattern = /^[0-9]{9}$/; // 9 digits
 
 
     if (value === "") {
@@ -100,6 +98,7 @@ function checkEmail(inputField, errorElementId) {
     }
 }
 
+// Function to check password validity 
 function checkPassword(inputField, errorElementId) {
     const value = inputField.value.trim();
     const validPasswordPattern = /^(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[A-ZĚŠČŘŽÝÁÍÉ])(?=.*[a-zěščřžýáíé]).{8,50}$/;
@@ -144,7 +143,6 @@ phoneInput.addEventListener("input", function () {
     checkPhoneNumber(phoneInput, "phone_fieldError");
 }
 );
-
 pass2Input.addEventListener("input", function () {
     checkPasswordMatch(pass1Input, pass2Input, "pass2Error");
 });

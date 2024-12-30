@@ -58,8 +58,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td><button class="table_button delete_user_button">Delete</button></td>
                 <td>
             `;
-// <button class="table_button edit_user_button">Edit</button>
-            // Add delete functionality
+
+            // Add event listener to the delete button
             const deleteButton = tr.querySelector(".delete_user_button");
             deleteButton.addEventListener("click", () => deleteUser(user.id, tr));
 

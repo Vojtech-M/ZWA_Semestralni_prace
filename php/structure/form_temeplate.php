@@ -32,7 +32,7 @@
 <div class="form_field">
         <label for="pass1_field" class="required_label">Heslo</label>
         <input type="password" id="pass1_field" name="password" placeholder="Heslo" required tabindex="5" /> 
-        <img src="./img/closed_eye.png" class="password-toggle" alt="Toggle password visibility" role="button" tabindex="6" aria-label="Show password">
+        <img src="./img/icons/closed_eye.png" class="password-toggle" alt="Toggle password visibility" role="button" tabindex="6" aria-label="Show password">
         <div class="error" id="pass1Error"></div>
         <label for="pass2_field" class="required_label">Heslo znovu</label>
         <input id="pass2_field" type="password" name="password2" required placeholder="Heslo znovu" tabindex="7" >

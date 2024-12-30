@@ -40,36 +40,6 @@
         "profile_picture": null
     },
     {
-        "id": "67717a27bdf43",
-        "role": "user",
-        "firstname": "asdf",
-        "lastname": "asdf",
-        "email": "asdf@asddasdff.cz",
-        "phone": "",
-        "password": "$2y$10$kGU07XrpDYBjd094f1tGvuTzAfz\/nlo0JOPNZe.4V\/hpikQQyOOw.",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "id": "67717ca63ffc4",
-        "role": "user",
-        "firstname": "asdf",
-        "lastname": "asdf",
-        "email": "admin@admin.cz",
-        "phone": "",
-        "password": "$2y$10$lTLdMWl\/whNcxq2RLANlfOiZ1Ks9Yy1uFuj.K6\/clVODV1ho2V3aO",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "id": "677181ec8f940",
-        "role": "admin",
-        "firstname": "Haba",
-        "lastname": "Habala",
-        "email": "haba@haba.cz",
-        "phone": "",
-        "password": "$2y$10$8i4hCeEe.MB9iYhnpod2Eeff0rSPxRnypR6qbgcb2vQJgMFiHfYHW",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
         "id": "677184c798673",
         "role": "admin",
         "firstname": "vojta",

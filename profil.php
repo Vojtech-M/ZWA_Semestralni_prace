@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors = [];
             $formValid = true; // formulář je na začátku valid
             include './php/structure/form_temeplate.php'; ?> 
-        <button class="user_managment_button"type="submit" name="action" value="update">Upravit</button>
+        <button class="user_managment_button"type="submit"  name="action" value="update">Upravit</button>
     </form>
 </section>
 

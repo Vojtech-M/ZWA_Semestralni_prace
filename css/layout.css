@@ -120,7 +120,10 @@ header {
     border: none; 
     padding-bottom: 20px;     
 }
-
+.menuIcon{
+    height: 32px;
+    width: 32px;
+}
 
 @media print {        
     * {
