@@ -89,7 +89,8 @@ function getUser($id) {
 function addUser($role,$firstname, $lastname, $email,$phone, $password, $profile_picture) {
     $users = loadUsers();
     $id = uniqid();
-    $newUser = ['id' => $id, 'role'=> $role,'firstname' => $firstname,'lastname' => $lastname, 'email' => $email,'phone'=> $phone, 'password'=> $password,'profile_picture' => $profile_picture];
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    $newUser = ['id' => $id, 'role'=> $role,'firstname' => $firstname,'lastname' => $lastname, 'email' => $email,'phone'=> $phone, 'password'=> $passwordHash,'profile_picture' => $profile_picture];
     $users[] = $newUser;
     saveUsers($users);
     return $id;

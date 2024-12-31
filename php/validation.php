@@ -113,7 +113,7 @@ function doesIDExist($idToCheck) {
     $users = loadUsers();
     foreach ($users as $user) {
         if ($user['id'] === $idToCheck) {
-            return true; // ID found
+            return null; // ID found
         }
     }
     return "ID uživatele neexistuje"; // ID not found

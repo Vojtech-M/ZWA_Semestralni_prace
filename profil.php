@@ -12,6 +12,9 @@ if (!isset($_SESSION['id'])) {
     header("Location: ./login.php");
     exit;
 }
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 
 // Load user data
 $user = getDataById($_SESSION['id']);
@@ -20,6 +23,9 @@ $defaultProfilePicture = './img/profile.png';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die('CSRF token mismatch');
+    }
     $errors = [];
 
     if (isset($_POST['action'])) {
@@ -47,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $fileUploadResult = handleFileUpload('file');
                     if ($fileUploadResult['success']) {
                         $fileNameNew = $fileUploadResult['filePath'];
+                        deleteProfilePicture($user);
                     } else {
                         $formValid = false;
                         $errors['image'] = $fileUploadResult['error']; // Collect file upload error
@@ -75,103 +82,55 @@ case 'update_password':
     $newPassword = htmlspecialchars(trim($_POST['new_password']));
     $confirmPassword = htmlspecialchars(trim($_POST['confirm_password']));
     
-   
     $errors['current_password_change'] = validate_current_password($currentPassword, $user['password']);
-
-    // Validate new password
-    if (empty($newPassword)) {
-        $errors['new_password'] = "Nové heslo je povinné.";
-    } elseif (strlen($newPassword) < 8) {
-        $errors['new_password'] = "Nové heslo musí mít alespoň 8 znaků.";
-    }
-
-    // Validate confirm password
-    if ($newPassword !== $confirmPassword) {
-        $errors['confirm_password'] = "Nové heslo a potvrzení hesla se neshodují.";
-    }
-
+    $errors['new_password'] = validatePassword($newPassword, $confirmPassword);
+    $errors = array_filter($errors);
     // If no errors, update the password
     if (empty($errors)) {
         editUser($user['id'], $user['role'], $user['firstname'], $user['lastname'], $user['email'], $user['phone'], $newPassword, $user['profile_picture']);
-        // Update the password in the database
-        header("Location: ./profil.php");
-        // Redirect with a success message
-        exit;
+        echo "Heslo bylo úspěšně změněno.";
     }
-
-
 break;
 
 case 'add_user':
     // Retrieve form data
-    $firstname = htmlspecialchars(trim($_POST['firstname']));
-    $lastname = htmlspecialchars(trim($_POST['lastname']));
-    $email = htmlspecialchars(trim($_POST['email']));
-    $phone = htmlspecialchars(trim($_POST['phone']));
-    $password = htmlspecialchars(trim($_POST['password']));
-    $confirmPassword = htmlspecialchars(trim($_POST['confirm_password']));
-    $role = htmlspecialchars(trim($_POST['role']));
+    $firstname = htmlspecialchars(trim($_POST['firstname_add_user']));
+    $lastname = htmlspecialchars(trim($_POST['lastname_add_user']));
+    $email = htmlspecialchars(trim($_POST['email_add_user']));
+    $phone = htmlspecialchars(trim($_POST['phone_add_user']));
+    $password = htmlspecialchars(trim($_POST['password_add_user']));
+    $confirmPassword = htmlspecialchars(trim($_POST['confirm_password_add_user']));
+    $role = htmlspecialchars(trim($_POST['role_add_user']));
     
-   
+    $errors["firstname_add_user"] = validateName($firstname);
+    $errors["lastname_add_user"] = validateName($lastname);
+    $errors["email_add_user"] = validateEmail($email);
+    $errors["phone_add_user"] = validatePhone($phone);
+    $errors["password_add_user"] = validatePassword($password, $confirmPassword);
 
-    // Validate the first name
-    if (empty($firstname)) {
-        $errors['firstname_add_user'] = "Jméno je povinné.";
-    } elseif (!preg_match('/^[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]+$/', $firstname)) {
-        $errors['firstname_add_user'] = "Jméno musí obsahovat pouze písmena.";
-    } elseif (strlen($firstname) < 3) {
-        $errors['firstname_add_user'] = "Jméno musí mít alespoň 3 znaky.";
-    }
+    // Validate the user input
+    $defaultProfilePicture = './img/profile.png';	
 
-    // Validate the last name
-    if (empty($lastname)) {
-        $errors['lastname_add_user'] = "Příjmení je povinné.";
-    }
-
-    // Validate the email
-    if (empty($email)) {
-        $errors['email_add_user'] = "Email je povinný.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors['email_add_user'] = "Zadejte platný email.";
-    } else {
-        check_email($email, null); // Check if the email already exists
-    }
-
-    // Validate the phone number
-    if (empty($phone)) {
-        $errors['phone_add_user'] = "Telefonní číslo je povinné.";
-    }
-
-    // Validate passwords
-    if (empty($password)) {
-        $errors['password_add_user'] = "Heslo je povinné.";
-    } elseif (strlen($password) < 8) {
-        $errors['password_add_user'] = "Heslo musí mít alespoň 8 znaků.";
-    }
-
-    if ($password !== $confirmPassword) {
-        $errors['confirm_password_add_user'] = "Hesla se neshodují.";
-    }
-
+    $errors['email_add_user'] = check_email($email);
+    var_dump($errors);
     // Validate the file upload
-    $fileUploadResult = handleFileUpload('file');
+    $fileUploadResult = handleFileUpload('file_add_user');
     if ($fileUploadResult['success']) {
         $fileNameNew = $fileUploadResult['filePath'];
     } else {
-        $fileNameNew = './img/profile.png'; // Default profile picture
-    }
-
+        if (isset($fileUploadResult['noFile']) && $fileUploadResult['noFile'] === true) {
+            $fileNameNew = $defaultProfilePicture;
+        } else {
+            $formValid = False;
+            $errors['image'] = $fileUploadResult['error']; // Collect file upload error
+        }
+    } 
+    $errors = array_filter($errors);
     // If no errors, insert the new user into the database
     if (empty($errors)) {
-        // Hash the password before inserting
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
         // Insert the new user into the database
-        addUser($role,$firstname, $lastname, $email, $phone, $passwordHash, $role, $fileNameNew);
-
-        // Redirect to the profile page with success message
-        header("Location: ./profil.php");
-        exit;
+        addUser($role,$firstname, $lastname, $email, $phone, $password, $fileNameNew);
+        echo "<p>Uživatel byl úspěšně přidán.</p>";
     }
 break;
 
@@ -189,24 +148,6 @@ case "edit_user":
     $errors['email_edit_user'] = check_email($email, $userId);
     $errors = validateInputs($firstname, $lastname, $email, $phone, null, null);
 
-
-    // Validate user input (you can reuse similar validation from the previous code)
-    if (empty($firstname)) {
-        $errors['firstname_edit_user'] = "Jméno je povinné.";
-    }
-
-    if (empty($lastname)) {
-        $errors['lastname_edit_user'] = "Příjmení je povinné.";
-    }
-
-    if (empty($email)) {
-        $errors['email_edit_user'] = "Email je povinný.";
-    }
-
-    if (!preg_match('/^[0-9]{9}$/', $phone)) {
-        $errors['phone_edit_user'] = "Telefonní číslo musí mít 9 číslic.";
-    }
-
     // Handle file upload for profile picture
     $fileUploadResult = handleFileUpload('file');
     if ($fileUploadResult['success']) {
@@ -214,7 +155,6 @@ case "edit_user":
     } else {
         $fileNameNew = './img/profile.png'; // Default profile picture
     }
-
     // If no errors, update the user in the database
     if (empty($errors)) {
         // Update the user data in the database (assuming you have a function like this)
@@ -234,21 +174,38 @@ case 'reset_password':
 
     $errors['user_id'] = doesIDExist($userId);
 
-    if (empty($newPassword)) {
-        $errors['new_password'] = "Nové heslo je povinné.";
-    } elseif (strlen($newPassword) < 8) {
-        $errors['new_password'] = "Nové heslo musí mít alespoň 8 znaků.";
-    }
+    $user_to_change = getDataById($userId);
+    // Validate the new password
+    $errors['new_password'] = validatePassword($newPassword, $newPassword);
+    var_dump($errors);
+    $errors = array_filter($errors);
     // If no errors, reset the password
     if (empty($errors)) {
         // Reset the user's password in the database (assuming you have a function like this)
-        editUser($userId, $user['role'], $user['firstname'], $user['lastname'], $user['email'], $user['phone'], $newPassword, $user['profile_picture']);
+        editUser($userId, $user_to_change['role'], $user_to_change['firstname'], $user_to_change['lastname'], $user_to_change['email'], $user_to_change['phone'], $newPassword, $user_to_change['profile_picture']);
         // Redirect to the profile page after successful password reset
+        echo "Heslo bylo úspěšně změněno.";
         exit;
     }
 
 // header("Location: ./profil.php");
 // exit;
+
+case 'delete_user':
+    // Code for deleting a user by ID
+
+    // Retrieve form data
+    $userId = htmlspecialchars(trim($_POST['user_id_delete']));
+    $errors['user_id_delete'] = doesIDExist($userId);
+    $errors = array_filter($errors);
+    // If no errors, delete the user
+    if (empty($errors)) {
+        // Delete the user from the database (assuming you have a function like this)
+        deleteUser($userId);
+        // Redirect to the profile page after successful deletion
+        header("Location: ./profil.php");
+        exit;
+    }
 }
 }
 }
@@ -348,7 +305,7 @@ case 'reset_password':
             <div class="error"><?= htmlspecialchars($errors['image']) ?></div>
         <?php endif; ?>
     </div>
-
+    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
     <!-- Submission Button -->
     <button type="submit" class="user_managment_button" 
             name="action" value="update_self" tabindex="7">
@@ -391,7 +348,7 @@ case 'reset_password':
                 <div class="error"><?= htmlspecialchars($errors['confirm_password']) ?></div>
             <?php endif; ?>
         </div>
-
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
         <!-- Submission Button -->
         <button type="submit" class="user_managment_button" 
                 name="action" value="update_password">
@@ -456,8 +413,8 @@ case 'reset_password':
         <form action="profil.php" method="post" enctype="multipart/form-data">
             <!-- First Name -->
             <div class="form_field">
-                <label for="firstname" class="required_label">Jméno</label>
-                <input type="text" id="firstname" name="firstname" required placeholder="Tomáš" tabindex="1">
+                <label for="firstname_add_user" class="required_label">Jméno</label>
+                <input type="text" id="firstname_add_user" name="firstname_add_user" required placeholder="Tomáš" tabindex="1">
                 <?php if (isset($errors['firstname_add_user'])): ?>
                     <div class="error"><?= htmlspecialchars($errors['firstname_add_user']) ?></div>
                 <?php endif; ?>
@@ -465,8 +422,8 @@ case 'reset_password':
 
             <!-- Last Name -->
             <div class="form_field">
-                <label for="lastname" class="required_label">Příjmení</label>
-                <input type="text" id="lastname" name="lastname" required placeholder="Novák" tabindex="2">
+                <label for="lastname_add_user" class="required_label">Příjmení</label>
+                <input type="text" id="lastname_add_user" name="lastname_add_user" required placeholder="Novák" tabindex="2">
                 <?php if (isset($errors['lastname_add_user'])): ?>
                     <div class="error"><?= htmlspecialchars($errors['lastname_add_user']) ?></div>
                 <?php endif; ?>
@@ -474,8 +431,8 @@ case 'reset_password':
 
             <!-- Email -->
             <div class="form_field">
-                <label for="email" class="required_label">Email</label>
-                <input type="email" id="email" name="email" required placeholder="example@mail.com"  tabindex="3">
+                <label for="email_add_user" class="required_label">Email</label>
+                <input type="email" id="email_add_user" name="email_add_user" required placeholder="example@mail.com"  tabindex="3">
                 <?php if (isset($errors['email_add_user'])): ?>
                     <div class="error"><?= htmlspecialchars($errors['email_add_user']) ?></div>
                 <?php endif; ?>
@@ -483,29 +440,32 @@ case 'reset_password':
 
             <!-- Phone -->
             <div class="form_field">
-                <label for="phone" class="phone_label">Telefonní číslo</label>
-                <input type="text" id="phone" name="phone" placeholder="606136603" tabindex="4">
+                <label for="phone_add_user" class="phone_label">Telefonní číslo</label>
+                <input type="text" id="phone_add_user" name="phone_add_user" placeholder="606136603" tabindex="4">
+                <?php if (isset($errors['phone_add_user'])): ?>
+                    <div class="error"><?= htmlspecialchars($errors['phone_add_user']) ?></div>
+                <?php endif; ?>
             </div>
 
             <!-- Role Selection -->
             <div class="form_field">
-                <label for="role" class="required_label">Role</label>
-                <select id="role" name="role" required>
-                    <option value="user" >Uživatel</option>
+                <label for="role_add_user" class="required_label">Role</label>
+                <select id="role_add_user" name="role_add_user" required>
+                    <option value="user">Uživatel</option>
                     <option value="admin">Administrátor</option>
                 </select>
             </div>
 
             <!-- Profile Picture -->
             <div class="form_field">
-                <label for="file">Profilový obrázek</label>
-                <input type="file" id="file" name="file" tabindex="5">
+                <label for="file_add_user">Profilový obrázek</label>
+                <input type="file" id="file_add_user" name="file_add_user" tabindex="5">
             </div>
 
             <!-- Password -->
             <div class="form_field">
-                <label for="password" class="required_label">Heslo</label>
-                <input type="password" id="password" name="password" required placeholder="Zadejte heslo" tabindex="6">
+                <label for="password_add_user" class="required_label">Heslo</label>
+                <input type="password" id="password_add_user" name="password_add_user" required placeholder="Zadejte heslo" tabindex="6">
                 <?php if (isset($errors['password_add_user'])): ?>
                     <div class="error"><?= htmlspecialchars($errors['password_add_user']) ?></div>
                 <?php endif; ?>
@@ -513,15 +473,15 @@ case 'reset_password':
 
             <!-- Confirm Password -->
             <div class="form_field">
-                <label for="confirm_password" class="required_label">Potvrzení hesla</label>
-                <input type="password" id="confirm_password" name="confirm_password" required placeholder="Heslo znovu" tabindex="7">
+                <label for="confirm_password_add_user" class="required_label">Potvrzení hesla</label>
+                <input type="password" id="confirm_password_add_user" name="confirm_password_add_user" required placeholder="Heslo znovu" tabindex="7">
                 <?php if (isset($errors['confirm_password_add_user'])): ?>
                     <div class="error"><?=
                         htmlspecialchars($errors['confirm_password_add_user']) ?></div>
                 <?php endif; ?>
             </div>
 
-
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
             <!-- Submit Button -->
             <button type="submit" class="user_managment_button" name="action" value="add_user" tabindex="7">
                 Přidat uživatele
@@ -580,7 +540,7 @@ case 'reset_password':
         <div class="form_field">
             <label for="role" class="required_label">Role</label>
             <select id="role" name="role" required>
-                <option value="user">>Uživatel</option>
+                <option value="user">Uživatel</option>
                 <option value="admin">Administrátor</option>
             </select>
         </div>
@@ -590,7 +550,7 @@ case 'reset_password':
             <label for="file">Profilový obrázek</label>
             <input type="file" id="file" name="file">
         </div>
-
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
         <!-- Submit Button -->
         <button type="submit" class="user_managment_button" name="action" value="edit_user">
             Upravit uživatele
@@ -627,11 +587,32 @@ case 'reset_password':
                 <div class="error"><?= htmlspecialchars($errors['confirm_new_password']) ?></div>
             <?php endif; ?>
         </div>
-
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
         <!-- Submit Button -->
         <button type="submit" name="action" value="reset_password">Resetovat heslo</button>
     </form>
 </article>
+
+<article>
+    <h2>Smazat uživatele</h2>
+    <form action="profil.php" method="post">
+        <!-- User ID -->
+        <div class="form_field
+        ">
+            <label for="user_id_delete" class="required_label">ID uživatele</label>
+            <input type="text" id="user_id_delete" name="user_id_delete" required placeholder="Zadejte ID uživatele">
+            <?php if (isset($errors['user_id_delete'])): ?>
+                <div class="error"><?=
+                    htmlspecialchars($errors['user_id_delete']) ?></div>
+            <?php endif; ?>
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+            <!-- Submit Button -->
+            <button type="submit" name="action" value="delete_user">Smazat uživatele</button>
+        </div>
+</article>
+
+
+
 <?php endif; ?>
 <?php include './php/structure/footer.php'; ?>
 <script src="./scripts/load_users.js" ></script> 
