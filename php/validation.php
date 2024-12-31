@@ -1,4 +1,19 @@
 <?php
+
+function validateInputs($firstname, $lastname, $email, $phone, $password, $password2) {
+    $errors = [];
+    $errors["firstname"] = validateName($firstname);
+    $errors["lastname"] = validateName($lastname);
+    $errors["email"] = validateEmail($email);
+    $errors["phone"] = validatePhone($phone);
+    $errors["password"] = validatePassword($password, $password2);
+    return $errors;
+}
+
+
+
+
+
 /*
 * Job: Validate user input
 * This file contains functions for validating user input.

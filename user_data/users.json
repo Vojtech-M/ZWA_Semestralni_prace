@@ -1,15 +1,5 @@
 [
     {
-        "id": "677170adc3c01",
-        "role": "admin",
-        "firstname": "Admin",
-        "lastname": "Admibn",
-        "email": "admin@admin.cz",
-        "phone": "101202303",
-        "password": "$2y$10$4RU61xvYzbGM1WbYtXEVBuf534kDD7\/obBxkwf2W.rtIl3t\/8PhKa",
-        "profile_picture": ".\/uploads\/677181d472fc88.51129373.png"
-    },
-    {
         "id": "677170cea421b",
         "role": "user",
         "firstname": "User",
@@ -42,11 +32,11 @@
     {
         "id": "677184c798673",
         "role": "admin",
-        "firstname": "vojta",
-        "lastname": "vojta",
+        "firstname": "dddd",
+        "lastname": "dddd",
         "email": "vojta@vojta.cz",
         "phone": "",
-        "password": "$2y$10$SrUxbw82ca5tMIBdJShlNuA22vRFss1RYVJrZIwml0YTkFsDsjYO6",
+        "password": "$2y$10$n6iQDLzToGm4HqwXDN04AOh5wQRQ18a09u7Cmokqneew.4wr5R22a",
         "profile_picture": ".\/img\/profile.png"
     },
     {
@@ -67,6 +57,96 @@
         "email": "asdf@asdff.cz",
         "phone": "",
         "password": "$2y$10$rIXveRSabLPEV7YIn\/8tEO1theT59UkDHzd1uYoFuZ\/UrSewIRiEq",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "677408c7925d9",
+        "role": "user",
+        "firstname": "userrrrk",
+        "lastname": "usersdasdf",
+        "email": "user@user1.cz",
+        "phone": "1234",
+        "password": "$2y$10$rS9w86bjDZ0a9Xe79rNEOeoSAebC9xkhA7lPe4FrMCkT.gPtuMtw.",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "67740f445bba2",
+        "role": "user",
+        "firstname": "asdf",
+        "lastname": "asdff",
+        "email": "asdf@asdf.cz1",
+        "phone": "",
+        "password": "$2y$10$Ly5NYx5Hn2vfxbGI6qr7r.wskbYfY2TaqYKBNqfX.NBqK8f82oDvi",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "6774167a8cd10",
+        "role": "test",
+        "firstname": "test",
+        "lastname": "test@test.cz",
+        "email": "123456789",
+        "phone": "$2y$10$.Pc9jt7sf6o1FpaOMqrcneSGhjpk5xkhGRL9oT0Awu7nbgoLL5Cim",
+        "password": "user",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "6774170903380",
+        "role": "user",
+        "firstname": "bbbb",
+        "lastname": "bbbb",
+        "email": "bbbb@bbb.cz",
+        "phone": "111222333",
+        "password": "$2y$10$Mj3fRhW.oVO.jRLbcvp5Vu9LfqNAoUOfwd41oaKR.oFMvq9CQIM.i",
+        "profile_picture": "user"
+    },
+    {
+        "id": "6774173ad945b",
+        "role": "user",
+        "firstname": "bbbb",
+        "lastname": "bbbb",
+        "email": "bbbb@bbb.cz",
+        "phone": "111222333",
+        "password": "$2y$10$K4ayeKh7TKW4sn8SjNKcaOluoaelbnMHmWsAvnmfTyXvaaxiiDM0y",
+        "profile_picture": "user"
+    },
+    {
+        "id": "677417449f59c",
+        "role": "user",
+        "firstname": "bbbb",
+        "lastname": "bbbb",
+        "email": "bbbb@bbb.cz",
+        "phone": "111222333",
+        "password": "$2y$10$z6CvTvGBvCdODVw0abup2OAMUA8Zh1skDktiCRi0lhj8xnFH53AXa",
+        "profile_picture": "user"
+    },
+    {
+        "id": "6774176685315",
+        "role": "user",
+        "firstname": "bbbb",
+        "lastname": "bbbb",
+        "email": "bbbb@bbb.cz",
+        "phone": "111222333",
+        "password": "$2y$10$g6pNBILca.XZaBOgK2FfwO2GxTQTvUitil86nkcPaJkel9cEijBUe",
+        "profile_picture": "user"
+    },
+    {
+        "id": "67742b2180c5a",
+        "role": "user",
+        "firstname": "Killera",
+        "lastname": "Killiera",
+        "email": "kiliera@kiliera.cz",
+        "phone": "456789123",
+        "password": "$2y$10$DTIv2wxwut\/eVzBKxbOXlOaiqGopSqiCbJZ.3olKK07hS\/EHqSBwe",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "6774308f44594",
+        "role": "admin",
+        "firstname": "admin",
+        "lastname": "ader",
+        "email": "admin@admin.cz",
+        "phone": "",
+        "password": "$2y$10$1cCD1T\/DR1DkSLMt\/htNHu.9BCE2AM1NKTUvHkjcUbsyFXMrvObNK",
         "profile_picture": ".\/img\/profile.png"
     }
 ]
