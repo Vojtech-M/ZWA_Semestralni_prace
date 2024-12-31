@@ -10,10 +10,6 @@ function validateInputs($firstname, $lastname, $email, $phone, $password, $passw
     return $errors;
 }
 
-
-
-
-
 /*
 * Job: Validate user input
 * This file contains functions for validating user input.
@@ -50,16 +46,14 @@ function validateEmail($email) {
 * @return bool
 */
 function check_email($email, $currentUserId = null) {
-    $users = loadUsers(); // Load all users from the data source
-    foreach ($users as $user) {
-        if (strtolower($user['email']) === strtolower($email)) {
-            // Check if it's the same user or a different one
-            if ((string)$user['id'] !== (string)$currentUserId) {
-                return true; // Email is not unique
-            }
+    foreach (loadUsers() as $user) {
+        if ($user['email'] == $email && $user['id'] != $currentUserId) {
+            //array_push($errors, "Uživatel s tímto emailem již existuje!");
+            return "Uživatel s tímto emailem již existuje!";
+            break;
         }
     }
-    return false; // Email is unique
+    return null;
 }
 /**
  * Validate phone number
@@ -100,4 +94,34 @@ function validatePassword($password, $confirmPassword) {
     }
     return null;
 }
+
+function validate_current_password($currentPassword, $userPassword) {
+    // Compare the plain-text password with the stored hashed password
+    if (!password_verify($currentPassword, $userPassword)) {
+        return "Aktuální heslo není správné.";
+    }
+    return null;
+}
+
+
+/**
+ * Check if the ID exists
+ * @param int $idToCheck
+ * @return bool
+ */
+function doesIDExist($idToCheck) {
+    $users = loadUsers();
+    foreach ($users as $user) {
+        if ($user['id'] === $idToCheck) {
+            return true; // ID found
+        }
+    }
+    return "ID uživatele neexistuje"; // ID not found
+}
+
+
+
+
+
+
 ?>

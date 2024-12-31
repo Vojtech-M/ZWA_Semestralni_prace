@@ -8,7 +8,6 @@ include './php/validation.php';
 include './php/data_handler.php';
 include './php/file_upload.php';
 include './php/reservation_validation.php';
-include './php/user_action.php';
 if (!isset($_SESSION['id'])) {
     header("Location: ./login.php");
     exit;
@@ -32,34 +31,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $email = htmlspecialchars(trim($_POST['email']));
                 $phone = htmlspecialchars(trim($_POST['phone']));
                 $currentPassword = htmlspecialchars(trim($_POST['current_password']));
+                $password = $user['password'];
+               
+                $errors = validateInputs($firstname, $lastname, $email, $phone, $currentPassword, $currentPassword);
+                $errors['email'] = check_email($email, $user['id']);
+                $errors['current_password'] = validate_current_password($currentPassword, $user['password']);
 
+                $errors = array_filter($errors);
 
-                // Validate the current password
-                if (!password_verify($currentPassword, $user['password'])) {
-                    $errors['current_password'] = "Aktuální heslo není správné.";
-                }
-
-
-                // Validate the first name
-                if (empty($firstname)) {
-                    $errors['firstname'] = "Jméno je povinné.";
-                } elseif (!preg_match('/^[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]+$/', $firstname)) {
-                    $errors['firstname'] = "Jméno musí obsahovat pouze písmena.";
-                } elseif (strlen($firstname) < 3) {
-                    $errors['firstname'] = "Jméno musí mít alespoň 3 znaky.";
-                }
-                // Handle file upload
-                $fileUploadResult = handleFileUpload('file');
-                if ($fileUploadResult['success']) {
-                    $fileNameNew = $fileUploadResult['filePath'];
+               if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_NO_FILE) {
+                    // No file uploaded, proceed without error
+                    $fileNameNew = $user['profile_picture'];
                 } else {
-                    if (isset($fileUploadResult['noFile']) && $fileUploadResult['noFile'] === true) {
-                        $fileNameNew = $defaultProfilePicture;
+                    // Handle file upload
+                    $fileUploadResult = handleFileUpload('file');
+                    if ($fileUploadResult['success']) {
+                        $fileNameNew = $fileUploadResult['filePath'];
                     } else {
-                        $errors['image'] = $fileUploadResult['error'];
+                        $formValid = false;
+                        $errors['image'] = $fileUploadResult['error']; // Collect file upload error
                     }
                 }
-                check_email($email, null); // Check if the email already exists
 
                 // If no errors, update the user
                 if (empty($errors)) {
@@ -78,20 +70,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             break;
 
 case 'update_password':
-    // Code for updating password
-    echo "ahoj";
-
   // Retrieve form data
     $currentPassword = htmlspecialchars(trim($_POST['current_password']));
     $newPassword = htmlspecialchars(trim($_POST['new_password']));
     $confirmPassword = htmlspecialchars(trim($_POST['confirm_password']));
     
    
-
-    // Validate current password
-    if (!password_verify($currentPassword, $user['password'])) {
-        $errors['current_password_change'] = "Aktuální heslo není správné.";
-    }
+    $errors['current_password_change'] = validate_current_password($currentPassword, $user['password']);
 
     // Validate new password
     if (empty($newPassword)) {
@@ -198,8 +183,12 @@ case "edit_user":
     $email = htmlspecialchars(trim($_POST['email']));
     $phone = htmlspecialchars(trim($_POST['phone']));
     $role = htmlspecialchars(trim($_POST['role']));
-    
+
    
+    $errors['id_edit_user'] = doesIDExist($userId);
+    $errors['email_edit_user'] = check_email($email, $userId);
+    $errors = validateInputs($firstname, $lastname, $email, $phone, null, null);
+
 
     // Validate user input (you can reuse similar validation from the previous code)
     if (empty($firstname)) {
@@ -243,19 +232,13 @@ case 'reset_password':
     $userId = htmlspecialchars(trim($_POST['user_id']));
     $newPassword = htmlspecialchars(trim($_POST['new_password']));
 
-    // Validate user input
-    if (empty($userId)) {
-        $errors['user_id'] = "ID uživatele je povinné.";
-    }
+    $errors['user_id'] = doesIDExist($userId);
 
     if (empty($newPassword)) {
         $errors['new_password'] = "Nové heslo je povinné.";
     } elseif (strlen($newPassword) < 8) {
         $errors['new_password'] = "Nové heslo musí mít alespoň 8 znaků.";
     }
-
-  
-
     // If no errors, reset the password
     if (empty($errors)) {
         // Reset the user's password in the database (assuming you have a function like this)
@@ -264,8 +247,8 @@ case 'reset_password':
         exit;
     }
 
-header("Location: ./profil.php");
-exit;
+// header("Location: ./profil.php");
+// exit;
 }
 }
 }
@@ -617,7 +600,7 @@ exit;
 
 <article>
     <h2>Resetovat heslo uživatele</h2>
-    <form action="reset_password.php" method="post">
+    <form action="profil.php" method="post">
         <!-- User ID -->
         <div class="form_field">
             <label for="user_id" class="required_label">ID uživatele</label>

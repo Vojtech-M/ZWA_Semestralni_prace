@@ -140,13 +140,13 @@
         "profile_picture": ".\/img\/profile.png"
     },
     {
-        "id": "6774308f44594",
-        "role": "admin",
-        "firstname": "admin",
-        "lastname": "ader",
+        "id": "677442360a80d",
+        "role": "user",
+        "firstname": "adminerka",
+        "lastname": "adm",
         "email": "admin@admin.cz",
         "phone": "",
-        "password": "$2y$10$1cCD1T\/DR1DkSLMt\/htNHu.9BCE2AM1NKTUvHkjcUbsyFXMrvObNK",
-        "profile_picture": ".\/img\/profile.png"
+        "password": "$2y$10$lSHSarCouSh9OTqTs1rfPe9PBaPjSBcMGbMGZmELTL2Jt549dPyca",
+        "profile_picture": ".\/uploads\/67744252c8f038.35932675.png"
     }
 ]
