@@ -19,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $errors = validateInputs($firstname, $lastname, $email, $phone, $currentPassword, $currentPassword);
                 $errors['email'] = check_email($email, $user['id']);
                 $errors['current_password'] = validate_current_password($currentPassword, $user['password']);
-
                 $errors = array_filter($errors);
 
                if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_NO_FILE) {
@@ -71,23 +70,23 @@ break;
 
 case 'add_user':
     // Retrieve form data
-    $firstname_add = htmlspecialchars(trim($_POST['firstname_add_user']));
-    $lastname = htmlspecialchars(trim($_POST['lastname_add_user']));
-    $email = htmlspecialchars(trim($_POST['email_add_user']));
-    $phone = htmlspecialchars(trim($_POST['phone_add_user']));
-    $password = htmlspecialchars(trim($_POST['password_add_user']));
-    $confirmPassword = htmlspecialchars(trim($_POST['confirm_password_add_user']));
-    $role = htmlspecialchars(trim($_POST['role_add_user']));
+    $firstname_add_user = htmlspecialchars(trim($_POST['firstname_add_user']));
+    $lastname_add_user = htmlspecialchars(trim($_POST['lastname_add_user']));
+    $email_add_user = htmlspecialchars(trim($_POST['email_add_user']));
+    $phone_add_user = htmlspecialchars(trim($_POST['phone_add_user']));
+    $password_add_user = htmlspecialchars(trim($_POST['password_add_user']));
+    $confirmPassword_add_user = htmlspecialchars(trim($_POST['confirm_password_add_user']));
+    $role_add_user = htmlspecialchars(trim($_POST['role_add_user']));
     
-    $errors["firstname_add_user"] = validateName($firstname_add);
-    $errors["lastname_add_user"] = validateName($lastname);
-    $errors["email_add_user"] = validateEmail($email);
-    $errors["phone_add_user"] = validatePhone($phone);
-    $errors["password_add_user"] = validatePassword($password, $confirmPassword);
+    $errors["firstname_add_user"] = validateName($firstname_add_user);
+    $errors["lastname_add_user"] = validateName($lastname_add_user);
+    $errors["email_add_user"] = validateEmail($email_add_user);
+    $errors["phone_add_user"] = validatePhone($phone_add_user);
+    $errors["password_add_user"] = validatePassword($password_add_user, $confirmPassword_add_user);
 
     // Validate the user inpu
 
-    $errors['email_add_user'] = check_email($email);
+    $errors['email_add_user'] = check_email($email_add_user);
     var_dump($errors);
     // Validate the file upload
     $fileUploadResult = handleFileUpload('file_add_user');
@@ -105,38 +104,40 @@ case 'add_user':
     // If no errors, insert the new user into the database
     if (empty($errors)) {
         // Insert the new user into the database
-        addUser($role,$firstname_add, $lastname, $email, $phone, $password, $fileNameNew);
+        addUser($role_add_user,$firstname_add_user, $lastname_add_user, $email_add_user, $phone_add_user, $password_add_user, $fileNameNew);
         echo "<p>Uživatel byl úspěšně přidán.</p>";
     }
 break;
 
 case "edit_user":
 
-    $userId = htmlspecialchars(trim($_POST['id_edit_user']));
-    $firstname = htmlspecialchars(trim($_POST['firstname']));
-    $lastname = htmlspecialchars(trim($_POST['lastname']));
-    $email = htmlspecialchars(trim($_POST['email']));
-    $phone = htmlspecialchars(trim($_POST['phone']));
-    $role = htmlspecialchars(trim($_POST['role']));
+    $id_edit_user = htmlspecialchars(trim($_POST['id_edit_user']));
+    $firstname_edit_user = htmlspecialchars(trim($_POST['firstname_edit_user']));
+    $lastname_edit_user = htmlspecialchars(trim($_POST['lastname_edit_user']));
+    $email_edit_user = htmlspecialchars(trim($_POST['email_edit_user']));
+    $phone_edit_user = htmlspecialchars(trim($_POST['phone_edit_user']));
+    $role_edit_user = htmlspecialchars(trim($_POST['role_edit_user']));
 
-    $errors['id_edit_user'] = doesIDExist($userId);
-    $errors['email_edit_user'] = check_email($email, $userId);
-    $errors = validateInputs($firstname, $lastname, $email, $phone, null, null);
+    $errors['id_edit_user'] = doesIDExist($id_edit_user);
+    $errors['email_edit_user'] = check_email($email_edit_user, $id_edit_user);
+    $errors['firstname_edit_user'] = validateName($firstname_edit_user);
+    $errors['lastname_edit_user'] = validateName($lastname_edit_user);
+    $errors['phone_edit_user'] = validatePhone($phone_edit_user);
 
+    $errors = array_filter($errors);
+    var_dump($errors);
     // Handle file upload for profile picture
-    $fileUploadResult = handleFileUpload('file');
+    $fileUploadResult = handleFileUpload('file_edit_user');
     if ($fileUploadResult['success']) {
-        $fileNameNew = $fileUploadResult['filePath'];
+        $fileNameNew_edit_user = $fileUploadResult['filePath'];
     } else {
-        $fileNameNew = './img/profile.png'; // Default profile picture
+        $fileNameNew_edit_user = './img/profile.png'; // Default profile picture
     }
     // If no errors, update the user in the database
     if (empty($errors)) {
         // Update the user data in the database (assuming you have a function like this)
-        editUser($userId, $role, $firstname, $lastname, $email, $phone, $user['password'], $fileNameNew);
+        editUser($id_edit_user, $role_edit_user, $firstname_edit_user, $lastname_edit_user, $email_edit_user, $phone_edit_user, $user['password'], $fileNameNew_edit_user);
         // Redirect to the profile page after successful update
-        header("Location: ./profil.php");
-        exit;
     }
 break;
 
@@ -144,39 +145,38 @@ case 'reset_password':
     // Code for resetting a user's password by ID
 
     // Retrieve form data
-    $userId = htmlspecialchars(trim($_POST['user_id']));
-    $newPassword = htmlspecialchars(trim($_POST['new_password']));
+    $user_id_reset = htmlspecialchars(trim($_POST['user_id_reset']));
+    $newPassword_reset = htmlspecialchars(trim($_POST['new_password_reset']));
+    $confirmPassword_reset = htmlspecialchars(trim($_POST['confirm_password_reset']));
+    $errors['user_id_reset'] = doesIDExist($user_id_reset);
 
-    $errors['user_id'] = doesIDExist($userId);
-
-    $user_to_change = getDataById($userId);
+    $user_to_change = getDataById($user_id_reset);
     // Validate the new password
-    $errors['new_password'] = validatePassword($newPassword, $newPassword);
+    $errors['new_password_reset'] = validatePassword($newPassword_reset, $confirmPassword_reset);
     var_dump($errors);
     $errors = array_filter($errors);
     // If no errors, reset the password
     if (empty($errors)) {
         // Reset the user's password in the database (assuming you have a function like this)
-        editUser($userId, $user_to_change['role'], $user_to_change['firstname'], $user_to_change['lastname'], $user_to_change['email'], $user_to_change['phone'], $newPassword, $user_to_change['profile_picture']);
+        editUser($user_id_reset, $user_to_change['role'], $user_to_change['firstname'], $user_to_change['lastname'], $user_to_change['email'], $user_to_change['phone'], $newPassword_reset, $user_to_change['profile_picture']);
         // Redirect to the profile page after successful password reset
-        echo "Heslo bylo úspěšně změněno.";
+        echo "<p>Heslo bylo úspěšně změněno.</p>";
         exit;
     }
-
+break;
 // header("Location: ./profil.php");
 // exit;
 
 case 'delete_user':
     // Code for deleting a user by ID
-
     // Retrieve form data
-    $userId = htmlspecialchars(trim($_POST['user_id_delete']));
-    $errors['user_id_delete'] = doesIDExist($userId);
+    $user_id_delete = htmlspecialchars(trim($_POST['user_id_delete']));
+    $errors['user_id_delete'] = doesIDExist($user_id_delete);
     $errors = array_filter($errors);
     // If no errors, delete the user
     if (empty($errors)) {
         // Delete the user from the database (assuming you have a function like this)
-        deleteUser($userId);
+        deleteUser($user_id_delete);
         // Redirect to the profile page after successful deletion
         header("Location: ./profil.php");
         exit;

@@ -55,14 +55,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${user.role}</td>
                 <td>${user.firstname}</td>
                 <td>${user.lastname}</td>
-                <td><button class="table_button delete_user_button">Delete</button></td>
                 <td>
             `;
 
             // Add event listener to the delete button
-            const deleteButton = tr.querySelector(".delete_user_button");
-            deleteButton.addEventListener("click", () => deleteUser(user.id, tr));
-
             userTable.appendChild(tr);
         }
         loadedUsersCount = end;
@@ -72,38 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             loadMoreButton.style.display = "block";
         }
-    }
-
-
-    function deleteUser(userId, tableRow) {
-        // Create a form element
-        const form = document.createElement("form");
-        form.method = "post";
-        form.action = "";
-
-        // Create an input element for the user ID
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = "id";
-        input.value = userId;
-
-        // Create an input element for the action
-        const actionInput = document.createElement("input");
-        actionInput.type = "hidden";
-        actionInput.name = "action";
-        actionInput.value = "delete";
-
-        // Append the inputs to the form
-        form.appendChild(input);
-        form.appendChild(actionInput);
-
-        // Append the form to the body and submit it
-        document.body.appendChild(form);
-
-        // Remove the table row from the DOM
-        tableRow.remove();
-
-        form.submit();
     }
 
     loadMoreButton.addEventListener("click", printUsers);

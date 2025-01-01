@@ -6,4 +6,5 @@ include "./php/get_data.php";
 if (isset($_SESSION['id'])) {
     $user = getDataById($_SESSION['id']);
 }
+
 ?>
