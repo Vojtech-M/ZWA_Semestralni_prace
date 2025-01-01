@@ -206,7 +206,7 @@ $defaultProfilePicture = './img/profile.png';
         <?php endif; ?>
 
         <div class="reservation_link">
-        <a href="rezervace.php">Upravit rezervaci</a> 
+        <a href="reservation.php">Upravit rezervaci</a> 
     </div>
 </article>
 

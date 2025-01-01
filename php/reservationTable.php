@@ -71,7 +71,7 @@ if (file_exists($file)) {
                 ";
                 echo "</td>";
                 echo "<td>
-                <form action=\"rezervace.php\" method=\"post\">
+                <form action=\"reservation.php\" method=\"post\">
                     <input type=\"hidden\" name=\"id\" value=\"$reservation_id\">
                     <button type=\"submit\" name=\"action\" value=\"delete\" class=\"delete\">delete</button>
                 </form>

@@ -1,4 +1,4 @@
-<form action="rezervace.php" method="post">
+<form action="reservation.php" method="post">
     <input type="hidden" name="id" value="<?php echo htmlspecialchars($reservation['id']); ?>">
     <label>
         Datum:

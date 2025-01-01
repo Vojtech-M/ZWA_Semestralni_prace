@@ -27,7 +27,7 @@ if (!isset($_SESSION['id'])) {
 <?php include './php/structure/header.php'; ?> 
 
 <div class ="formular">
-    <form action="rezervace.php" method="post">
+    <form action="reservation.php" method="post">
         <div id="name">
             <label class="required_label" for="reservation_date">Datum rezervace</label>
             <input type="date" id="reservation_date" name="reservation_date" max='2030-01-01'  value="<?php echo isset($_POST['reservation_date']) ? htmlspecialchars($_POST['reservation_date']) : ''; ?>" required>

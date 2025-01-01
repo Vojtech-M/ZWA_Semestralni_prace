@@ -49,7 +49,7 @@ require "./php/check_login.php";
     <div class="center-container">
     <div class="reservation_link">
         <?php if (isset($_SESSION['id'])) { ?> 
-            <a href="rezervace.php">REZERVACE</a>       
+            <a href="reservation.php">REZERVACE</a>       
         <?php } else { ?>
             <a href="login.php">REZERVACE</a>
         <?php } ?>
