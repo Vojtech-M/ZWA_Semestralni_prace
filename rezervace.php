@@ -258,7 +258,7 @@ $userReservations = getUserReservations($_SESSION['id']);
                 Počet lidí: <?php echo htmlspecialchars($reservation['quantity']); ?>
                 <form action="" method="post">
                     <input type="hidden" name="id" value="<?php echo htmlspecialchars($reservation['id']); ?>">
-                    <button type="submit" name="action" value="delete_reservation" class="remove_reservations user_managment_button">Smazat</button>
+                    <button type="submit" name="action" value="delete" class="remove_reservations user_managment_button">Smazat</button>
                 </form>
                 <?php include './php/edit_reservation_form.php'; ?>
             </li>

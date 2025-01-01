@@ -57,7 +57,7 @@ if (isset($_SESSION['id'])) {
             </ul>
             <button class="hamburger">
                 <img src="./img/icons/menu.png" alt="Menu" class="menuIcon"> 
-                <img src="./img/icons/menu_white.png"alt="Close" class="closeIcon" style="display: none;"> 
+                <img src="./img/icons/menu_white.png" alt="Close" class="closeIcon" style="display: none;"> 
             </button>
         </div>
     <script src="./scripts/toggle_menu.js" type=module></script>

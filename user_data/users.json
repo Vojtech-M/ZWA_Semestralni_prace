@@ -3,11 +3,11 @@
         "id": "677455be242eb",
         "role": "admin",
         "firstname": "admin",
-        "lastname": "admin",
+        "lastname": "adminc",
         "email": "admin@admin.cz",
         "phone": "",
-        "password": "$2y$10$Y2KzYfCzwldfgaKPItMAues4pPIeaqY\/E61U1WJMdTAetc4YuMR7C",
-        "profile_picture": ".\/img\/profile.png"
+        "password": "$2y$10$7CkS3OjfajfWEWsRFoT5I.O717gv31BgNc9VDq4LozLeuiDGEce8G",
+        "profile_picture": ".\/uploads\/6774fa3c153bb1.37821864.jpg"
     },
     {
         "id": "67745a912d9b8",
@@ -17,6 +17,36 @@
         "email": "pepa@pepa.cz",
         "phone": "",
         "password": "$2y$10$XmwIVzy7sQSzQ1PxShiDLunVqhv1nFwIadNIeI9kJq8tPAvKpCzcq",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "6774883febb25",
+        "role": "user",
+        "firstname": "Tomas",
+        "lastname": "Novak",
+        "email": "example@example.cz",
+        "phone": "",
+        "password": "$2y$10$wv2JFNdXR8EVDGkVtnp7tuYFWI\/lZwRXt8HYKEGyA9fWS8Kz3giZy",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "67749040cb542",
+        "role": "user",
+        "firstname": "Mobil",
+        "lastname": "Mobil",
+        "email": "mobil@mobil.cz",
+        "phone": "",
+        "password": "$2y$10$bYG81H9AZMf37ep49hhUSerdbeLX89EERySbPkRJfjcx5LkpiJ7v2",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "6774f44b9cf0f",
+        "role": "user",
+        "firstname": "cccc",
+        "lastname": "cccc",
+        "email": "ccc@cc.cz",
+        "phone": "",
+        "password": "$2y$10$aA8fQKdKMAvo.atzIVLCROwx7kqNfnapCTAYbGb97SrVjMkStfCgy",
         "profile_picture": ".\/img\/profile.png"
     }
 ]
