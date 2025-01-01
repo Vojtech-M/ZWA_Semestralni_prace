@@ -12,7 +12,6 @@
 <body>
 <?php include './php/structure/header.php'; ?>    
 
-
 <article>
     <div class="left-text">
         <h3>Naše restaurace</h3>
@@ -31,7 +30,6 @@
         <a href="./pdf/bistro.pdf" target="_blank">
             <img src="./img/bistro_nahled.png" alt="menu náhled" title="Prohlédnout">
         </a>
-        <!-- Add the button directly below the image -->
         <a href="./pdf/bistro.pdf" target="_blank" class="styled-button">Prohlédnout si menu</a>
         </div>
     </div>
@@ -44,9 +42,6 @@
         </ul>
     </div>
 </article>
-
-
-
 <?php include './php/structure/footer.php'; ?>
 </body>
 </html>

@@ -129,7 +129,7 @@ header {
     * {
         font-size: 16px;
     }
-    .hero-image, header,nav, footer {
+    .hero-image, .hero-text, header,nav, footer {
         display: none;
     }
 }

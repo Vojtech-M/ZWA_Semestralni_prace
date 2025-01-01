@@ -2,12 +2,12 @@
     {
         "id": "677455be242eb",
         "role": "admin",
-        "firstname": "ade",
-        "lastname": "ade",
+        "firstname": "Áéěíóůou",
+        "lastname": "fblekekeddlldduuu",
         "email": "admin@admin.cz",
         "phone": "",
-        "password": "$2y$10$TCae\/VrATO8JNIncE2CNLOJLwP.UFRBoRyMAI5MhLM3DjgkV0Be5i",
-        "profile_picture": ".\/uploads\/6774fa3c153bb1.37821864.jpg"
+        "password": "$2y$10$leOyLpuPZStDLZ\/ycUGnKeJ6dIs3zsTajh79AH6.Ay6i0hgEFP.4C",
+        "profile_picture": ".\/uploads\/67753fd9366391.81843874.jpg"
     },
     {
         "id": "6774883febb25",
@@ -20,13 +20,93 @@
         "profile_picture": ".\/img\/profile.png"
     },
     {
-        "id": "6775146fe5015",
+        "id": "67755818ae311",
         "role": "user",
-        "firstname": "delete",
-        "lastname": "mee",
-        "email": "deleteme@deleteme.cz",
+        "firstname": "fake",
+        "lastname": "user",
+        "email": "fake@fake.cz",
         "phone": "",
-        "password": "$2y$10$p9m0UeryZ4tP6OSz3xZ\/lefzuT2Xnh3566bWxntpZptGU\/Iv.PjDe",
+        "password": "$2y$10$RthIFHMiE8CsEc\/6Lpjow.VeyIGS36CKW93IZ3YHrGg4FLCDNZ8z6",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "67755318ae311",
+        "role": "user",
+        "firstname": "fake",
+        "lastname": "user",
+        "email": "fake2@fake.cz",
+        "phone": "",
+        "password": "$2y$10$RthIFHMiE8CsEc\/6Lpjow.VeyIGS36CKW93IZ3YHrGg4FLCDNZ8z6",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "67755d1c1a02f",
+        "role": "admin",
+        "firstname": "abeceda",
+        "lastname": "aaa",
+        "email": "abeceda@abeceda.cz",
+        "phone": "",
+        "password": "$2y$10$\/VpCkjBQoCYQ41pk8A9eSead4lBtomsjk1K2lObGhia6caUPQ1bi6",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "67755eb177666",
+        "role": "user",
+        "firstname": "fdd",
+        "lastname": "ddf",
+        "email": "sdf@sdf.cz",
+        "phone": "",
+        "password": "$2y$10$7l1bNRFfTxBDngr2rtYh1uIAdkHnQ8s\/.Fr5sRAdiKe8DfknCvpg2",
+        "profile_picture": ".\/uploads\/67755eb17953d5.84024512.jpg"
+    },
+    {
+        "id": "67756753f40b8",
+        "role": "admin",
+        "firstname": "AAAA",
+        "lastname": "Alenka",
+        "email": "asdf@asdf.cz",
+        "phone": "333444555",
+        "password": "$2y$10$ZlRl7rlpEj8Bt7DZXsUNkeL2LJxJeQ0iR.swh2WWAyDJgANIeQt6C",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "6775696e40168",
+        "role": "user",
+        "firstname": "rrrr",
+        "lastname": "rrrr",
+        "email": "rrrr@rrrr.cz",
+        "phone": "",
+        "password": "$2y$10$IJPIRpke7s\/pu9Wyi\/EhrO1tr5IOtft444UoAitDtLyHIxtYxOWlK",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "677599d748fdd",
+        "role": "user",
+        "firstname": "pepaka",
+        "lastname": "papikkkkbc",
+        "email": "pepa@pepa.cz",
+        "phone": "",
+        "password": "$2y$10$H8C0BmLjibZxjv1aKzUYpe7pH6UgOC9Ws5kdFVVIfsaPj\/7wOroo2",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "6775a7ce8cfbb",
+        "role": "user",
+        "firstname": "zemakkkkkkkuuuuu",
+        "lastname": "zemaovky",
+        "email": "zeng@zeng.cz",
+        "phone": "",
+        "password": "$2y$10$ifTb0T6s0ykKtnAs1Dq7\/OHwl9ifrgXZME46fL9KdakqfqprFw5cm",
+        "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "6775b7a9284d5",
+        "role": "user",
+        "firstname": "hasher",
+        "lastname": "hasher",
+        "email": "hasher@hasher.cz",
+        "phone": "222333444",
+        "password": "$2y$10$cEoUXaCOKRanCsOtYAYkP.hXJtsywpCqWiHCXw4uSsBdl\/SkCwwqG",
         "profile_picture": ".\/img\/profile.png"
     }
 ]

@@ -31,7 +31,7 @@ function handleFileUpload($fileKey) {
 
     $maxSize = 15000000; // 15 MB
     $allowed = ['jpg', 'jpeg', 'png']; // Allowed file types
-
+   
     if (in_array($fileActualExt, $allowed)) {
         if ($fileError === 0) {
             if ($fileSize < $maxSize) {

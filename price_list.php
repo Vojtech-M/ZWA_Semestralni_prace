@@ -1,6 +1,14 @@
 <?php
- include "./php/check_login.php";
+/**
+ * Job: Display the price list
+ * This file contains a list of prices for renting go-karts and organizing private events.
+ * 
+ * User can redirect to the reservation page by clicking on the reservation button.
+ */
+
+require "./php/check_login.php";
 ?>
+
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -15,12 +23,12 @@
     <div class="draha">
         <div class="rental-option">
             <div class="time-slot">Motokáry sport birel</div>
-            <div class="price">250 Kč <br> </div>
+            <div class="price">250 Kč</div>
         </div>
         
         <div class="rental-option">
             <div class="time-slot">Motokáry racing Birel (závodní licence)</div>
-            <div class="price">280 Kč <br></div>
+            <div class="price">280 Kč</div>
         </div>
     </div>
 
@@ -28,12 +36,12 @@
     <div class="draha">
         <div class="rental-option">
             <div class="time-slot">PO - PÁ OD 14:00 DO 23:00 HOD.</div>
-            <div class="price">16 000 Kč <br> <span>bez DPH *</span></div>
+            <div class="price">16 000 Kč <span>bez DPH *</span></div>
         </div>
 
         <div class="rental-option">
             <div class="time-slot">SO - NE A SVÁTKY OD 14:00 DO 23:00 HOD.</div>
-            <div class="price">20 000 Kč <br> <span>bez DPH *</span></div>
+            <div class="price">20 000 Kč <span>bez DPH *</span></div>
         </div>
     </div>
     </section>

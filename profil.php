@@ -3,15 +3,17 @@
  * Job: User profile
  * This file contains a user profile page. It displays user information and allows the user to edit their profile.
  */
-include './php/check_login.php';
-include './php/validation.php';
-include './php/data_handler.php';
-include './php/file_upload.php';
-include './php/reservation_validation.php';
+require "./php/check_login.php";
+require "./php/validation.php";
+require "./php/data_handler.php";
+require "./php/file_upload.php";
+require './php/user_action.php';
+
 if (!isset($_SESSION['id'])) {
     header("Location: ./login.php");
     exit;
 }
+// csrf token
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
@@ -20,22 +22,23 @@ if (empty($_SESSION['csrf_token'])) {
 $user = getDataById($_SESSION['id']);
 $userReservations = getUserReservations($_SESSION['id']);
 $defaultProfilePicture = './img/profile.png';
-
-include './php/user_action.php';
-
 ?>
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <?php include "./php/structure/head.html"; ?>
+    <?php require "./php/structure/head.html"; ?>
     <link rel="stylesheet" href="./css/profile.css">
 </head>
 <body>
 <?php include './php/structure/header.php'; ?>
 
-
 <!-- User information -->
 <article>
+    <!-- Display result of users's actions-->
+    <?php if(isset($user_data_result)): ?>
+        <div class="user_data_result"><?= htmlspecialchars($user_data_result) ?></div>
+    <?php endif; ?>
+
     <div class="left-text">
         <h1>Profil uživatele</h1>
         <p>Jméno: <?php echo htmlspecialchars($user['firstname']); ?></p>
@@ -44,90 +47,90 @@ include './php/user_action.php';
         <p>Telefonní číslo: <?php echo htmlspecialchars($user['phone']); ?></p>
     </div>
     <div class="right-text">
-        <img class="profile_picture_view"src="<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profilový obrázek">
+        <img class="profile_picture_view" src="<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profilový obrázek">
     </div>
 </article>
 
 <article>
-<form action="profil.php" method="post" enctype="multipart/form-data">
-    <h2>Upravit můj profil</h2>
-    <p>Pro změnu údajů je nutné zadat aktuální heslo.</p>
+    <form action="profil.php" method="post" enctype="multipart/form-data">
+        <h2>Upravit můj profil</h2>
+        <p>Pro změnu údajů je nutné zadat aktuální heslo.</p>
+        <?php
+            // Default values from user data or previous submission
+            $firstname = $_POST['firstname'] ?? $user['firstname'];
+            $lastname = $_POST['lastname'] ?? $user['lastname'];
+            $email = $_POST['email'] ?? $user['email'];
+            $phone = $_POST['phone'] ?? $user['phone'];
+        ?>
+        <!-- First Name and Last Name -->
+        <div class="form_field">
+            <label for="firstname" class="required_label">Jméno</label>
+            <input type="text" id="firstname" name="firstname" 
+                pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]*" 
+                value="<?= htmlspecialchars($firstname); ?>" 
+                placeholder="Tomáš" tabindex="1">
+            <?php if (isset($errors['firstname'])): ?>
+                <div class="error" id="firstNameError"><?= htmlspecialchars($errors['firstname']) ?></div>
+            <?php endif; ?>
 
-    <?php
-        // Default values from user data or previous submission
-        $firstname = $_POST['firstname'] ?? $user['firstname'];
-        $lastname = $_POST['lastname'] ?? $user['lastname'];
-        $email = $_POST['email'] ?? $user['email'];
-        $phone = $_POST['phone'] ?? $user['phone'];
-    ?>
+            <label for="lastname" class="required_label">Příjmení</label>
+            <input type="text" id="lastname" name="lastname" 
+                pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]*" 
+                value="<?= htmlspecialchars($lastname); ?>" 
+                placeholder="Novák" tabindex="2">
+            <?php if (isset($errors['lastname'])): ?>
+                <div class="error" id="lastNameError"><?= htmlspecialchars($errors['lastname']) ?></div>
+            <?php endif; ?>
+        </div>
 
-    <!-- First Name and Last Name -->
-    <div class="form_field">
-        <label for="firstname" class="required_label">Jméno</label>
-        <input type="text" id="firstname" name="firstname" 
-               pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]*" 
-               value="<?= htmlspecialchars($firstname); ?>" 
-               placeholder="Tomáš" tabindex="1">
-        <?php if (isset($errors['firstname'])): ?>
-            <div class="error" id="firstNameError"><?= htmlspecialchars($errors['firstname']) ?></div>
-        <?php endif; ?>
+        <!-- Email and Phone -->
+        <div class="form_field">
+            <label for="email_field" class="required_label">Email</label>
+            <input id="email_field" type="email" name="email" 
+                value="<?= htmlspecialchars($email); ?>" 
+                required placeholder="example@mail.com" tabindex="3">
+            <?php if (isset($errors['email'])): ?>
+                <div class="error" id="emailError"><?= htmlspecialchars($errors['email']) ?></div>
+            <?php endif; ?>
 
-        <label for="lastname" class="required_label">Příjmení</label>
-        <input type="text" id="lastname" name="lastname" 
-               pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]*" 
-               value="<?= htmlspecialchars($lastname); ?>" 
-               placeholder="Novák" tabindex="2">
-        <?php if (isset($errors['lastname'])): ?>
-            <div class="error" id="lastNameError"><?= htmlspecialchars($errors['lastname']) ?></div>
-        <?php endif; ?>
-    </div>
+            <label for="phone_field" class="phone_label">Telefonní číslo</label>
+            <input id="phone_field" type="text" name="phone" 
+                value="<?= htmlspecialchars($phone); ?>" 
+                placeholder="606136603" tabindex="4"
+                pattern="[0-9]{9}" title="Telefonní číslo musí obsahovat 9 čísel">
+            <?php if (isset($errors['phone'])): ?>
+                <div class="error" id="phone_fieldError"><?= htmlspecialchars($errors['phone']) ?></div>
+            <?php endif; ?>
+        </div>
 
-    <!-- Email and Phone -->
-    <div class="form_field">
-        <label for="email_field" class="required_label">Email</label>
-        <input id="email_field" type="email" name="email" 
-               value="<?= htmlspecialchars($email); ?>" 
-               required placeholder="example@mail.com" tabindex="3">
-        <?php if (isset($errors['email'])): ?>
-            <div class="error" id="emailError"><?= htmlspecialchars($errors['email']) ?></div>
-        <?php endif; ?>
+        <!-- Current Password -->
+        <div class="form_field">
+            <label for="current_password" class="required_label">Aktuální heslo</label>
+            <input type="password" id="current_password" name="current_password" 
+                placeholder="Zadejte aktuální heslo" required 
+                pattern=".{8,50}" title="Heslo musí být mezi 8 až 50 znaky dlouhé"
+                tabindex="5">
+            <?php if (isset($errors['current_password'])): ?>
+                <div class="error" id="currentPasswordError"><?= htmlspecialchars($errors['current_password']) ?></div>
+            <?php endif; ?>
+        </div>
 
-        <label for="phone_field" class="phone_label">Telefonní číslo</label>
-        <input id="phone_field" type="text" name="phone" 
-               value="<?= htmlspecialchars($phone); ?>" 
-               placeholder="606136603" tabindex="4">
-        <?php if (isset($errors['phone'])): ?>
-            <div class="error" id="phone_fieldError"><?= htmlspecialchars($errors['phone']) ?></div>
-        <?php endif; ?>
-    </div>
+        <!-- Profile Picture -->
+        <div class="form_field">
+            <label for="myFile">Profilový obrázek</label>
+            <input type="file" id="myFile" name="file" tabindex="6">
+            <?php if (isset($errors['image'])): ?>
+                <div class="error"><?= htmlspecialchars($errors['image']) ?></div>
+            <?php endif; ?>
+        </div>
 
-    <!-- Current Password -->
-    <div class="form_field">
-        <label for="current_password" class="required_label">Aktuální heslo</label>
-        <input type="password" id="current_password" name="current_password" 
-               placeholder="Zadejte aktuální heslo" required tabindex="5">
-        <?php if (isset($errors['current_password'])): ?>
-            <div class="error" id="currentPasswordError"><?= htmlspecialchars($errors['current_password']) ?></div>
-        <?php endif; ?>
-    </div>
-
-    <!-- Profile Picture -->
-    <div class="form_field">
-        <label for="myFile">Profilový obrázek</label>
-        <input type="file" id="myFile" name="file" tabindex="6">
-        <?php if (isset($errors['image'])): ?>
-            <div class="error"><?= htmlspecialchars($errors['image']) ?></div>
-        <?php endif; ?>
-    </div>
-
-    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']); ?>">
-    
-    <!-- Submission Button -->
-    <button type="submit" class="user_managment_button" 
-            name="action" value="update_self" tabindex="7">
-        Upravit
-    </button>
-</form>
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']); ?>">
+        <!-- Submission Button -->
+        <button type="submit" class="user_managment_button" 
+                name="action" value="update_self" >
+                Upravit
+        </button>
+    </form>
 </article>
 
 <article>
@@ -137,9 +140,10 @@ include './php/user_action.php';
 
         <!-- Current Password -->
         <div class="form_field">
-            <label for="current_password" class="required_label">Aktuální heslo</label>
-            <input type="password" id="current_password" name="current_password" 
-                   placeholder="Zadejte aktuální heslo" required>
+            <label for="current_password_change" class="required_label">Aktuální heslo</label>
+            <input type="password" id="current_password_change" name="current_password_change" 
+                   placeholder="Zadejte aktuální heslo" required
+                   pattern=".{8,50}" title="Heslo musí být mezi 8 až 50 znaky dlouhé">
             <?php if (isset($errors['current_password_change'])): ?>
                 <div class="error"><?= htmlspecialchars($errors['current_password_change']) ?></div>
             <?php endif; ?>
@@ -147,22 +151,24 @@ include './php/user_action.php';
 
         <!-- New Password -->
         <div class="form_field">
-            <label for="new_password" class="required_label">Nové heslo</label>
-            <input type="password" id="new_password" name="new_password" 
-                   placeholder="Zadejte nové heslo" required>
+            <label for="new_password_change" class="required_label">Nové heslo</label>
+            <input type="password" id="new_password_change" name="new_password_change" 
+                   placeholder="Zadejte nové heslo" required
+                   pattern=".{8,50}" title="Heslo musí být mezi 8 až 50 znaky dlouhé">
                    
-            <?php if (isset($errors['new_password'])): ?>
-                <div class="error"><?= htmlspecialchars($errors['new_password']) ?></div>
+            <?php if (isset($errors['new_password_change'])): ?>
+                <div class="error"><?= htmlspecialchars($errors['new_password_change']) ?></div>
             <?php endif; ?>
         </div>
 
         <!-- Confirm New Password -->
         <div class="form_field">
-            <label for="confirm_password" class="required_label">Potvrzení nového hesla</label>
-            <input type="password" id="confirm_password" name="confirm_password" 
-                   placeholder="Zadejte heslo znovu" required>
-            <?php if (isset($errors['confirm_password'])): ?>
-                <div class="error"><?= htmlspecialchars($errors['confirm_password']) ?></div>
+            <label for="confirm_password_change" class="required_label">Potvrzení nového hesla</label>
+            <input type="password" id="confirm_password_change" name="confirm_password_change" 
+                   placeholder="Zadejte heslo znovu" required
+                   pattern=".{8,50}" title="Heslo musí být mezi 8 až 50 znaky dlouhé">
+            <?php if (isset($errors['confirm_password_change'])): ?>
+                <div class="error"><?= htmlspecialchars($errors['confirm_password_change']) ?></div>
             <?php endif; ?>
         </div>
         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
@@ -214,6 +220,8 @@ include './php/user_action.php';
                     <th>Role</th>
                     <th>Jméno</th>
                     <th>Příjmení</th>
+                    <th>Telefonní číslo</th>
+                   
                 </tr>
             </thead>
             <tbody id="userTableBody">
@@ -223,8 +231,7 @@ include './php/user_action.php';
 <button class="user_managment_button" id="add_user">Přidat uživatele</button>
 </article>
 
-<!-- Add user form -->
-<article>
+<article class="addForm hidden">
 <h2>Přidat nového uživatele</h2>
 <form action="profil.php" method="post" enctype="multipart/form-data">
     <!-- First Name -->
@@ -275,6 +282,7 @@ include './php/user_action.php';
     <div class="form_field">
         <label for="role_add_user" class="required_label">Role</label>
         <select id="role_add_user" name="role_add_user" required>
+            <option value="" disabled selected>Select role</option> 
             <option value="user" <?= isset($role_add_user) && $role_add_user === 'user' ? 'selected' : ''; ?>>Uživatel</option>
             <option value="admin" <?= isset($role_add_user) && $role_add_user === 'admin' ? 'selected' : ''; ?>>Administrátor</option>
         </select>
@@ -283,7 +291,12 @@ include './php/user_action.php';
     <!-- Profile Picture -->
     <div class="form_field">
         <label for="file_add_user">Profilový obrázek</label>
-        <input type="file" id="file_add_user" name="file_add_user" tabindex="5">
+        <input type="file" id="file_add_user" name="file_add_user">
+        <?php if (isset($errors['image_add_user'])): ?>
+            <div class="error"><?=
+
+            htmlspecialchars($errors['image_add_user']) ?></div>
+        <?php endif; ?>
     </div>
 
     <!-- Password -->
@@ -312,7 +325,7 @@ include './php/user_action.php';
         Přidat uživatele
     </button>
 </form>
-    </article>
+</article>
 
     <article>
     <h2>Upravit uživatele</h2>
@@ -364,6 +377,7 @@ include './php/user_action.php';
     <div class="form_field">
         <label for="role_edit_user" class="required_label">Role</label>
         <select id="role_edit_user" name="role_edit_user" required>
+            <option value="" disabled selected>Select role</option> 
             <option value="user" <?= isset($role_edit_user) && $role_edit_user === 'user' ? 'selected' : '' ?>>Uživatel</option>
             <option value="admin" <?= isset($role_edit_user) && $role_edit_user === 'admin' ? 'selected' : '' ?>>Administrátor</option>
         </select>
@@ -373,6 +387,9 @@ include './php/user_action.php';
     <div class="form_field">
         <label for="file_edit_user">Profilový obrázek</label>
         <input type="file" id="file_edit_user" name="file_edit_user">
+        <?php if (isset($errors['image_edit_user'])): ?>
+            <div class="error"><?=htmlspecialchars($errors['image_edit_user']) ?></div>
+        <?php endif; ?>
     </div>
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']); ?>">
     <!-- Submit Button -->
@@ -382,7 +399,7 @@ include './php/user_action.php';
 </form>
 </article>
 
-<article>
+<article class="resetForm hidden"> 
 <h2>Resetovat heslo uživatele</h2>
 <form action="profil.php" method="post">
     <!-- User ID -->

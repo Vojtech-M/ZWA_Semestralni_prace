@@ -49,22 +49,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $currentPassword,
                         $fileNameNew
                     );
+                    $user_data_result = "Profil byl úspěšně aktualizován.";
                 }   
             break;
 
 case 'update_password':
   // Retrieve form data
-    $currentPassword = htmlspecialchars(trim($_POST['current_password']));
-    $newPassword = htmlspecialchars(trim($_POST['new_password']));
-    $confirmPassword = htmlspecialchars(trim($_POST['confirm_password']));
+    $currentPassword = htmlspecialchars(trim($_POST['current_password_change']));
+    $newPassword = htmlspecialchars(trim($_POST['new_password_change']));
+    $confirmPassword = htmlspecialchars(trim($_POST['confirm_password_change']));
     
     $errors['current_password_change'] = validate_current_password($currentPassword, $user['password']);
-    $errors['new_password'] = validatePassword($newPassword, $confirmPassword);
+    $errors['new_password_change'] = validatePassword($newPassword, $confirmPassword);
     $errors = array_filter($errors);
     // If no errors, update the password
     if (empty($errors)) {
+        $user_data_result =  "Heslo bylo úspěšně změněno.";
         editUser($user['id'], $user['role'], $user['firstname'], $user['lastname'], $user['email'], $user['phone'], $newPassword, $user['profile_picture']);
-        echo "Heslo bylo úspěšně změněno.";
+       
     }
 break;
 
@@ -85,9 +87,7 @@ case 'add_user':
     $errors["password_add_user"] = validatePassword($password_add_user, $confirmPassword_add_user);
 
     // Validate the user inpu
-
     $errors['email_add_user'] = check_email($email_add_user);
-    var_dump($errors);
     // Validate the file upload
     $fileUploadResult = handleFileUpload('file_add_user');
     if ($fileUploadResult['success']) {
@@ -97,7 +97,7 @@ case 'add_user':
             $fileNameNew = $defaultProfilePicture;
         } else {
             $formValid = False;
-            $errors['image'] = $fileUploadResult['error']; // Collect file upload error
+            $errors['image_add_user'] = $fileUploadResult['error']; // Collect file upload error
         }
     } 
     $errors = array_filter($errors);
@@ -105,7 +105,7 @@ case 'add_user':
     if (empty($errors)) {
         // Insert the new user into the database
         addUser($role_add_user,$firstname_add_user, $lastname_add_user, $email_add_user, $phone_add_user, $password_add_user, $fileNameNew);
-        echo "<p>Uživatel byl úspěšně přidán.</p>";
+        $user_data_result = "Uživatel byl úspěšně přidán.";
     }
 break;
 
@@ -125,25 +125,30 @@ case "edit_user":
     $errors['phone_edit_user'] = validatePhone($phone_edit_user);
 
     $errors = array_filter($errors);
-    var_dump($errors);
     // Handle file upload for profile picture
     $fileUploadResult = handleFileUpload('file_edit_user');
     if ($fileUploadResult['success']) {
         $fileNameNew_edit_user = $fileUploadResult['filePath'];
     } else {
-        $fileNameNew_edit_user = './img/profile.png'; // Default profile picture
-    }
+        if (isset($fileUploadResult['noFile']) && $fileUploadResult['noFile'] === true) {
+            $fileNameNew_edit_user = $defaultProfilePicture;
+        } else {
+            $formValid = False;
+            $errors['image_edit_user'] = $fileUploadResult['error']; // Collect file upload error
+        }
+    } 
     // If no errors, update the user in the database
     if (empty($errors)) {
+      
         // Update the user data in the database (assuming you have a function like this)
         editUser($id_edit_user, $role_edit_user, $firstname_edit_user, $lastname_edit_user, $email_edit_user, $phone_edit_user, $user['password'], $fileNameNew_edit_user);
+        $user_data_result = "Uživatel byl úspěšně aktualizován.";
         // Redirect to the profile page after successful update
     }
 break;
 
 case 'reset_password':
     // Code for resetting a user's password by ID
-
     // Retrieve form data
     $user_id_reset = htmlspecialchars(trim($_POST['user_id_reset']));
     $newPassword_reset = htmlspecialchars(trim($_POST['new_password_reset']));
@@ -153,19 +158,16 @@ case 'reset_password':
     $user_to_change = getDataById($user_id_reset);
     // Validate the new password
     $errors['new_password_reset'] = validatePassword($newPassword_reset, $confirmPassword_reset);
-    var_dump($errors);
     $errors = array_filter($errors);
     // If no errors, reset the password
     if (empty($errors)) {
         // Reset the user's password in the database (assuming you have a function like this)
         editUser($user_id_reset, $user_to_change['role'], $user_to_change['firstname'], $user_to_change['lastname'], $user_to_change['email'], $user_to_change['phone'], $newPassword_reset, $user_to_change['profile_picture']);
         // Redirect to the profile page after successful password reset
-        echo "<p>Heslo bylo úspěšně změněno.</p>";
+        $user_data_result = "Heslo bylo úspěšně změněno.";
         exit;
     }
 break;
-// header("Location: ./profil.php");
-// exit;
 
 case 'delete_user':
     // Code for deleting a user by ID
@@ -175,13 +177,14 @@ case 'delete_user':
     $errors = array_filter($errors);
     // If no errors, delete the user
     if (empty($errors)) {
-        // Delete the user from the database (assuming you have a function like this)
+        // Delete the user from the database
         deleteUser($user_id_delete);
-        // Redirect to the profile page after successful deletion
-        header("Location: ./profil.php");
-        exit;
+        $user_data_result = "Uživatel byl úspěšně smazán.";
     }
 }
+// header("Location: ./profil.php");
+// exit;
+
 }
 }
 ?>

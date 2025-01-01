@@ -119,6 +119,17 @@ function doesIDExist($idToCheck) {
     return "ID uživatele neexistuje"; // ID not found
 }
 
+/**
+ * Validate agreement
+ * @param string $agreement
+ * @return string|null
+ */
+function validateAgreement($agreement) {
+    if (!isset($agreement)) {
+        return "Musíte souhlasit s podmínkami.";
+    }
+    return null;
+}
 
 
 

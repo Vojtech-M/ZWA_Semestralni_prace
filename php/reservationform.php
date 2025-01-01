@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $date = $myDateTime->format('d.m.Y'); // Convert to DD.MM.YYYY format
         }
         $timeslot = $_POST['timeslot'];
-        $quantity = $_POST['quantity']; // Default to 1 if not set
+        $quantity = $_POST['quantity'];
         $reservations = loadReservations();    
 
         

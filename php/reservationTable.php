@@ -68,7 +68,7 @@ if (file_exists($file)) {
                 include './php/edit_reservation_form.php'; 
                 echo "</div>
                 <button id=\"editButton_$reservation_id\" class=\"editButton\">Edit</button>
-                </td>";
+                ";
                 echo "</td>";
                 echo "<td>
                 <form action=\"rezervace.php\" method=\"post\">

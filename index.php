@@ -16,7 +16,6 @@ include "./php/check_login.php";
     <link rel="stylesheet" href="./css/front_page.css">
 </head>
 <body>
-
 <!-- Included header with navigation -->
 <?php include './php/structure/header.php'; ?>
 
@@ -55,7 +54,7 @@ include "./php/check_login.php";
         <p>Náš okruh s 11 vzrušujícími zatáčkami vás nenechá na pochybách o skutečném závodním zážitku! Od širokých pasáží po technické a úzké úseky, každý z nich přináší novou výzvu a zvyšuje adrenalin. Zatímco se budete snažit najít dokonalou stopu, zažijete pocit vzrušení a rychlosti. Přijďte si to vyzkoušet a objevte, co v sobě máte! </p>
     </div>
     <div class="right-text">
-        <img src="./img/bitmapa.png" alt="okruh">
+        <img src="./img/bitmapa.png" alt="mapa okruhu">
     </div>
 </article>
 
@@ -69,6 +68,7 @@ include "./php/check_login.php";
     </div>
 </article>
 
+<!-- call for action -->
 <div class="reservations">
     <div class="reservation_text">
         <h2>Neváhejte</h2>
@@ -83,6 +83,8 @@ include "./php/check_login.php";
         <?php } ?>
     </div>
 </div>
+
+<!-- Included footer -->
 <?php include './php/structure/footer.php'; ?>
 </body>
 </html>

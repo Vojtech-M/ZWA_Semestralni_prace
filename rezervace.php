@@ -26,36 +26,35 @@ if (!isset($_SESSION['id'])) {
 <body>
 <?php include './php/structure/header.php'; ?> 
 
-<?php  ?>
-        <div class ="formular">
-            <form action="rezervace.php" method="post">
-                <div id="name">
-                    <label class="required_label" for="reservation_date">Datum rezervace</label>
-                    <input type="date" id="reservation_date" name="reservation_date" max='2030-01-01'  value="<?php echo isset($_POST['reservation_date']) ? htmlspecialchars($_POST['reservation_date']) : ''; ?>" required>
-               
-                    <label for="timeslot" class="required_label" required>Čas rezervace</label>
-                    <select name="timeslot" id="timeslot">
-                        <option value="14" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '14') ? 'selected' : ''; ?>>14:00 - 15:00</option>
-                        <option value="15" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '15') ? 'selected' : ''; ?>>15:00 - 16:00</option>
-                        <option value="16" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '16') ? 'selected' : ''; ?>>16:00 - 17:00</option>
-                        <option value="17" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '17') ? 'selected' : ''; ?>>17:00 - 18:00</option>
-                        <option value="18" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '18') ? 'selected' : ''; ?>>18:00 - 19:00</option>
-                        <option value="19" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '19') ? 'selected' : ''; ?>>19:00 - 20:00</option>
-                        <option value="20" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '20') ? 'selected' : ''; ?>>20:00 - 21:00</option>
-                        <option value="21" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '21') ? 'selected' : ''; ?>>21:00 - 22:00</option>
-                        <option value="22" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '22') ? 'selected' : ''; ?>>22:00 - 23:00</option>
-                    </select>
-              
-                    <label class="required_label" for="quantity">Počet lidí:</label>
-                    <input type="number" id="quantity"  name="quantity" min="1" max="50" tabindex="3" value="<?php echo isset($_POST['quantity']) ? htmlspecialchars($_POST['quantity']) : ''; ?>" required>
-                </div>
-                <button class=""  id="reg_submit" type="submit" name="action" value="reserve"   tabindex="4">Rezervovat</button>
-             
-                <h5>Pole označené <span class="red_text">*</span> jsou povinná</h5>
-                <h5>Rezervaci je možné vytvořit maximálně pro 50 lidí</h5>
-                <h4>Cena rezervace dle: <a href="price_list.php">Ceník</a></h4>
-            </form>
+<div class ="formular">
+    <form action="rezervace.php" method="post">
+        <div id="name">
+            <label class="required_label" for="reservation_date">Datum rezervace</label>
+            <input type="date" id="reservation_date" name="reservation_date" max='2030-01-01'  value="<?php echo isset($_POST['reservation_date']) ? htmlspecialchars($_POST['reservation_date']) : ''; ?>" required>
+        
+            <label for="timeslot" class="required_label" >Čas rezervace</label>
+            <select name="timeslot" id="timeslot">
+                <option value="14" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '14') ? 'selected' : ''; ?>>14:00 - 15:00</option>
+                <option value="15" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '15') ? 'selected' : ''; ?>>15:00 - 16:00</option>
+                <option value="16" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '16') ? 'selected' : ''; ?>>16:00 - 17:00</option>
+                <option value="17" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '17') ? 'selected' : ''; ?>>17:00 - 18:00</option>
+                <option value="18" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '18') ? 'selected' : ''; ?>>18:00 - 19:00</option>
+                <option value="19" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '19') ? 'selected' : ''; ?>>19:00 - 20:00</option>
+                <option value="20" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '20') ? 'selected' : ''; ?>>20:00 - 21:00</option>
+                <option value="21" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '21') ? 'selected' : ''; ?>>21:00 - 22:00</option>
+                <option value="22" <?php echo (isset($_POST['timeslot']) && $_POST['timeslot'] == '22') ? 'selected' : ''; ?>>22:00 - 23:00</option>
+            </select>
+        
+            <label class="required_label" for="quantity">Počet lidí:</label>
+            <input type="number" id="quantity"  name="quantity" min="1" max="50" tabindex="3" value="<?php echo isset($_POST['quantity']) ? htmlspecialchars($_POST['quantity']) : ''; ?>" required>
         </div>
+        <button class=""  id="reg_submit" type="submit" name="action" value="reserve"   tabindex="4">Rezervovat</button>
+        
+        <h5>Pole označené <span class="red_text">*</span> jsou povinná</h5>
+        <h5>Rezervaci je možné vytvořit maximálně pro 50 lidí</h5>
+        <h4>Cena rezervace dle: <a href="price_list.php">Ceník</a></h4>
+    </form>
+</div>
 
 <?php
 $file = './user_data/reservations.json';
@@ -96,7 +95,7 @@ $userReservations = getUserReservations($_SESSION['id']);
                 Datum: <?php echo htmlspecialchars($reservation['date']); ?>,
                 Čas: <?php echo htmlspecialchars("$timeslot1 - $timeslot2"); ?>,
                 Počet lidí: <?php echo htmlspecialchars($reservation['quantity']); ?>
-                <form action="" method="post">
+                <form action="reservation.php" method="post">
                     <input type="hidden" name="id" value="<?php echo htmlspecialchars($reservation['id']); ?>">
                     <button type="submit" name="action" value="delete" class="remove_reservations user_managment_button">Smazat</button>
                 </form>

@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${user.role}</td>
                 <td>${user.firstname}</td>
                 <td>${user.lastname}</td>
-                <td>
+                <td>${user.phone}</td>
             `;
 
             // Add event listener to the delete button
