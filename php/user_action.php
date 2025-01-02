@@ -4,6 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die('CSRF token mismatch');
     }
     $errors = [];
+    $defaultProfilePicture = './img/profile.png';
 
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {

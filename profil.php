@@ -110,11 +110,11 @@ $defaultProfilePicture = './img/profile.png';
             <label for="current_password" class="required_label">Aktuální heslo</label>
             <input type="password" id="current_password" name="current_password" 
                 placeholder="Zadejte aktuální heslo" required 
-                pattern=".{8,50}" title="Heslo musí být mezi 8 až 50 znaky dlouhé"
-                tabindex="5">
+                title="Heslo musí obsahovat alespoň jedno číslo, jeden speciální znak, jedno velké a jedno malé písmeno (včetně českých znaků) a mít délku mezi 8 a 50 znaky.">
             <?php if (isset($errors['current_password'])): ?>
                 <div class="error" id="currentPasswordError"><?= htmlspecialchars($errors['current_password']) ?></div>
             <?php endif; ?>
+            <div class="error" id="update_self_password_error"></div>
         </div>
 
         <!-- Profile Picture -->
@@ -136,50 +136,52 @@ $defaultProfilePicture = './img/profile.png';
 </article>
 
 <article>
-    <form action="profil.php" method="post">
-        <h2>Změna hesla</h2>
-        <p>Pro změnu hesla zadejte aktuální heslo a nové heslo.</p>
+<form action="profil.php" method="post">
+    <h2>Změna hesla</h2>
+    <p>Pro změnu hesla zadejte aktuální heslo a nové heslo.</p>
 
-        <!-- Current Password -->
-        <div class="form_field">
-            <label for="current_password_change" class="required_label">Aktuální heslo</label>
-            <input type="password" id="current_password_change" name="current_password_change" 
-                   placeholder="Zadejte aktuální heslo" required
-                   pattern=".{8,50}" title="Heslo musí být mezi 8 až 50 znaky dlouhé">
-            <?php if (isset($errors['current_password_change'])): ?>
-                <div class="error"><?= htmlspecialchars($errors['current_password_change']) ?></div>
-            <?php endif; ?>
-        </div>
+    <!-- Current Password -->
+    <div class="form_field">
+        <label for="current_password_change" class="required_label">Aktuální heslo</label>
+        <input type="password" id="current_password_change" name="current_password_change" 
+               placeholder="Zadejte aktuální heslo" required
+               title="Heslo musí obsahovat alespoň jedno číslo, jeden speciální znak, jedno velké a jedno malé písmeno (včetně českých znaků) a mít délku mezi 8 a 50 znaky.">
+        <?php if (isset($errors['current_password_change'])): ?>
+            <div class="error"><?= htmlspecialchars($errors['current_password_change']) ?></div>
+        <?php endif; ?>
+        <div class="error" id="password_error_current_password"></div>
+    </div>
 
-        <!-- New Password -->
-        <div class="form_field">
-            <label for="new_password_change" class="required_label">Nové heslo</label>
-            <input type="password" id="new_password_change" name="new_password_change" 
-                   placeholder="Zadejte nové heslo" required
-                   pattern=".{8,50}" title="Heslo musí být mezi 8 až 50 znaky dlouhé">
-                   
-            <?php if (isset($errors['new_password_change'])): ?>
-                <div class="error"><?= htmlspecialchars($errors['new_password_change']) ?></div>
-            <?php endif; ?>
-        </div>
+    <!-- New Password -->
+    <div class="form_field">
+        <label for="new_password_change" class="required_label">Nové heslo</label>
+        <input type="password" id="new_password_change" name="new_password_change" 
+               placeholder="Zadejte nové heslo" required
+               pattern=".{8,50}" title="Heslo musí být mezi 8 až 50 znaky dlouhé">
+        <?php if (isset($errors['new_password_change'])): ?>
+            <div class="error"><?= htmlspecialchars($errors['new_password_change']) ?></div>
+        <?php endif; ?>
+        <div class="error" id="password_error_new_password"></div>
+    </div>
 
-        <!-- Confirm New Password -->
-        <div class="form_field">
-            <label for="confirm_password_change" class="required_label">Potvrzení nového hesla</label>
-            <input type="password" id="confirm_password_change" name="confirm_password_change" 
-                   placeholder="Zadejte heslo znovu" required
-                   pattern=".{8,50}" title="Heslo musí být mezi 8 až 50 znaky dlouhé">
-            <?php if (isset($errors['confirm_password_change'])): ?>
-                <div class="error"><?= htmlspecialchars($errors['confirm_password_change']) ?></div>
-            <?php endif; ?>
-        </div>
-        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
-        <!-- Submission Button -->
-        <button type="submit" class="user_managment_button" 
-                name="action" value="update_password">
-            Změnit heslo
-        </button>
-    </form>
+    <!-- Confirm New Password -->
+    <div class="form_field">
+        <label for="confirm_password_change" class="required_label">Potvrzení nového hesla</label>
+        <input type="password" id="confirm_password_change" name="confirm_password_change" 
+               placeholder="Zadejte heslo znovu" required
+               pattern=".{8,50}" title="Heslo musí být mezi 8 až 50 znaky dlouhé">
+        <?php if (isset($errors['confirm_password_change'])): ?>
+            <div class="error"><?= htmlspecialchars($errors['confirm_password_change']) ?></div>
+        <?php endif; ?>
+        <div class="error" id="password_error_confirm_new_password"></div>
+    </div>
+    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+    <!-- Submission Button -->
+    <button type="submit" class="user_managment_button" 
+            name="action" value="update_password">
+        Změnit heslo
+    </button>
+</form>
 </article>
 
 <article>
@@ -241,7 +243,10 @@ $defaultProfilePicture = './img/profile.png';
         <label for="firstname_add_user" class="required_label">Jméno</label>
         <input type="text" id="firstname_add_user" name="firstname_add_user" 
                value="<?= isset($firstname_add_user) ? htmlspecialchars($firstname_add_user) : ''; ?>" 
+                pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,50}$" 
+                title="Jméno musí obsahovat pouze písmena a být dlouhé 3 až 50 znaků"
                required placeholder="Tomáš" tabindex="1">
+
         <?php if (isset($errors['firstname_add_user'])): ?>
             <div class="error"><?= htmlspecialchars($errors['firstname_add_user']) ?></div>
         <?php endif; ?>
@@ -252,7 +257,10 @@ $defaultProfilePicture = './img/profile.png';
         <label for="lastname_add_user" class="required_label">Příjmení</label>
         <input type="text" id="lastname_add_user" name="lastname_add_user" 
                value="<?= isset($lastname_add_user) ? htmlspecialchars($lastname_add_user) : ''; ?>" 
-               required placeholder="Novák" tabindex="2">
+               required placeholder="Novák" 
+                pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,50}$" 
+                title="Příjmení musí obsahovat pouze písmena a být dlouhé 3 až 50 znaků"
+               tabindex="2">
         <?php if (isset($errors['lastname_add_user'])): ?>
             <div class="error"><?= htmlspecialchars($errors['lastname_add_user']) ?></div>
         <?php endif; ?>
@@ -274,7 +282,8 @@ $defaultProfilePicture = './img/profile.png';
         <label for="phone_add_user" class="phone_label">Telefonní číslo</label>
         <input type="text" id="phone_add_user" name="phone_add_user" 
                value="<?= isset($phone_add_user) ? htmlspecialchars($phone_add_user) : ''; ?>" 
-               placeholder="606136603" tabindex="4">
+               placeholder="606136603"
+               pattern="[0-9]{9}" title="Telefonní číslo musí obsahovat 9 čísel">
         <?php if (isset($errors['phone_add_user'])): ?>
             <div class="error"><?= htmlspecialchars($errors['phone_add_user']) ?></div>
         <?php endif; ?>
@@ -284,7 +293,7 @@ $defaultProfilePicture = './img/profile.png';
     <div class="form_field">
         <label for="role_add_user" class="required_label">Role</label>
         <select id="role_add_user" name="role_add_user" required>
-            <option value="" disabled selected>Select role</option> 
+            <option value="" disabled >Select role</option> 
             <option value="user" <?= isset($role_add_user) && $role_add_user === 'user' ? 'selected' : ''; ?>>Uživatel</option>
             <option value="admin" <?= isset($role_add_user) && $role_add_user === 'admin' ? 'selected' : ''; ?>>Administrátor</option>
         </select>
@@ -295,9 +304,7 @@ $defaultProfilePicture = './img/profile.png';
         <label for="file_add_user">Profilový obrázek</label>
         <input type="file" id="file_add_user" name="file_add_user">
         <?php if (isset($errors['image_add_user'])): ?>
-            <div class="error"><?=
-
-            htmlspecialchars($errors['image_add_user']) ?></div>
+            <div class="error"><?= htmlspecialchars($errors['image_add_user']) ?></div>
         <?php endif; ?>
     </div>
 
@@ -309,6 +316,7 @@ $defaultProfilePicture = './img/profile.png';
         <?php if (isset($errors['password_add_user'])): ?>
             <div class="error"><?= htmlspecialchars($errors['password_add_user']) ?></div>
         <?php endif; ?>
+        <div class="error" id="password_error_add_user"></div>
     </div>
 
     <!-- Confirm Password -->
@@ -319,6 +327,7 @@ $defaultProfilePicture = './img/profile.png';
         <?php if (isset($errors['confirm_password_add_user'])): ?>
             <div class="error"><?= htmlspecialchars($errors['confirm_password_add_user']) ?></div>
         <?php endif; ?>
+        <div class="error" id="password_error_confirm_add_user"></div>
     </div>
 
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']); ?>">
@@ -343,7 +352,10 @@ $defaultProfilePicture = './img/profile.png';
     <!-- First Name -->
     <div class="form_field">
         <label for="firstname_edit_user" class="required_label">Jméno</label>
-        <input type="text" id="firstname_edit_user" name="firstname_edit_user" required value="<?= isset($firstname_edit_user) ? htmlspecialchars($firstname_edit_user) : '' ?>">
+        <input type="text" id="firstname_edit_user" name="firstname_edit_user" required 
+          pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,50}$" 
+                title="Jméno musí obsahovat pouze písmena a být dlouhé 3 až 50 znaků"
+        value="<?= isset($firstname_edit_user) ? htmlspecialchars($firstname_edit_user) : '' ?>">
         <?php if (isset($errors['firstname_edit_user'])): ?>
             <div class="error"><?= htmlspecialchars($errors['firstname_edit_user']) ?></div>
         <?php endif; ?>
@@ -352,7 +364,10 @@ $defaultProfilePicture = './img/profile.png';
     <!-- Last Name -->
     <div class="form_field">
         <label for="lastname_edit_user" class="required_label">Příjmení</label>
-        <input type="text" id="lastname_edit_user" name="lastname_edit_user" required value="<?= isset($lastname_edit_user) ? htmlspecialchars($lastname_edit_user) : '' ?>">
+        <input type="text" id="lastname_edit_user" name="lastname_edit_user" required 
+          pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,50}$" 
+                title="Příjmení musí obsahovat pouze písmena a být dlouhé 3 až 50 znaků"
+        value="<?= isset($lastname_edit_user) ? htmlspecialchars($lastname_edit_user) : '' ?>">
         <?php if (isset($errors['lastname_edit_user'])): ?>
             <div class="error"><?= htmlspecialchars($errors['lastname_edit_user']) ?></div>
         <?php endif; ?>
@@ -369,7 +384,9 @@ $defaultProfilePicture = './img/profile.png';
 
     <div class="form_field">
         <label for="phone_edit_user" class="required_label">Telefonní číslo</label>
-        <input type="text" id="phone_edit_user" name="phone_edit_user" value="<?= isset($phone_edit_user) ? htmlspecialchars($phone_edit_user) : '' ?>">
+        <input type="text" id="phone_edit_user" name="phone_edit_user" 
+        value="<?= isset($phone_edit_user) ? htmlspecialchars($phone_edit_user) : '' ?>"
+        pattern="[0-9]{9}" title="Telefonní číslo musí obsahovat 9 čísel">
         <?php if (isset($errors['phone_edit_user'])): ?>
             <div class="error"><?= htmlspecialchars($errors['phone_edit_user']) ?></div>
         <?php endif; ?>
@@ -379,7 +396,7 @@ $defaultProfilePicture = './img/profile.png';
     <div class="form_field">
         <label for="role_edit_user" class="required_label">Role</label>
         <select id="role_edit_user" name="role_edit_user" required>
-            <option value="" disabled selected>Select role</option> 
+            <option value="" disabled>Select role</option> 
             <option value="user" <?= isset($role_edit_user) && $role_edit_user === 'user' ? 'selected' : '' ?>>Uživatel</option>
             <option value="admin" <?= isset($role_edit_user) && $role_edit_user === 'admin' ? 'selected' : '' ?>>Administrátor</option>
         </select>
@@ -401,7 +418,7 @@ $defaultProfilePicture = './img/profile.png';
 </form>
 </article>
 
-<article class="resetForm hidden"> 
+<article>
 <h2>Resetovat heslo uživatele</h2>
 <form action="profil.php" method="post">
     <!-- User ID -->
@@ -422,6 +439,7 @@ $defaultProfilePicture = './img/profile.png';
         <?php if (isset($errors['new_password_reset'])): ?>
             <div class="error"><?= htmlspecialchars($errors['new_password_reset']) ?></div>
         <?php endif; ?>
+        <div class="error" id="password_error_new_password_reset"></div>
     </div>
 
     <!-- Confirm New Password -->
@@ -431,6 +449,7 @@ $defaultProfilePicture = './img/profile.png';
         <?php if (isset($errors['confirm_password_reset'])): ?>
             <div class="error"><?= htmlspecialchars($errors['confirm_password_reset']) ?></div>
         <?php endif; ?>
+        <div class="error" id="password_error_confirm_new_password_reset"></div>
     </div>
     
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']); ?>">
@@ -464,7 +483,7 @@ $defaultProfilePicture = './img/profile.png';
 <?php endif; ?>
 <?php include './php/structure/footer.php'; ?>
 <script src="./scripts/load_users.js" ></script> 
-<script src="./scripts/profile.js" ></script> 
+<script type="module" src="./scripts/profile.js" ></script> 
 <script src="./scripts/register.js"></script> 
 </body>
 </html>

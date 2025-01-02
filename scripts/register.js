@@ -8,14 +8,6 @@ const phoneInput = document.getElementById("phone_field");
 const pass1Input = document.getElementById("pass1_field");
 const pass2Input = document.getElementById("pass2_field");
 
-// Error display fields
-const firstNameError = document.getElementById("firstNameError");
-const lastNameError = document.getElementById("lastNameError");
-const emailError = document.getElementById("emailError");
-const phoneError = document.getElementById("phone_fieldError");
-const pass1Error = document.getElementById("pass1Error");
-const pass2Error = document.getElementById("pass2Error");
-
 // Get all password input fields and their corresponding toggle buttons
 const passwordInputs = document.querySelectorAll(".password-input");
 const passwordToggles = document.querySelectorAll(".password-toggle");
