@@ -69,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php if (isset($errors['email'])): ?>
                         <div class="error"><?= htmlspecialchars($errors['email']) ?></div>
                     <?php endif; ?>
+                    <div class="error" id="emailError"></div>
                 </div>
 
                 <!-- Password -->
@@ -85,4 +86,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     <?php include './php/structure/footer.php'; ?>
+    <script type="module" src="./scripts/login.js"></script>
 </body>

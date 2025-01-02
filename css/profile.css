@@ -43,8 +43,9 @@
     display: flex; /* Show when active */
 }
 .profile_picture_view{
-    width: 200px;
-    height: 200px;
+    width:auto; 
+    height:250px;
+    object-fit: contain;
 }
 
 .user_data_result {

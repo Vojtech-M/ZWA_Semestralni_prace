@@ -6,5 +6,3 @@ function toggleDisplay(buttonId, formClass) {
 }
 
 toggleDisplay('add_user', 'addForm');
-
-toggleDisplay('reset_user_password', 'resetForm');

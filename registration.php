@@ -86,6 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <?php if (isset($errors['agreement'])): ?> 
                         <div class="error"><?php echo htmlspecialchars($errors['agreement']); ?></div>
                     <?php endif; ?>
+                   
                 </div>
                     <input id="submit" type="submit" value="Registrovat se">  
                 <p> Máte už účet ? <a class="register_link" href="login.php">Přihlaste se !</a></p>

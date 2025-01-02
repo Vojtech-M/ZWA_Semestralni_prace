@@ -66,7 +66,8 @@ $defaultProfilePicture = './img/profile.png';
         <div class="form_field">
             <label for="firstname" class="required_label">Jméno</label>
             <input type="text" id="firstname" name="firstname" 
-                pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]*" 
+                pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,50}$" 
+                title="Jméno musí obsahovat pouze písmena a být dlouhé 3 až 50 znaků"
                 value="<?= htmlspecialchars($firstname); ?>" 
                 placeholder="Tomáš" tabindex="1">
             <?php if (isset($errors['firstname'])): ?>
@@ -75,7 +76,8 @@ $defaultProfilePicture = './img/profile.png';
 
             <label for="lastname" class="required_label">Příjmení</label>
             <input type="text" id="lastname" name="lastname" 
-                pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]*" 
+                pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,50}$" 
+                title="Příjmení musí obsahovat pouze písmena a být dlouhé 3 až 50 znaků"
                 value="<?= htmlspecialchars($lastname); ?>" 
                 placeholder="Novák" tabindex="2">
             <?php if (isset($errors['lastname'])): ?>

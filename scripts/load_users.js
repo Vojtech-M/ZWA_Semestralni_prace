@@ -38,38 +38,60 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function printUsers() {
         const end = Math.min(loadedUsersCount + usersPerPage, users.length);
-
+    
         for (let i = loadedUsersCount; i < end; i++) {
             const user = users[i];
+            
+            // Create table row element
             const tr = document.createElement("tr");
             tr.dataset.userId = user.id; // Store user ID in data attribute
-
+    
             // Apply red font for admin users
             if (user.role === 'admin') {
                 tr.classList.add('admin-user');
             }
-            // Create table cells
-            tr.innerHTML = `
-                <td>${user.id}</td>
-                <td>${user.email}</td>
-                <td>${user.role}</td>
-                <td>${user.firstname}</td>
-                <td>${user.lastname}</td>
-                <td>${user.phone}</td>
-            `;
-
-            // Add event listener to the delete button
+    
+            // Create individual table cell elements and append them to the row
+            const tdId = document.createElement("td");
+            tdId.textContent = user.id;
+    
+            const tdEmail = document.createElement("td");
+            tdEmail.textContent = user.email;
+    
+            const tdRole = document.createElement("td");
+            tdRole.textContent = user.role;
+    
+            const tdFirstname = document.createElement("td");
+            tdFirstname.textContent = user.firstname;
+    
+            const tdLastname = document.createElement("td");
+            tdLastname.textContent = user.lastname;
+    
+            const tdPhone = document.createElement("td");
+            tdPhone.textContent = user.phone;
+    
+            // Append each cell to the row
+            tr.appendChild(tdId);
+            tr.appendChild(tdEmail);
+            tr.appendChild(tdRole);
+            tr.appendChild(tdFirstname);
+            tr.appendChild(tdLastname);
+            tr.appendChild(tdPhone);
+    
+            // Finally, append the row to the table body
             userTable.appendChild(tr);
         }
+    
+        // Update the loaded user count
         loadedUsersCount = end;
-
+    
+        // Hide the load more button if all users are loaded
         if (loadedUsersCount >= users.length) {
             loadMoreButton.style.display = "none";
         } else {
             loadMoreButton.style.display = "block";
         }
     }
-
     loadMoreButton.addEventListener("click", printUsers);
     fetchUsers();
 });

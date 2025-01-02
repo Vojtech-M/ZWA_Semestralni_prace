@@ -1,3 +1,5 @@
+// This script toggles the menu on and off when the hamburger icon is clicked
+
 const menu = document.querySelector(".menu");
 const menuItems = document.querySelectorAll(".menuItem");
 const hamburger= document.querySelector(".hamburger");

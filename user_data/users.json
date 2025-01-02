@@ -6,8 +6,8 @@
         "lastname": "fblekekeddlldduuu",
         "email": "admin@admin.cz",
         "phone": "",
-        "password": "$2y$10$leOyLpuPZStDLZ\/ycUGnKeJ6dIs3zsTajh79AH6.Ay6i0hgEFP.4C",
-        "profile_picture": ".\/uploads\/67753fd9366391.81843874.jpg"
+        "password": "$2y$10$uvT8dBYT2Sc\/lsnnyhTLkOfEWt\/hF1riFme23GW.tGWUF\/fRPJ7ou",
+        "profile_picture": ".\/uploads\/6775c38e7a0005.31851172.png"
     },
     {
         "id": "6774883febb25",
@@ -25,16 +25,6 @@
         "firstname": "fake",
         "lastname": "user",
         "email": "fake@fake.cz",
-        "phone": "",
-        "password": "$2y$10$RthIFHMiE8CsEc\/6Lpjow.VeyIGS36CKW93IZ3YHrGg4FLCDNZ8z6",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
-        "id": "67755318ae311",
-        "role": "user",
-        "firstname": "fake",
-        "lastname": "user",
-        "email": "fake2@fake.cz",
         "phone": "",
         "password": "$2y$10$RthIFHMiE8CsEc\/6Lpjow.VeyIGS36CKW93IZ3YHrGg4FLCDNZ8z6",
         "profile_picture": ".\/img\/profile.png"
@@ -90,16 +80,6 @@
         "profile_picture": ".\/img\/profile.png"
     },
     {
-        "id": "6775a7ce8cfbb",
-        "role": "user",
-        "firstname": "zemakkkkkkkuuuuu",
-        "lastname": "zemaovky",
-        "email": "zeng@zeng.cz",
-        "phone": "",
-        "password": "$2y$10$ifTb0T6s0ykKtnAs1Dq7\/OHwl9ifrgXZME46fL9KdakqfqprFw5cm",
-        "profile_picture": ".\/img\/profile.png"
-    },
-    {
         "id": "6775b7a9284d5",
         "role": "user",
         "firstname": "hasher",
@@ -108,5 +88,15 @@
         "phone": "222333444",
         "password": "$2y$10$cEoUXaCOKRanCsOtYAYkP.hXJtsywpCqWiHCXw4uSsBdl\/SkCwwqG",
         "profile_picture": ".\/img\/profile.png"
+    },
+    {
+        "id": "6775cad0c46f9",
+        "role": "user",
+        "firstname": "Vojta",
+        "lastname": "Mik",
+        "email": "vojta@vojta.cz",
+        "phone": "",
+        "password": "$2y$10$XD51PIXlznC9aosUNOP0jO6uuslfCDIqMDUinzTmPCqM5rtARstyK",
+        "profile_picture": ".\/uploads\/6775cad0c45db2.65386955.jpg"
     }
 ]
