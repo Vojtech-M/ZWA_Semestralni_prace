@@ -1,10 +1,17 @@
 <?php
+/**
+ * 
+ * Funkce pro práci s uživateli
+ * 
+ * 
+ */
+
 $filePath = '/home/michavo5/www/user_data/users.json';
 $reservationsFilePath = '/home/michavo5/www/user_data/reservations.json';
 /**
  * 
  * Načtení uživatelů ze souboru
- * 
+ *
  * @return array - pole uživatelů
  * 
  */
@@ -21,6 +28,7 @@ function loadUsers() {
     }
     return $users;
 }
+
 /**
  * 
  * uložení uživatelů do souboru
@@ -34,8 +42,6 @@ function saveUsers($users) {
     global $filePath;
     file_put_contents($filePath, json_encode($users, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)); // JSON_UNESCAPED_UNICODE - zabraňuje kódování znaků do unicode
 }
-
-
 
 /**
  * Vrátí seznam uživatelů
@@ -53,15 +59,11 @@ function listUsers($limit = null, $offset = 0) {
 
     return $users;
 }
-
-
 /**
  *  Vyhledání uživatele podle ID
  * 
  * @param string $id - ID uživatele
  * @return array|null - uživatel nebo null pokud neexistuje
- * 
- * 
  * 
  */
 function getUser($id) {
@@ -75,6 +77,8 @@ function getUser($id) {
 }
 /**
  * Přidání nového uživatele do databáze
+ * Heslo je před uložením zahashováno
+ * 
  * @param string $role - uřivatelská role
  * @param string $firstname - jméno
  * @param string $lastname - příjmení
@@ -95,7 +99,6 @@ function addUser($role,$firstname, $lastname, $email,$phone, $password, $profile
     saveUsers($users);
     return $id;
 }
-
 
 /**
  * 
@@ -119,7 +122,6 @@ function deleteProfilePicture($userToDelete) {
     }
 }
 
-
 /**
  * 
  * Smazání uživatele
@@ -139,11 +141,8 @@ function deleteUser($id) {
             deleteProfilePicture($user);
         }
     }
-
     saveUsers($updatedUsers);
 }
-
-
 
 /**
  * Uložení rezervací do souboru
@@ -155,6 +154,11 @@ function saveReservations($reservations) {
     file_put_contents($reservationsFilePath, json_encode($reservations, JSON_PRETTY_PRINT));
 }
 
+/**
+ * Načtení rezervací ze souboru
+ * @param $id - ID rezervace
+ * @return array - pole rezervací
+ */
 function deleteReservation($id) {
     $updatedReservations = [];
     $reservations = loadReservations();
@@ -167,7 +171,14 @@ function deleteReservation($id) {
     saveReservations($updatedReservations);
 }
 
-
+/**
+ * Načtení rezervací ze souboru
+ * @param $id - ID rezervace
+ * @param $date - datum rezervace
+ * @param $timeslot - časový slot
+ * @param $quantity - množství
+ * @return array - pole rezervací
+ */
 function editReservation($id, $date, $timeslot, $quantity) {
     $file = './user_data/reservations.json';
     if (file_exists($file)) {
@@ -182,12 +193,10 @@ function editReservation($id, $date, $timeslot, $quantity) {
                 break;
             }
         }
-
         file_put_contents($file, json_encode($reservations));
     }
 }
 
-// åfunction updateReservation()
 
 /**
  * 

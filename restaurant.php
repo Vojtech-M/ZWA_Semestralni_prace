@@ -19,7 +19,7 @@
         <p>Specializujeme se na českou kuchyni, ale na našem jídelním lístku najdete i mezinárodní speciality. Součástí restaurace je také bar s nabídkou místních i světových nápojů.</p>
     </div>
     <div class="right-text">
-    <img src="./img/mensi_maso.jpg" alt="maso">
+    <img src="./img/meat.jpg" alt="maso">
     </div>
 </article>
 

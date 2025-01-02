@@ -69,7 +69,7 @@ $defaultProfilePicture = './img/profile.png';
                 pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,50}$" 
                 title="Jméno musí obsahovat pouze písmena a být dlouhé 3 až 50 znaků"
                 value="<?= htmlspecialchars($firstname); ?>" 
-                placeholder="Tomáš" tabindex="1">
+                placeholder="Tomáš">
             <?php if (isset($errors['firstname'])): ?>
                 <div class="error" id="firstNameError"><?= htmlspecialchars($errors['firstname']) ?></div>
             <?php endif; ?>
@@ -79,7 +79,7 @@ $defaultProfilePicture = './img/profile.png';
                 pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,50}$" 
                 title="Příjmení musí obsahovat pouze písmena a být dlouhé 3 až 50 znaků"
                 value="<?= htmlspecialchars($lastname); ?>" 
-                placeholder="Novák" tabindex="2">
+                placeholder="Novák">
             <?php if (isset($errors['lastname'])): ?>
                 <div class="error" id="lastNameError"><?= htmlspecialchars($errors['lastname']) ?></div>
             <?php endif; ?>
@@ -90,7 +90,7 @@ $defaultProfilePicture = './img/profile.png';
             <label for="email_field" class="required_label">Email</label>
             <input id="email_field" type="email" name="email" 
                 value="<?= htmlspecialchars($email); ?>" 
-                required placeholder="example@mail.com" tabindex="3">
+                required placeholder="example@mail.com">
             <?php if (isset($errors['email'])): ?>
                 <div class="error" id="emailError"><?= htmlspecialchars($errors['email']) ?></div>
             <?php endif; ?>
@@ -98,7 +98,7 @@ $defaultProfilePicture = './img/profile.png';
             <label for="phone_field" class="phone_label">Telefonní číslo</label>
             <input id="phone_field" type="text" name="phone" 
                 value="<?= htmlspecialchars($phone); ?>" 
-                placeholder="606136603" tabindex="4"
+                placeholder="606136603"
                 pattern="[0-9]{9}" title="Telefonní číslo musí obsahovat 9 čísel">
             <?php if (isset($errors['phone'])): ?>
                 <div class="error" id="phone_fieldError"><?= htmlspecialchars($errors['phone']) ?></div>
@@ -120,7 +120,7 @@ $defaultProfilePicture = './img/profile.png';
         <!-- Profile Picture -->
         <div class="form_field">
             <label for="myFile">Profilový obrázek</label>
-            <input type="file" id="myFile" name="file" tabindex="6">
+            <input type="file" id="myFile" name="file">
             <?php if (isset($errors['image'])): ?>
                 <div class="error"><?= htmlspecialchars($errors['image']) ?></div>
             <?php endif; ?>
@@ -245,7 +245,7 @@ $defaultProfilePicture = './img/profile.png';
                value="<?= isset($firstname_add_user) ? htmlspecialchars($firstname_add_user) : ''; ?>" 
                 pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,50}$" 
                 title="Jméno musí obsahovat pouze písmena a být dlouhé 3 až 50 znaků"
-               required placeholder="Tomáš" tabindex="1">
+               required placeholder="Tomáš">
 
         <?php if (isset($errors['firstname_add_user'])): ?>
             <div class="error"><?= htmlspecialchars($errors['firstname_add_user']) ?></div>
@@ -259,8 +259,7 @@ $defaultProfilePicture = './img/profile.png';
                value="<?= isset($lastname_add_user) ? htmlspecialchars($lastname_add_user) : ''; ?>" 
                required placeholder="Novák" 
                 pattern="[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]{3,50}$" 
-                title="Příjmení musí obsahovat pouze písmena a být dlouhé 3 až 50 znaků"
-               tabindex="2">
+                title="Příjmení musí obsahovat pouze písmena a být dlouhé 3 až 50 znaků">
         <?php if (isset($errors['lastname_add_user'])): ?>
             <div class="error"><?= htmlspecialchars($errors['lastname_add_user']) ?></div>
         <?php endif; ?>
@@ -271,7 +270,7 @@ $defaultProfilePicture = './img/profile.png';
         <label for="email_add_user" class="required_label">Email</label>
         <input type="email" id="email_add_user" name="email_add_user" 
                value="<?= isset($email_add_user) ? htmlspecialchars($email_add_user) : ''; ?>" 
-               required placeholder="example@mail.com" tabindex="3">
+               required placeholder="example@mail.com">
         <?php if (isset($errors['email_add_user'])): ?>
             <div class="error"><?= htmlspecialchars($errors['email_add_user']) ?></div>
         <?php endif; ?>
@@ -312,7 +311,7 @@ $defaultProfilePicture = './img/profile.png';
     <div class="form_field">
         <label for="password_add_user" class="required_label">Heslo</label>
         <input type="password" id="password_add_user" name="password_add_user" 
-               required placeholder="Zadejte heslo" tabindex="6">
+               required placeholder="Zadejte heslo">
         <?php if (isset($errors['password_add_user'])): ?>
             <div class="error"><?= htmlspecialchars($errors['password_add_user']) ?></div>
         <?php endif; ?>
@@ -323,7 +322,7 @@ $defaultProfilePicture = './img/profile.png';
     <div class="form_field">
         <label for="confirm_password_add_user" class="required_label">Potvrzení hesla</label>
         <input type="password" id="confirm_password_add_user" name="confirm_password_add_user" 
-               required placeholder="Heslo znovu" tabindex="7">
+               required placeholder="Heslo znovu">
         <?php if (isset($errors['confirm_password_add_user'])): ?>
             <div class="error"><?= htmlspecialchars($errors['confirm_password_add_user']) ?></div>
         <?php endif; ?>
@@ -332,7 +331,7 @@ $defaultProfilePicture = './img/profile.png';
 
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']); ?>">
     <!-- Submit Button -->
-    <button type="submit" class="user_managment_button" name="action" value="add_user" tabindex="8">
+    <button type="submit" class="user_managment_button" name="action" value="add_user">
         Přidat uživatele
     </button>
 </form>

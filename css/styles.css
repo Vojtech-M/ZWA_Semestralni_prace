@@ -268,20 +268,6 @@ noscript {
             justify-content: center;
         }
 
-        .hero-image {
-            height: 70%; 
-            min-height: 50%;
-            background-attachment: scroll;
-        }
-    
-        .hero-heading {
-            font-size: 8vw; 
-            padding: 5%;
-        }
-    
-        .hero-text {
-            font-size: 4vw; 
-        }
 
         .small_text{
             justify-content: center;

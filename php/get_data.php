@@ -1,6 +1,14 @@
 <?php
 /**
  * 
+ * Funkce pro získávání dat z databáze uživatelů a rezervací
+ * 
+ * 
+ */
+
+
+/**
+ * 
  * Načtení uživatelů ze souboru
  * 
  * 

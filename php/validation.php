@@ -1,5 +1,22 @@
 <?php
+/**
+ * 
+ * Validate user input
+ * 
+ * This file contains functions for validating user input.
+ * 
+ */
 
+/**
+ * Validate user input
+ * @param string $firstname
+ * @param string $lastname
+ * @param string $email
+ * @param string $phone
+ * @param string $password
+ * @param string $password2
+ * @return array
+ */
 function validateInputs($firstname, $lastname, $email, $phone, $password, $password2) {
     $errors = [];
     $errors["firstname"] = validateName($firstname);
@@ -103,7 +120,6 @@ function validate_current_password($currentPassword, $userPassword) {
     return null;
 }
 
-
 /**
  * Check if the ID exists
  * @param int $idToCheck
@@ -130,9 +146,4 @@ function validateAgreement($agreement) {
     }
     return null;
 }
-
-
-
-
-
 ?>

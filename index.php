@@ -36,7 +36,7 @@ include "./php/check_login.php";
     </div>
 
     <div class="small_text">
-        <img src="./img/restaurace2_ikona.svg" alt="ikona restaurace">
+        <img src="./img/restaurace_ikona.svg" alt="ikona restaurace">
         <h3> Restaurace</h3>
         <p>Až pro 80 lidí </p>
     </div>
@@ -54,13 +54,13 @@ include "./php/check_login.php";
         <p>Náš okruh s 11 vzrušujícími zatáčkami vás nenechá na pochybách o skutečném závodním zážitku! Od širokých pasáží po technické a úzké úseky, každý z nich přináší novou výzvu a zvyšuje adrenalin. Zatímco se budete snažit najít dokonalou stopu, zažijete pocit vzrušení a rychlosti. Přijďte si to vyzkoušet a objevte, co v sobě máte! </p>
     </div>
     <div class="right-text">
-        <img src="./img/bitmapa.png" alt="mapa okruhu">
+        <img src="./img/circuit.png" alt="mapa okruhu">
     </div>
 </article>
 
 <article>
     <div class="left-text">
-        <img src="./img/gokarts3.jpg" alt="motokáry historie">
+        <img src="./img/gokarts.jpg" alt="motokáry historie">
     </div>
     <div class="right-text">
         <h3>Trocha historie. </h3>

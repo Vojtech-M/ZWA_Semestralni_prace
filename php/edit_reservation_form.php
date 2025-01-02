@@ -7,6 +7,7 @@
             $dateObject = DateTime::createFromFormat('d.m.Y', $originalDate);
             $formattedDate = $dateObject->format('Y-m-d');
             echo htmlspecialchars($formattedDate); 
+            
         ?>" required>
     </label>
     <label>
