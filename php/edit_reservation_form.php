@@ -6,14 +6,11 @@
             $originalDate = $reservation['date'];
             $dateObject = DateTime::createFromFormat('d.m.Y', $originalDate);
             $formattedDate = $dateObject->format('Y-m-d');
-            echo htmlspecialchars($formattedDate); 
-            
-        ?>" required>
+            echo htmlspecialchars($formattedDate);?>" required>
     </label>
     <label>
         Čas:
         <select name="timeslot" required>
-        <!-- Only select the placeholder if no valid timeslot is selected -->
         <option value="" disabled <?php echo empty($reservation['timeslot']) ? 'selected' : ''; ?>>Select timeslot</option>
         <option value="14" <?php echo ($reservation['timeslot'] == 14 ? "selected" : ""); ?>>14:00 - 15:00</option>
         <option value="15" <?php echo ($reservation['timeslot'] == 15 ? "selected" : ""); ?>>15:00 - 16:00</option>

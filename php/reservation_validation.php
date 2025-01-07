@@ -16,11 +16,11 @@ function check_collision($file, $date, $timeslot, $reservations, $currentId = nu
     }
     return false;
 }
-/*
-* check quantity
-* @param int $quantity
-* @return bool
-*/
+/**
+ * Check if the quantity is within the allowed range
+ * @param int $quantity
+ * @return bool
+ */
 function check_quantity($quantity) {
     if ($quantity < 1 || $quantity > 50) {
         return false;
@@ -28,11 +28,11 @@ function check_quantity($quantity) {
         return true;
     }
 }
-/*
-* Check if the timeslot is within the allowed range
-* @param int $timeslot
-* @return bool
-*/
+/**
+ * Check if the timeslot is within the allowed range
+ * @param int $timeslot
+ * @return bool
+ */
 function check_timeslot($timeslot) {
     if ($timeslot < 14 || $timeslot > 22) {
         return false;
@@ -42,10 +42,10 @@ function check_timeslot($timeslot) {
     
 }
 
-/*
-* Load reservations from the JSON file
-* @return array
-*/
+/**
+ * Handle the creation of a new reservation
+ * @param array $postData
+ */
 function handleEditReservation($postData) {
     $id = $postData['id'];
     $date = $postData['date'];

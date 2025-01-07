@@ -1,4 +1,4 @@
-import { checkPassword,checkUsername,checkPhoneNumber,checkEmail,checkPasswordMatch } from "./validation.js";
+import { checkPassword, checkUsername, checkPhoneNumber, checkEmail, checkPasswordMatch } from "./validation.js";
 
 // Input fields
 const firstnameInput = document.getElementById("firstname");
@@ -39,32 +39,29 @@ passwordToggles.forEach((toggleButton) => {
     });
 });
 
-
-
 // Add event listeners to dynamically check input fields
-
-firstnameInput.addEventListener("input", function () {
+firstnameInput.addEventListener("input", () => {
     checkUsername(firstnameInput, "firstNameError");
 });
 
-lastnameInput.addEventListener("input", function () {
+lastnameInput.addEventListener("input", () => {
     checkUsername(lastnameInput, "lastNameError");
 });
 
-emailInput.addEventListener("input", function () {
+emailInput.addEventListener("input", () => {
     checkEmail(emailInput, "emailError");
-}
-);
-phoneInput.addEventListener("input", function () {
-    checkPhoneNumber(phoneInput, "phone_fieldError");
-}
-);
-pass2Input.addEventListener("input", function () {
-    checkPasswordMatch(pass1Input, pass2Input, "pass2Error");
 });
 
-pass1Input.addEventListener("input", function () {
+phoneInput.addEventListener("input", () => {
+    checkPhoneNumber(phoneInput, "phone_fieldError");
+});
+
+pass1Input.addEventListener("input", () => {
     checkPassword(pass1Input, "pass1Error");
+});
+
+pass2Input.addEventListener("input", () => {
+    checkPasswordMatch(pass1Input, pass2Input, "pass2Error");
 });
 
 // Form submission handler
@@ -73,11 +70,11 @@ document.getElementById("registrationForm").addEventListener("submit", function 
     const isLastnameValid = checkUsername(lastnameInput, "lastNameError");
     const isEmailValid = checkEmail(emailInput, "emailError");
     const isPhoneValid = checkPhoneNumber(phoneInput, "phone_fieldError");
-    const isPasswordValid = checkPasswordMatch(pass1Input, pass2Input, "pass2Error");
-    const ispasswordValid2 = checkPassword(pass1Input, "pass1Error");
+    const isPasswordValid = checkPassword(pass1Input, "pass1Error");
+    const isPasswordMatchValid = checkPasswordMatch(pass1Input, pass2Input, "pass2Error");
     
     // Check if all validations passed
-    if (!ispasswordValid2 || !isFirstnameValid || !isLastnameValid  || !isEmailValid || !isPasswordValid || !isPhoneValid) {
+    if (!isFirstnameValid || !isLastnameValid || !isEmailValid || !isPhoneValid || !isPasswordValid || !isPasswordMatchValid) {
         console.warn("Form validation failed. Submission prevented.");
         event.preventDefault(); // Prevent the form from submitting
     } else {

@@ -47,16 +47,16 @@ if (file_exists($file)) {
         echo "<tbody>";
 
         foreach ($currentReservations as $reservation) {
-            $date = htmlspecialchars($reservation['date']);
-            $timeslot = htmlspecialchars($reservation['timeslot']);
-            $quantity = htmlspecialchars($reservation['quantity']);
+            $date = $reservation['date'];
+            $timeslot = $reservation['timeslot'];
+            $quantity = $reservation['quantity'];
             $timeslot1 = $timeslot . ":00";
             $timeslot2 = ($timeslot + 1) . ":00";
 
             echo "<tr>";
             if ($user["role"] == "admin") {
-                $reservation_id = htmlspecialchars($reservation['id']);
-                $email = htmlspecialchars($reservation['email']);
+                $reservation_id = $reservation['id'];
+                $email = $reservation['email'];
                 echo "<td>$reservation_id</td><td>$email</td>";
             }
             echo "<td>$date</td><td>$timeslot1 - $timeslot2</td><td>$quantity</td>";

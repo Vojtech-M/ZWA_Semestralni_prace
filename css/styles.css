@@ -245,7 +245,7 @@ input{
 }
 
 noscript {
-    color: red;
+    color: rgb(40, 24, 24);
     font-weight: bold;
     font-size: 1.5em;
     text-align: center;

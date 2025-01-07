@@ -25,7 +25,6 @@ function getDataById($id) {
             return $user;
         }
     }
-
     return null;
 }
 

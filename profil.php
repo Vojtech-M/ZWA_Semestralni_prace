@@ -52,7 +52,7 @@ $defaultProfilePicture = './img/profile.png';
 </article>
 
 <article>
-    <form action="profil.php" method="post" enctype="multipart/form-data">
+    <form action="profil.php" method="post" id="updateProfileForm" enctype="multipart/form-data">
         <h2>Upravit můj profil</h2>
         <p>Pro změnu údajů je nutné zadat aktuální heslo.</p>
         <?php
@@ -110,7 +110,7 @@ $defaultProfilePicture = './img/profile.png';
             <label for="current_password" class="required_label">Aktuální heslo</label>
             <input type="password" id="current_password" name="current_password" 
                 placeholder="Zadejte aktuální heslo" required 
-                title="Heslo musí obsahovat alespoň jedno číslo, jeden speciální znak, jedno velké a jedno malé písmeno (včetně českých znaků) a mít délku mezi 8 a 50 znaky.">
+                title='Heslo musí obsahovat alespoň jedno velké písmeno jedno číslo a jeden speciální znak (!@#$%^&*(),.?\":{}|<></>).'>
             <?php if (isset($errors['current_password'])): ?>
                 <div class="error" id="currentPasswordError"><?= htmlspecialchars($errors['current_password']) ?></div>
             <?php endif; ?>
@@ -136,7 +136,7 @@ $defaultProfilePicture = './img/profile.png';
 </article>
 
 <article>
-<form action="profil.php" method="post">
+<form action="profil.php" id="change_password_form" method="post">
     <h2>Změna hesla</h2>
     <p>Pro změnu hesla zadejte aktuální heslo a nové heslo.</p>
 
@@ -145,7 +145,7 @@ $defaultProfilePicture = './img/profile.png';
         <label for="current_password_change" class="required_label">Aktuální heslo</label>
         <input type="password" id="current_password_change" name="current_password_change" 
                placeholder="Zadejte aktuální heslo" required
-               title="Heslo musí obsahovat alespoň jedno číslo, jeden speciální znak, jedno velké a jedno malé písmeno (včetně českých znaků) a mít délku mezi 8 a 50 znaky.">
+               pattern=".{8,50}" title='Heslo musí obsahovat alespoň jedno velké písmeno jedno číslo a jeden speciální znak (!@#$%^&*(),.?\":{}|<></>).'>
         <?php if (isset($errors['current_password_change'])): ?>
             <div class="error"><?= htmlspecialchars($errors['current_password_change']) ?></div>
         <?php endif; ?>
@@ -157,7 +157,7 @@ $defaultProfilePicture = './img/profile.png';
         <label for="new_password_change" class="required_label">Nové heslo</label>
         <input type="password" id="new_password_change" name="new_password_change" 
                placeholder="Zadejte nové heslo" required
-               pattern=".{8,50}" title="Heslo musí být mezi 8 až 50 znaky dlouhé">
+               pattern=".{8,50}" title='Heslo musí obsahovat alespoň jedno velké písmeno jedno číslo a jeden speciální znak (!@#$%^&*(),.?\":{}|<></>).'>
         <?php if (isset($errors['new_password_change'])): ?>
             <div class="error"><?= htmlspecialchars($errors['new_password_change']) ?></div>
         <?php endif; ?>
@@ -169,7 +169,7 @@ $defaultProfilePicture = './img/profile.png';
         <label for="confirm_password_change" class="required_label">Potvrzení nového hesla</label>
         <input type="password" id="confirm_password_change" name="confirm_password_change" 
                placeholder="Zadejte heslo znovu" required
-               pattern=".{8,50}" title="Heslo musí být mezi 8 až 50 znaky dlouhé">
+               pattern=".{8,50}" title='Heslo musí obsahovat alespoň jedno velké písmeno jedno číslo a jeden speciální znak (!@#$%^&*(),.?\":{}|<></>).'>
         <?php if (isset($errors['confirm_password_change'])): ?>
             <div class="error"><?= htmlspecialchars($errors['confirm_password_change']) ?></div>
         <?php endif; ?>
@@ -237,7 +237,7 @@ $defaultProfilePicture = './img/profile.png';
 
 <article class="addForm hidden">
 <h2>Přidat nového uživatele</h2>
-<form action="profil.php" method="post" enctype="multipart/form-data">
+<form action="profil.php" method="post" id="add_user_form" enctype="multipart/form-data">
     <!-- First Name -->
     <div class="form_field">
         <label for="firstname_add_user" class="required_label">Jméno</label>
@@ -419,7 +419,7 @@ $defaultProfilePicture = './img/profile.png';
 
 <article>
 <h2>Resetovat heslo uživatele</h2>
-<form action="profil.php" method="post">
+<form action="profil.php" id="reset_password_form" method="post">
     <!-- User ID -->
     <div class="form_field">
         <label for="user_id_reset" class="required_label">ID uživatele</label>

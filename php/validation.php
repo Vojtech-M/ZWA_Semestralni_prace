@@ -27,28 +27,32 @@ function validateInputs($firstname, $lastname, $email, $phone, $password, $passw
     return $errors;
 }
 
-/*
-* Job: Validate user input
-* This file contains functions for validating user input.
-*/
+/**
+ * Validate user input for editing
+ * @param string $firstname
+ * @param string $lastname
+ * @param string $email
+ * @param string $phone
+ * @return array
+ */
 function validateName($name, $minLength = 3, $maxLength = 50) {
     // Check length
     if (strlen($name) < $minLength || strlen($name) > $maxLength) {
-        return "Jméno musí být mezi $minLength a $maxLength znaky dlouhé.";
+        return "Pole musí být mezi $minLength a $maxLength znaky dlouhé.";
     }
     // Check for only valid characters (letters with no spaces or special characters)
     if (!preg_match("/^[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-Z]+$/", $name)) {
-        return "Jméno může obsahovat pouze písmena bez mezer nebo speciálních znaků.";
+        return "Pole může obsahovat pouze písmena bez mezer nebo speciálních znaků.";
     }
     // If everything is valid, return null or true
     return null;
 }
 
-/*
-* Validate email
-* @param string $email
-* @return string|null
-*/
+/**
+ * Validate email
+ * @param string $email
+ * @return string|null
+ */
 function validateEmail($email) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return "Neplatný formát e-mailu.";
@@ -56,12 +60,12 @@ function validateEmail($email) {
     return null;
 }
 
-/*
-* Check if the email is unique
-* @param string $email
-* @param int|null $currentUserId
-* @return bool
-*/
+/**
+ * Check if the email already exists
+ * @param string $email
+ * @param int $currentUserId
+ * @return string|null
+ */
 function check_email($email, $currentUserId = null) {
     foreach (loadUsers() as $user) {
         if ($user['email'] == $email && $user['id'] != $currentUserId) {
@@ -72,6 +76,7 @@ function check_email($email, $currentUserId = null) {
     }
     return null;
 }
+
 /**
  * Validate phone number
  * @param string $phone
@@ -106,16 +111,22 @@ function validatePassword($password, $confirmPassword) {
         return "Hesla se neshodují.";
     }
     // Check for at least one uppercase letter, one lowercase letter, and one number
-    if (!preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password) || !preg_match("/\d/", $password)) {
-        return "Heslo musí obsahovat alespoň jedno velké písmeno, jedno malé písmeno a jedno číslo.";
+    if (!preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password) || !preg_match("/\d/", $password) ||   !preg_match("/[!@#$%^&*(),.?\":{}|<>]/", $password)) {
+        return "Heslo musí obsahovat alespoň jedno velké písmeno jedno číslo a jeden speciální znak (!@#$%^&*(),.?\":{}|<></>).";
     }
     return null;
 }
 
+/**
+ * Validate current password
+ * @param string $currentPassword
+ * @param string $userPassword
+ * @return string|null
+ */
 function validate_current_password($currentPassword, $userPassword) {
     // Compare the plain-text password with the stored hashed password
     if (!password_verify($currentPassword, $userPassword)) {
-        return "Aktuální heslo není správné.";
+        return "Původně zadané heslo bylo nesprávné.";
     }
     return null;
 }

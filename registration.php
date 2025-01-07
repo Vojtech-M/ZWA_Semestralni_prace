@@ -20,12 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = uniqid();
     // Default role is user
     $role = "user";
-    $firstname = htmlspecialchars(trim($_POST['firstname']));
-    $lastname = htmlspecialchars(trim($_POST['lastname']));
-    $email = htmlspecialchars(trim($_POST['email']));
-    $phone = htmlspecialchars(trim($_POST['phone']));
-    $password = htmlspecialchars(trim($_POST['password']));
-    $password2 = htmlspecialchars(trim($_POST['password2']));
+    $firstname = (trim($_POST['firstname']));
+    $lastname = (trim($_POST['lastname']));
+    $email = (trim($_POST['email']));
+    $phone = (trim($_POST['phone']));
+    $password = (trim($_POST['password']));
+    $password2 = (trim($_POST['password2']));
 
     $errors = validateInputs($firstname, $lastname, $email, $phone, $password, $password2);
 
@@ -82,11 +82,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <?php  include './php/structure/form_temeplate.php'; ?>
                 <div class="form_field">
                     <label for="agreement_field" class="required_label">Souhlasím s <a href="./pdf/terms_and_conditions.pdf" target="blank">podmínkami</a></label>
-                    <input id="agreement_field" type="checkbox" name="agreement" >
+                    <input id="agreement_field" type="checkbox" name="agreement" required>
                     <?php if (isset($errors['agreement'])): ?> 
                         <div class="error"><?php echo htmlspecialchars($errors['agreement']); ?></div>
                     <?php endif; ?>
-                   
                 </div>
                     <input id="submit" type="submit" value="Registrovat se">  
                 <p> Máte už účet ? <a class="register_link" href="login.php">Přihlaste se !</a></p>

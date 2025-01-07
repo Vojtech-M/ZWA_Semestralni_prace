@@ -39,19 +39,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: ./index.php");
                 exit;
             } else {
-                $errors['password'] = "Špatné heslo."; // Incorrect password error
+                $errors['password'] = "Při posledním odeslání bylo heslo špatně."; // Incorrect password error
             }
             break;
         }
     }
     // If the email does not exist in the database
     if (!$userExists) {
-        $errors['email'] = "Uživatel s tímto e-mailem neexistuje.";
-        $errors['password'] = "Špatné heslo.";
+        $errors['email'] = "Při posledním odeslání byl e-mail špatně.";
+        $errors['password'] = "Při posledním odeslání bylo heslo špatně.";
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="cs">
 <head>

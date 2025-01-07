@@ -1,4 +1,11 @@
 <?php
+/**
+ * 
+ * Funkce pro zpracování rezervací
+ * 
+ * 
+ */
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'];
     if ($action === 'reserve') {
@@ -14,7 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $quantity = $_POST['quantity'];
         $reservations = loadReservations();    
 
-        
     // Check for collision
     if (check_collision($file, $date, $timeslot, $reservations)) {
         echo "<p class='reservation-result error'>Rezervace již existuje pro tento časový úsek.</p>";
@@ -47,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = $_POST['id'];
         deleteReservation($id);
     } 
+    
     elseif ($action === 'edit_reservation') {
         $id = $_POST['id'];
         $date = $_POST['date'];

@@ -1,5 +1,3 @@
-
-
 .reservations {
     display: flex;
     flex-direction: column;
@@ -146,13 +144,3 @@ button, .table_link{
     background-color: #cce5ff;
     border: 1px solid #b8daff;
 }
-
-/* 
-#1B262C - tmavá
-#0F4C75 - tmavší
-#3282B8 - světlejší
-#BBE1FA - light modrá 
-
-#d39717 - oranzova
-
-*/

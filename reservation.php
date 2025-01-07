@@ -61,8 +61,8 @@ $file = './user_data/reservations.json';
 $reservation_result = "";
 
 // Check if the form was submitted
-include "./php/reservationform.php";
-include "./php/reservationTable.php";
+include "./php/reservation_form.php";
+include "./php/reservation_table.php";
 
 $userReservations = getUserReservations($_SESSION['id']);
 ?>

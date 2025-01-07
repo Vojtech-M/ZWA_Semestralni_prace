@@ -5,7 +5,7 @@ export function checkPassword(inputField, errorElementId) {
 
   if (!validPasswordPattern.test(value)) {
       document.getElementById(errorElementId).innerText =
-          "Heslo musí být delší než 8 znaků, kratší než 50 a obsahovat minimálně jedno velké písmeno a speciální znak.";
+          "Heslo musí být delší než 8 znaků, kratší než 50 a obsahovat minimálně jedno velké písmeno,číslici a speciální znak (!@#$%^&*(),.?\":{}|<></>).";
       return false;
   } else {
       document.getElementById(errorElementId).innerText = ""; // Clear error

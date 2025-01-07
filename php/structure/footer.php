@@ -33,7 +33,8 @@
     <div class="footer-text">
         <p>Motokárové centrum Benešov</p>
     </div>
-    <a href="./pdf/bistro.pdf" target="_blank" class="styled-button">Dokumentace</a>
-    <a href="" class="styled-button">PHP Dokumentace</a>
+    <a href="./documentation/Produktova_dokumentace.pdf" target="_blank" >Produktová Dokumentace</a>
+    <a href="./documentation/Technicka_dokumentace.pdf" target="_blank" >Technická Dokumentace</a>
+    <a href="./documentation/phpdoc/index.html" target="_blank">PHP Dokumentace</a>
 </div>
 </footer>

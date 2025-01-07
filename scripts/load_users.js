@@ -1,3 +1,4 @@
+// Tento soubor obsahuje kód pro načtení uživatelů ze souboru users.json a jejich zobrazení v tabulce.
 document.addEventListener("DOMContentLoaded", function () {
     const userTable = document.getElementById("userTableBody"); // Table body for users
     const loadMoreButton = document.getElementById("loadMore");

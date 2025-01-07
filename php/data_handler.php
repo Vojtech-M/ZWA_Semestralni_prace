@@ -155,8 +155,7 @@ function saveReservations($reservations) {
 }
 
 /**
- * Načtení rezervací ze souboru
- * @param $id - ID rezervace
+ * Smazání rezervace
  * @return array - pole rezervací
  */
 function deleteReservation($id) {
@@ -172,7 +171,7 @@ function deleteReservation($id) {
 }
 
 /**
- * Načtení rezervací ze souboru
+ * Úprava rezervace
  * @param $id - ID rezervace
  * @param $date - datum rezervace
  * @param $timeslot - časový slot
@@ -222,8 +221,7 @@ function editUser($id, $role,$firstname, $lastname, $email,$phone, $password, $p
             $user['lastname'] = $lastname;
             $user['email'] = $email;
             $user['phone'] = $phone;
-            $hash = password_hash($password, PASSWORD_DEFAULT);
-            $user['password'] = $hash;
+            $user['password'] = $password;
             $user['profile_picture'] = $profile_picture;
             break;
         }
